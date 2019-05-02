@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import openSocket from "socket.io-client";
-// import Host from "../Host";
-import Player from "../Player";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-// class App extends Comp
+import Host from "../Host";
+import Player from "../Player";
 
 // import Button from "../Button";
 const socket = openSocket("192.168.0.74:6001");
@@ -12,9 +12,7 @@ function App() {
   const [roomInput, setRoomInput] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
-  const [gameMessage, setGameMessage] = useState(
-    "would you like to create or join a game?"
-  );
+  const [gameMessage, setGameMessage] = useState("select number of teams");
   const [isJoiningGame, setIsJoiningGame] = useState(false);
   const [numberOfTeams, setNumberOfTeams] = useState(0);
   const [teamOptions, setTeamOptions] = useState([]);
@@ -70,62 +68,44 @@ function App() {
       }
     }
   }
-
+  function sendTestQuestion() {
+    socket.emit("sendTestQuestion", roomNumber);
+  }
   return (
     <div>
-      {!isJoiningGame && (
-        <>
-          <button
-            onClick={() => {
-              changeNumberOfTeams(-1);
-            }}
-          >
-            -
-          </button>
-          <button
-            onClick={() => {
-              makeGameRoom();
-            }}
-          >
-            Make room with {numberOfTeams} teams
-          </button>
-
-          <button
-            onClick={() => {
-              changeNumberOfTeams(1);
-            }}
-          >
-            +
-          </button>
-          <button
-            onClick={() => {
-              setIsJoiningGame(true);
-              setGameMessage("please enter a room number");
-            }}
-          >
-            Join Room
-          </button>
-        </>
-      )}
-
-      {!isJoiningGame && (
-        <>
-          <h3>{roomNumber}</h3>
+      <Router>
+        <div>
           <h4>{gameMessage}</h4>
-        </>
-      )}
-      <button onClick={startGame}>start game</button>
-      <br />
-      {isJoiningGame && (
-        <Player
-          teamOptions={teamOptions}
-          gameMessage={gameMessage}
-          handleChange={handleChange}
-          roomInput={roomInput}
-          enterGameRoom={enterGameRoom}
-          joinTeam={joinTeam}
-        />
-      )}
+          <h3>{roomNumber}</h3>
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <Host
+                {...props}
+                changeNumberOfTeams={changeNumberOfTeams}
+                makeGameRoom={makeGameRoom}
+                numberOfTeams={numberOfTeams}
+                sendTestQuestion={sendTestQuestion}
+              />
+            )}
+          />
+          <Route
+            path="/join"
+            render={props => (
+              <Player
+                {...props}
+                teamOptions={teamOptions}
+                gameMessage={gameMessage}
+                handleChange={handleChange}
+                roomInput={roomInput}
+                enterGameRoom={enterGameRoom}
+                joinTeam={joinTeam}
+              />
+            )}
+          />
+        </div>
+      </Router>
     </div>
   );
 }
