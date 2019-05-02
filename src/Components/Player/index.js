@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Player({
   handleChange,
@@ -6,7 +6,8 @@ function Player({
   enterGameRoom,
   joinTeam,
   startGame,
-  gameMessage
+  gameMessage,
+  teamOptions
 }) {
   return (
     <div>
@@ -17,14 +18,22 @@ function Player({
         value={roomInput}
         placeholder="enter room number here"
       />
-      <button onClick={enterGameRoom}>enter room</button>
+      <button
+        onClick={() => {
+          enterGameRoom();
+        }}
+      >
+        enter room
+      </button>
+      <div>
+        {teamOptions.map((item, i) => (
+          <button key={i} onClick={() => joinTeam(item)}>
+            {item}
+          </button>
+        ))}
+      </div>
 
-      <button onClick={() => joinTeam("red")}>red</button>
-      <button onClick={() => joinTeam("yellow")}>yellow</button>
-      <button onClick={() => joinTeam("blue")}>blue</button>
-      <button onClick={() => joinTeam("green")}>green</button>
-
-      <button onClick={startGame}>start game</button>
+      {/* <button onClick={startGame}>start game</button> */}
     </div>
   );
 }

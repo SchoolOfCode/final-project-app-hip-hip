@@ -16,6 +16,9 @@ function App() {
     "would you like to create or join a game?"
   );
   const [isJoiningGame, setIsJoiningGame] = useState(false);
+  const [numberOfTeams, setNumberOfTeams] = useState(0);
+  const [teamOptions, setTeamOptions] = useState([]);
+  const [gameReadyToPlay, setGameReadyToPlay] = useState(false);
 
   useEffect(() => {
     socket.on("makeGameRoom", data => {
@@ -24,16 +27,19 @@ function App() {
     });
     socket.on("enterGameRoom", data => {
       console.log(data);
-      setJoinedRoom(data.id);
+      let options = Object.keys(data.teams);
+      setTeamOptions(options);
+      setJoinedRoom(data);
       setRoomNumber(data.id);
     });
     socket.on("gameMessage", message => {
       setGameMessage(message);
     });
+    socket.on("game ");
   }, []);
 
   function makeGameRoom() {
-    socket.emit("makeGameRoom");
+    socket.emit("makeGameRoom", numberOfTeams);
   }
   function enterGameRoom() {
     socket.emit("enterGameRoom", roomInput);
@@ -44,13 +50,25 @@ function App() {
 
   function joinTeam(team) {
     socket.emit("joinTeam", {
-      joinedRoom,
+      joinedRoom: joinedRoom.id,
       team
     });
   }
 
   function startGame() {
-    socket.emit("startGame");
+    socket.emit("startGame", joinedRoom.id);
+  }
+
+  function changeNumberOfTeams(num) {
+    if (num === 1) {
+      if (numberOfTeams < 4) {
+        setNumberOfTeams(numberOfTeams + num);
+      }
+    } else {
+      if (numberOfTeams > 1) {
+        setNumberOfTeams(numberOfTeams + num);
+      }
+    }
   }
 
   return (
@@ -59,10 +77,25 @@ function App() {
         <>
           <button
             onClick={() => {
+              changeNumberOfTeams(-1);
+            }}
+          >
+            -
+          </button>
+          <button
+            onClick={() => {
               makeGameRoom();
             }}
           >
-            makeGameRoom
+            Make room with {numberOfTeams} teams
+          </button>
+
+          <button
+            onClick={() => {
+              changeNumberOfTeams(1);
+            }}
+          >
+            +
           </button>
           <button
             onClick={() => {
@@ -81,15 +114,16 @@ function App() {
           <h4>{gameMessage}</h4>
         </>
       )}
+      <button onClick={startGame}>start game</button>
       <br />
       {isJoiningGame && (
         <Player
+          teamOptions={teamOptions}
           gameMessage={gameMessage}
           handleChange={handleChange}
           roomInput={roomInput}
           enterGameRoom={enterGameRoom}
           joinTeam={joinTeam}
-          startGame={startGame}
         />
       )}
     </div>
