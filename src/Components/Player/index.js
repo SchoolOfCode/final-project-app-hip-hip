@@ -1,5 +1,8 @@
+
 import React, { useState } from "react";
-import { createDecipher } from "crypto";
+
+import Keypad from "../Keypad";
+
 
 function Player({
   handleChange,
@@ -9,15 +12,19 @@ function Player({
   startGame,
   gameMessage,
   teamOptions,
+
   gotNameAndInRoom,
   teamColor,
   sendAnswerToServer,
-  card
+  card,
+  setRoomInput
+
 }) {
   const [name, setName] = useState("");
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
   return (
     <div>
+
       <h3 style={{ backgroundColor: teamColor }}>{gameMessage}</h3>
       {!gotNameAndInRoom ? (
         <>
@@ -40,6 +47,22 @@ function Player({
             }}
           >
             enter room
+
+     
+      <Keypad roomInput={roomInput} setRoomInput={setRoomInput} />
+      <br />
+      <button
+        onClick={() => {
+          enterGameRoom();
+        }}
+      >
+        enter room
+      </button>
+      <div>
+        {teamOptions.map((item, i) => (
+          <button key={i} onClick={() => joinTeam(item)}>
+            {item}
+
           </button>
         </>
       ) : (
