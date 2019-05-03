@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { createDecipher } from "crypto";
 
 function Player({
   handleChange,
@@ -7,30 +8,87 @@ function Player({
   joinTeam,
   startGame,
   gameMessage,
-  teamOptions
+  teamOptions,
+  gotNameAndInRoom,
+  teamColor,
+  sendAnswerToServer,
+  card
 }) {
+  const [name, setName] = useState("");
+  const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
   return (
     <div>
-      <h3>{gameMessage}</h3>
-      <input
-        type="number"
-        onChange={handleChange}
-        value={roomInput}
-        placeholder="enter room number here"
-      />
-      <button
-        onClick={() => {
-          enterGameRoom();
-        }}
-      >
-        enter room
-      </button>
-      <div>
-        {teamOptions.map((item, i) => (
-          <button key={i} onClick={() => joinTeam(item)}>
-            {item}
+      <h3 style={{ backgroundColor: teamColor }}>{gameMessage}</h3>
+      {!gotNameAndInRoom ? (
+        <>
+          {" "}
+          <input
+            type="text"
+            placeholder="whats your name"
+            value={name}
+            onChange={() => setName(window.event.target.value)}
+          />
+          <input
+            type="number"
+            onChange={handleChange}
+            value={roomInput}
+            placeholder="enter room number here"
+          />
+          <button
+            onClick={() => {
+              enterGameRoom(name);
+            }}
+          >
+            enter room
           </button>
-        ))}
+        </>
+      ) : (
+        <div>
+          {!hasJoinedTeam &&
+            teamOptions.map((item, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setHasJoinedTeam(true);
+                  joinTeam(item);
+                }}
+              >
+                {item}
+              </button>
+            ))}
+        </div>
+      )}
+      <br />
+      <h3>{card.text}</h3>
+      <div>
+        <button
+          onClick={() => {
+            sendAnswerToServer(1);
+          }}
+        >
+          1
+        </button>
+        <button
+          onClick={() => {
+            sendAnswerToServer(2);
+          }}
+        >
+          2
+        </button>
+        <button
+          onClick={() => {
+            sendAnswerToServer(3);
+          }}
+        >
+          3
+        </button>
+        <button
+          onClick={() => {
+            sendAnswerToServer(4);
+          }}
+        >
+          4
+        </button>
       </div>
 
       {/* <button onClick={startGame}>start game</button> */}

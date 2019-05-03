@@ -9,19 +9,23 @@ import Player from "../Player";
 const socket = openSocket("192.168.0.74:6001");
 
 function App() {
-  const [roomInput, setRoomInput] = useState("");
+  const [roomInput, setRoomInput] = useState(0);
   const [roomNumber, setRoomNumber] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
-  const [gameMessage, setGameMessage] = useState("select number of teams");
-  const [isJoiningGame, setIsJoiningGame] = useState(false);
+  const [gameMessage, setGameMessage] = useState("please enter room number");
+  // const [isJoiningGame, setIsJoiningGame] = useState(false);
   const [numberOfTeams, setNumberOfTeams] = useState(0);
   const [teamOptions, setTeamOptions] = useState([]);
   const [gameReadyToPlay, setGameReadyToPlay] = useState(false);
+  const [gotNameAndInRoom, setGotNameAndInRoom] = useState(false);
+  const [teamColor, setTeamColor] = useState("orange");
+  const [card, setCard] = useState({});
 
   useEffect(() => {
     socket.on("makeGameRoom", data => {
       console.log("new Game Room: ", data);
       setRoomNumber(data.id);
+      setJoinedRoom(data);
     });
     socket.on("enterGameRoom", data => {
       console.log(data);
@@ -29,18 +33,20 @@ function App() {
       setTeamOptions(options);
       setJoinedRoom(data);
       setRoomNumber(data.id);
+      setGotNameAndInRoom(true);
     });
     socket.on("gameMessage", message => {
       setGameMessage(message);
     });
-    socket.on("game ");
+    socket.on("teamColor", color => setTeamColor(color));
+    socket.on("cardMessage", card => setCard(card));
   }, []);
 
   function makeGameRoom() {
     socket.emit("makeGameRoom", numberOfTeams);
   }
-  function enterGameRoom() {
-    socket.emit("enterGameRoom", roomInput);
+  function enterGameRoom(name) {
+    socket.emit("enterGameRoom", { room: roomInput, name });
   }
   function handleChange(e) {
     setRoomInput(e.target.value);
@@ -71,22 +77,34 @@ function App() {
   function sendTestQuestion() {
     socket.emit("sendTestQuestion", roomNumber);
   }
+
+  function deleteGameRoom() {
+    socket.emit("deleteGameRoom", joinedRoom.id);
+    setJoinedRoom({});
+  }
+
+  function sendAnswerToServer(answerNumber) {
+    socket.emit("sendAnswer", { answerNumber, card });
+  }
+
   return (
     <div>
       <Router>
         <div>
-          <h4>{gameMessage}</h4>
-          <h3>{roomNumber}</h3>
+          {/* <h4>{gameMessage}</h4>
+          <h3>{roomNumber}</h3> */}
           <Route
             exact
             path="/"
             render={props => (
               <Host
                 {...props}
+                joinedRoom={joinedRoom}
                 changeNumberOfTeams={changeNumberOfTeams}
                 makeGameRoom={makeGameRoom}
                 numberOfTeams={numberOfTeams}
                 sendTestQuestion={sendTestQuestion}
+                deleteGameRoom={deleteGameRoom}
               />
             )}
           />
@@ -95,12 +113,16 @@ function App() {
             render={props => (
               <Player
                 {...props}
+                card={card}
+                teamColor={teamColor}
+                gotNameAndInRoom={gotNameAndInRoom}
                 teamOptions={teamOptions}
                 gameMessage={gameMessage}
                 handleChange={handleChange}
                 roomInput={roomInput}
                 enterGameRoom={enterGameRoom}
                 joinTeam={joinTeam}
+                sendAnswerToServer={sendAnswerToServer}
               />
             )}
           />
