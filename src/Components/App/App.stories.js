@@ -6,6 +6,8 @@ import { linkTo } from "@storybook/addon-links";
 
 import { Button, Welcome } from "@storybook/react/demo";
 
+import Host from "../Host";
+
 import App from "./index";
 
 storiesOf("Welcome", module).add("to Storybook", () => (
@@ -19,7 +21,8 @@ storiesOf("My Component", module)
       <App />
       <Button onClick={action("clicked")}>Hello</Button>
     </>
-  ));
+  ))
+  .add("host", () => <Host />);
 
 storiesOf("Button", module)
   .add("with text", () => (
