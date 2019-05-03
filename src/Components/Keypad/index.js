@@ -1,39 +1,31 @@
 import React, { Component } from "react";
 import KeypadImput from "../KeypadImput";
 
-class Keypad extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      result: ""
-    };
-  }
-
-  onClick = button => {
+function Keypad(props) {
+  function onClick(button) {
     if (button === "CE") {
-      this.reset();
+      reset();
     } else if (button === "C") {
-      this.backspace();
+      backspace();
     } else {
-      this.props.roomInput.length < 4 &&
-        this.props.setRoomInput(this.props.roomInput + button);
+      props.roomInput.length < 4 &&
+        props.setRoomInput(props.roomInput + button);
     }
-  };
-
-  reset = () => {
-    this.props.setRoomInput("");
-  };
-
-  backspace = () => {
-    this.props.setRoomInput(this.props.roomInput.slice(0, -1));
-  };
-  render() {
-    return (
-      <div>
-        <KeypadImput onClick={this.onClick} result={this.props.roomInput} />
-      </div>
-    );
   }
+
+  function reset() {
+    props.setRoomInput("");
+  }
+
+  function backspace() {
+    props.setRoomInput(props.roomInput.slice(0, -1));
+  }
+
+  return (
+    <div>
+      <KeypadImput onClick={onClick} result={props.roomInput} />
+    </div>
+  );
 }
 
 export default Keypad;
