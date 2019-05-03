@@ -43,6 +43,7 @@ function App() {
     socket.emit("enterGameRoom", roomInput);
   }
   function handleChange(e) {
+    e.preventDefault();
     setRoomInput(e.target.value);
   }
 
@@ -95,6 +96,7 @@ function App() {
             render={props => (
               <Player
                 {...props}
+                setRoomInput={setRoomInput}
                 teamOptions={teamOptions}
                 gameMessage={gameMessage}
                 handleChange={handleChange}
