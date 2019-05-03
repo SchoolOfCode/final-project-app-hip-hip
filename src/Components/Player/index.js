@@ -1,4 +1,5 @@
 import React from "react";
+import Keypad from "../Keypad";
 
 function Player({
   handleChange,
@@ -7,17 +8,14 @@ function Player({
   joinTeam,
   startGame,
   gameMessage,
-  teamOptions
+  teamOptions,
+  setRoomInput
 }) {
   return (
     <div>
       <h3>{gameMessage}</h3>
-      <input
-        type="number"
-        onChange={handleChange}
-        value={roomInput}
-        placeholder="enter room number here"
-      />
+      <Keypad roomInput={roomInput} setRoomInput={setRoomInput} />
+      <br />
       <button
         onClick={() => {
           enterGameRoom();
