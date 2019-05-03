@@ -1,8 +1,6 @@
-
 import React, { useState } from "react";
 
 import Keypad from "../Keypad";
-
 
 function Player({
   handleChange,
@@ -12,19 +10,16 @@ function Player({
   startGame,
   gameMessage,
   teamOptions,
-
   gotNameAndInRoom,
   teamColor,
   sendAnswerToServer,
   card,
   setRoomInput
-
 }) {
   const [name, setName] = useState("");
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
   return (
     <div>
-
       <h3 style={{ backgroundColor: teamColor }}>{gameMessage}</h3>
       {!gotNameAndInRoom ? (
         <>
@@ -41,29 +36,20 @@ function Player({
             value={roomInput}
             placeholder="enter room number here"
           />
+          <Keypad roomInput={roomInput} setRoomInput={setRoomInput} />
+          <br />
           <button
             onClick={() => {
               enterGameRoom(name);
             }}
           >
             enter room
-
-     
-      <Keypad roomInput={roomInput} setRoomInput={setRoomInput} />
-      <br />
-      <button
-        onClick={() => {
-          enterGameRoom();
-        }}
-      >
-        enter room
-      </button>
-      <div>
-        {teamOptions.map((item, i) => (
-          <button key={i} onClick={() => joinTeam(item)}>
-            {item}
-
           </button>
+          {teamOptions.map((item, i) => (
+            <button key={i} onClick={() => joinTeam(item)}>
+              {item}
+            </button>
+          ))}
         </>
       ) : (
         <div>

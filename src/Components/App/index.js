@@ -9,7 +9,7 @@ import Player from "../Player";
 const socket = openSocket("192.168.0.74:6001");
 
 function App() {
-  const [roomInput, setRoomInput] = useState(0);
+  const [roomInput, setRoomInput] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("please enter room number");
@@ -114,13 +114,10 @@ function App() {
             render={props => (
               <Player
                 {...props}
-
                 card={card}
                 teamColor={teamColor}
                 gotNameAndInRoom={gotNameAndInRoom}
-
                 setRoomInput={setRoomInput}
-
                 teamOptions={teamOptions}
                 gameMessage={gameMessage}
                 handleChange={handleChange}
