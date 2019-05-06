@@ -12,6 +12,7 @@
   color: white;
   font-family: "Orbitron", serif;
   background: #7fa2ee;
+  outline: 0;
 }
 .result {
   height: 60px;

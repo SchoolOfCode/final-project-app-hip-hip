@@ -6,13 +6,13 @@ import Host from "../Host";
 import Player from "../Player";
 
 // import Button from "../Button";
-const socket = openSocket("192.168.0.74:6001");
+const socket = openSocket("192.168.1.83:6001");
 
 function App() {
   const [roomInput, setRoomInput] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
-  const [gameMessage, setGameMessage] = useState("please enter room number");
+  const [gameMessage, setGameMessage] = useState("");
   // const [isJoiningGame, setIsJoiningGame] = useState(false);
   const [numberOfTeams, setNumberOfTeams] = useState(0);
   const [teamOptions, setTeamOptions] = useState([]);
@@ -26,6 +26,8 @@ function App() {
       console.log("new Game Room: ", data);
       setRoomNumber(data.id);
       setJoinedRoom(data);
+      let options = Object.keys(data.teams);
+      setTeamOptions(options);
     });
     socket.on("enterGameRoom", data => {
       console.log(data);
@@ -34,6 +36,9 @@ function App() {
       setJoinedRoom(data);
       setRoomNumber(data.id);
       setGotNameAndInRoom(true);
+    });
+    socket.on("updateHostRoom", room => {
+      setJoinedRoom(room);
     });
     socket.on("gameMessage", message => {
       setGameMessage(message);
@@ -100,12 +105,14 @@ function App() {
             render={props => (
               <Host
                 {...props}
+                gameMessage={gameMessage}
                 joinedRoom={joinedRoom}
                 changeNumberOfTeams={changeNumberOfTeams}
                 makeGameRoom={makeGameRoom}
                 numberOfTeams={numberOfTeams}
                 sendTestQuestion={sendTestQuestion}
                 deleteGameRoom={deleteGameRoom}
+                teamOptions={teamOptions}
               />
             )}
           />

@@ -6,7 +6,9 @@ export default function Host({
   makeGameRoom,
   sendTestQuestion,
   joinedRoom,
-  deleteGameRoom
+  deleteGameRoom,
+  gameMessage,
+  teamOptions
 }) {
   const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
   return (
@@ -15,6 +17,7 @@ export default function Host({
         please go to /join and enter room number: <br />
         {joinedRoom.id}
       </h3>
+      <h6>{gameMessage}</h6>
       <div>
         {hasJoinedRoom ? (
           <button
@@ -54,6 +57,18 @@ export default function Host({
         )}
         <br />
         <button onClick={sendTestQuestion}>send test question</button>
+      </div>
+      <div>
+        {teamOptions.map(item => (
+          <div style={{ backgroundColor: item }}>
+            <h3>{item}</h3>
+            <ul>
+              {joinedRoom.teams[item].map(item => (
+                <li>{item.id}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
