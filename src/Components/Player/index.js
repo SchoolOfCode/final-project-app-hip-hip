@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-import Keypad from "../Keypad";
 import EnterRoom from "../EnterRoom";
+import JoinTeam from "../JoinTeam";
+import Card from "../Card";
 
 function Player({
-  handleChange,
   roomInput,
   enterGameRoom,
   joinTeam,
-  startGame,
   gameMessage,
   teamOptions,
   gotNameAndInRoom,
@@ -18,6 +17,7 @@ function Player({
   setRoomInput
 }) {
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
+
   return (
     <div>
       <h3 style={{ backgroundColor: teamColor }}>{gameMessage}</h3>
@@ -28,55 +28,20 @@ function Player({
           setRoomInput={setRoomInput}
         />
       ) : (
-        <div>
-          {!hasJoinedTeam &&
-            teamOptions.map((item, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setHasJoinedTeam(true);
-                  joinTeam(item);
-                }}
-              >
-                {item}
-              </button>
-            ))}
-        </div>
+        <>
+          {!hasJoinedTeam && (
+            <JoinTeam
+              setHasJoinedTeam={setHasJoinedTeam}
+              joinTeam={joinTeam}
+              teamOptions={teamOptions}
+            />
+          )}
+        </>
       )}
       <br />
-      <h3>{card.text}</h3>
-      <div>
-        <button
-          onClick={() => {
-            sendAnswerToServer(1);
-          }}
-        >
-          1
-        </button>
-        <button
-          onClick={() => {
-            sendAnswerToServer(2);
-          }}
-        >
-          2
-        </button>
-        <button
-          onClick={() => {
-            sendAnswerToServer(3);
-          }}
-        >
-          3
-        </button>
-        <button
-          onClick={() => {
-            sendAnswerToServer(4);
-          }}
-        >
-          4
-        </button>
-      </div>
-
-      {/* <button onClick={startGame}>start game</button> */}
+      {card.gotCard && (
+        <Card card={card} sendAnswerToServer={sendAnswerToServer} />
+      )}
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import RoomNumberPicker from "../RoomNumberPicker";
+import HostTeamJoiningBoxes from "../HostTeamJoiningBoxes";
 
 export default function Host({
-  numberOfTeams,
-  changeNumberOfTeams,
   makeGameRoom,
-  sendTestQuestion,
+  startGame,
   joinedRoom,
   deleteGameRoom,
   gameMessage,
@@ -29,47 +29,15 @@ export default function Host({
             make another room
           </button>
         ) : (
-          <>
-            {" "}
-            <button
-              onClick={() => {
-                changeNumberOfTeams(-1);
-              }}
-            >
-              -
-            </button>
-            <button
-              onClick={() => {
-                makeGameRoom();
-                setHasJoinedRoom(true);
-              }}
-            >
-              Make room with {numberOfTeams} teams
-            </button>
-            <button
-              onClick={() => {
-                changeNumberOfTeams(1);
-              }}
-            >
-              +
-            </button>
-          </>
+          <RoomNumberPicker
+            setHasJoinedRoom={setHasJoinedRoom}
+            makeGameRoom={makeGameRoom}
+          />
         )}
         <br />
-        <button onClick={sendTestQuestion}>send test question</button>
+        <button onClick={startGame}>start game</button>
       </div>
-      <div>
-        {teamOptions.map(item => (
-          <div style={{ backgroundColor: item }}>
-            <h3>{item}</h3>
-            <ul>
-              {joinedRoom.teams[item].map(item => (
-                <li>{item.id}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      <HostTeamJoiningBoxes teamOptions={teamOptions} joinedRoom={joinedRoom} />
     </div>
   );
 }

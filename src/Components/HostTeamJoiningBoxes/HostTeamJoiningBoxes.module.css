@@ -1,0 +1,15 @@
+.teamsWrapper {
+  width: 50vw;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 50px 100px;
+  position: relative;
+  margin-top: 5vh;
+  left: 50vw;
+  transform: translateX(-50%);
+}
+
+.gridItem {
+  height: 30vh;
+  width: 20vw;
+}
