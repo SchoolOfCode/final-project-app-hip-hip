@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-import Keypad from "../Keypad";
+import EnterRoom from "../EnterRoom";
+import JoinTeam from "../JoinTeam";
+import Card from "../Card";
 
 function Player({
-  handleChange,
   roomInput,
   enterGameRoom,
   joinTeam,
-  startGame,
   gameMessage,
   teamOptions,
   gotNameAndInRoom,
@@ -16,91 +16,32 @@ function Player({
   card,
   setRoomInput
 }) {
-  const [name, setName] = useState("");
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
+
   return (
     <div>
       <h3 style={{ backgroundColor: teamColor }}>{gameMessage}</h3>
       {!gotNameAndInRoom ? (
-        <>
-          {" "}
-          <input
-            type="text"
-            placeholder="whats your name"
-            value={name}
-            onChange={() => setName(window.event.target.value)}
-          />
-          <input
-            type="number"
-            onChange={handleChange}
-            value={roomInput}
-            placeholder="enter room number here"
-          />
-          <Keypad roomInput={roomInput} setRoomInput={setRoomInput} />
-          <br />
-          <button
-            onClick={() => {
-              enterGameRoom(name);
-            }}
-          >
-            enter room
-          </button>
-          {teamOptions.map((item, i) => (
-            <button key={i} onClick={() => joinTeam(item)}>
-              {item}
-            </button>
-          ))}
-        </>
+        <EnterRoom
+          enterGameRoom={enterGameRoom}
+          roomInput={roomInput}
+          setRoomInput={setRoomInput}
+        />
       ) : (
-        <div>
-          {!hasJoinedTeam &&
-            teamOptions.map((item, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setHasJoinedTeam(true);
-                  joinTeam(item);
-                }}
-              >
-                {item}
-              </button>
-            ))}
-        </div>
+        <>
+          {!hasJoinedTeam && (
+            <JoinTeam
+              setHasJoinedTeam={setHasJoinedTeam}
+              joinTeam={joinTeam}
+              teamOptions={teamOptions}
+            />
+          )}
+        </>
       )}
       <br />
-      <h3>{card.text}</h3>
-      <div>
-        <button
-          onClick={() => {
-            sendAnswerToServer(1);
-          }}
-        >
-          1
-        </button>
-        <button
-          onClick={() => {
-            sendAnswerToServer(2);
-          }}
-        >
-          2
-        </button>
-        <button
-          onClick={() => {
-            sendAnswerToServer(3);
-          }}
-        >
-          3
-        </button>
-        <button
-          onClick={() => {
-            sendAnswerToServer(4);
-          }}
-        >
-          4
-        </button>
-      </div>
-
-      {/* <button onClick={startGame}>start game</button> */}
+      {card.gotCard && (
+        <Card card={card} sendAnswerToServer={sendAnswerToServer} />
+      )}
     </div>
   );
 }

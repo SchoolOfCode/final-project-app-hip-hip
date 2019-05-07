@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import RoomNumberPicker from "../RoomNumberPicker";
+import HostTeamJoiningBoxes from "../HostTeamJoiningBoxes";
 
 export default function Host({
-  numberOfTeams,
-  changeNumberOfTeams,
   makeGameRoom,
-  sendTestQuestion,
+  startGame,
   joinedRoom,
-  deleteGameRoom
+  deleteGameRoom,
+  gameMessage,
+  teamOptions
 }) {
   const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
   return (
@@ -15,6 +17,7 @@ export default function Host({
         please go to /join and enter room number: <br />
         {joinedRoom.id}
       </h3>
+      <h6>{gameMessage}</h6>
       <div>
         {hasJoinedRoom ? (
           <button
@@ -26,35 +29,15 @@ export default function Host({
             make another room
           </button>
         ) : (
-          <>
-            {" "}
-            <button
-              onClick={() => {
-                changeNumberOfTeams(-1);
-              }}
-            >
-              -
-            </button>
-            <button
-              onClick={() => {
-                makeGameRoom();
-                setHasJoinedRoom(true);
-              }}
-            >
-              Make room with {numberOfTeams} teams
-            </button>
-            <button
-              onClick={() => {
-                changeNumberOfTeams(1);
-              }}
-            >
-              +
-            </button>
-          </>
+          <RoomNumberPicker
+            setHasJoinedRoom={setHasJoinedRoom}
+            makeGameRoom={makeGameRoom}
+          />
         )}
         <br />
-        <button onClick={sendTestQuestion}>send test question</button>
+        <button onClick={startGame}>start game</button>
       </div>
+      <HostTeamJoiningBoxes teamOptions={teamOptions} joinedRoom={joinedRoom} />
     </div>
   );
 }
