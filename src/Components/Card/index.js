@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 
-export default function({ card, sendAnswerToServer }) {
+export default function({
+  card,
+  sendAnswerToServer,
+  setHasAnswered,
+  setHasSubmitted,
+  hasAnswered,
+  hasSubmitted
+}) {
   const [answer, setAnswer] = useState();
-  const [hasAnswered, setHasAnswered] = useState(false);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
+
   return (
     <div>
       <h3>{card.text}</h3>
@@ -18,6 +24,7 @@ export default function({ card, sendAnswerToServer }) {
           {item}
         </button>
       ))}
+      <br />
       {hasAnswered && !hasSubmitted && (
         <button
           onClick={() => {
