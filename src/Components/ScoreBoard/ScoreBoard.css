@@ -1,0 +1,31 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #34495e;
+  color: #f3f3f3;
+}
+
+td,
+th {
+  padding: 40px;
+  text-align: left;
+}
+
+tr {
+  background: rgb(0, 0, 255);
+}
+
+tr:nth-child(2) {
+  background: rgb(199, 21, 133);
+}
+tr:nth-child(3) {
+  background: rgb(255, 128, 0);
+}
+tr:nth-child(4) {
+  background: rgb(128, 255, 0);
+}
+
+th {
+  background: #2c3e50;
+  font-weight: bold;
+}

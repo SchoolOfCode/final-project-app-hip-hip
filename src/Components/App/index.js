@@ -6,7 +6,7 @@ import Host from "../Host";
 import Player from "../Player";
 import ScoreBoard from "../ScoreBoard"; // branch
 
-const socket = openSocket("192.168.0.71:6001"); // change to your ip address
+const socket = openSocket("192.168.0.74:6001"); // change to your ip address
 
 function App() {
   const [roomInput, setRoomInput] = useState("");
