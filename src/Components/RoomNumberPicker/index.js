@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function({ makeGameRoom, setHasJoinedRoom }) {
-  const [numberOfTeams, setNumberOfTeams] = useState(0);
+  const [numberOfTeams, setNumberOfTeams] = useState(1);
 
   function changeNumberOfTeams(num) {
     if (num === 1) {

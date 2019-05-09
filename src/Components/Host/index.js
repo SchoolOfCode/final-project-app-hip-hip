@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import RoomNumberPicker from "../RoomNumberPicker";
 import HostTeamJoiningBoxes from "../HostTeamJoiningBoxes";
+import HostScoreBoard from "../HostScoreBoard";
+// import ScoreBoard from "../ScoreBoard"; // branch
 
 export default function Host({
   makeGameRoom,
@@ -8,9 +10,11 @@ export default function Host({
   joinedRoom,
   deleteGameRoom,
   gameMessage,
-  teamOptions
+  teamOptions,
+  sendNextQuestion
 }) {
   const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
+  const [hasGameStarted, setHasGameStarted] = useState(false);
   return (
     <div>
       <h3>
@@ -24,6 +28,7 @@ export default function Host({
             onClick={() => {
               setHasJoinedRoom(false);
               deleteGameRoom();
+              setHasGameStarted(false);
             }}
           >
             make another room
@@ -35,9 +40,27 @@ export default function Host({
           />
         )}
         <br />
-        <button onClick={startGame}>start game</button>
+        {!hasGameStarted ? (
+          <button
+            onClick={() => {
+              startGame();
+              setHasGameStarted(true);
+            }}
+          >
+            start game
+          </button>
+        ) : (
+          <button onClick={sendNextQuestion}>send next question</button>
+        )}
       </div>
-      <HostTeamJoiningBoxes teamOptions={teamOptions} joinedRoom={joinedRoom} />
+      {!hasGameStarted ? (
+        <HostTeamJoiningBoxes
+          teamOptions={teamOptions}
+          joinedRoom={joinedRoom}
+        />
+      ) : (
+        <HostScoreBoard teamOptions={teamOptions} joinedRoom={joinedRoom} />
+      )}
     </div>
   );
 }
