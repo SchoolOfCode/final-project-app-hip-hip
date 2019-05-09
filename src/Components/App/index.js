@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Host from "../Host";
 import Player from "../Player";
+import ScoreBoard from "../ScoreBoard"; // branch
 
-const socket = openSocket("192.168.0.74:6001");
+const socket = openSocket("192.168.0.71:6001"); // change to your ip address
 
 function App() {
   const [roomInput, setRoomInput] = useState("");
@@ -15,6 +16,7 @@ function App() {
   const [gotNameAndInRoom, setGotNameAndInRoom] = useState(false);
   const [teamColor, setTeamColor] = useState("orange");
   const [card, setCard] = useState({ gotCard: false });
+  const [score, setScore] = useState(""); // branch
 
   useEffect(() => {
     socket.on("makeGameRoom", data => {
@@ -24,7 +26,7 @@ function App() {
       setTeamOptions(options);
     });
     socket.on("enterGameRoom", data => {
-      console.log(data);
+      console.log("Entered Room", data);
       let options = Object.keys(data.teams);
       setTeamOptions(options);
       setJoinedRoom(data);
@@ -32,6 +34,10 @@ function App() {
     });
     socket.on("updateHostRoom", room => {
       setJoinedRoom(room);
+    });
+    socket.on("showScore", data => {
+      console.log("showScore", data);
+      setScore(data);
     });
     socket.on("gameMessage", message => {
       setGameMessage(message);
@@ -117,6 +123,11 @@ function App() {
                 sendAnswerToServer={sendAnswerToServer}
               />
             )}
+          />
+          <Route
+            exact
+            path="/score"
+            render={props => <ScoreBoard {...props} score={score} />}
           />
         </div>
       </Router>
