@@ -86,7 +86,7 @@ class KeyPadComponent extends Component {
           name="CE"
           onClick={e => this.props.onClick(e.target.name)}
         >
-          Clear
+          CE
         </button>
         <button
           name="0"
@@ -100,7 +100,7 @@ class KeyPadComponent extends Component {
           name="C"
           onClick={e => this.props.onClick(e.target.name)}
         >
-          Back
+          ←
         </button>
         <br />
       </div>
