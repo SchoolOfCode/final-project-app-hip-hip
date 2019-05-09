@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Host from "../Host";
 import Player from "../Player";
 
-const socket = openSocket("192.168.0.74:6001"); // change to your ip address
+const socket = openSocket("192.168.0.158:6001"); // change to your ip address
 
 function App() {
   const [roomInput, setRoomInput] = useState("");

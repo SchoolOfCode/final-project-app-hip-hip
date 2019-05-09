@@ -1,0 +1,24 @@
+.chooseNumberOfTeamsLess {
+    margin-top: 10vh;
+    height: 10vh;
+    width: 5vw;
+    background-color: green;
+    font-weight: bold;
+    
+}
+
+.chooseNumberOfTeamsMore {
+    margin-top: 10vh;
+    height: 10vh;
+    width: 5vw;
+    background-color: green;
+    font-weight: bold;  
+}
+
+.chooseNumberOfTeams {
+    margin-top: 10vh;
+    height: 10vh;
+    width: 20vw;
+    background-color: green;
+    font-weight: bold;
+}

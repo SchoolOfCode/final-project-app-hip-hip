@@ -3,6 +3,7 @@ import RoomNumberPicker from "../RoomNumberPicker";
 import HostTeamJoiningBoxes from "../HostTeamJoiningBoxes";
 import HostScoreBoard from "../HostScoreBoard";
 // import ScoreBoard from "../ScoreBoard"; // branch
+import css from "./host.module.css";
 
 export default function Host({
   makeGameRoom,
@@ -24,7 +25,7 @@ export default function Host({
       <h6>{gameMessage}</h6>
       <div>
         {hasJoinedRoom ? (
-          <button
+          <button className={css.makeRoom}
             onClick={() => {
               setHasJoinedRoom(false);
               deleteGameRoom();
@@ -41,7 +42,7 @@ export default function Host({
         )}
         <br />
         {!hasGameStarted ? (
-          <button
+          <button className={css.startGame}
             onClick={() => {
               startGame();
               setHasGameStarted(true);

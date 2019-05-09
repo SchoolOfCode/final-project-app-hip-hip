@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import css from "./card.module.css";
 
 export default function({
   card,
@@ -16,6 +17,7 @@ export default function({
       <div>{card.instruction}</div>
       {[1, 2, 3, 4].map(item => (
         <button
+        className={css.numbers}
           onClick={() => {
             setHasAnswered(true);
             setAnswer(item);
