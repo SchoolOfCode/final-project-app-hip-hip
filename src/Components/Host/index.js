@@ -12,46 +12,67 @@ export default function Host({
   deleteGameRoom,
   gameMessage,
   teamOptions,
-  sendNextQuestion
+  sendNextQuestion,
+  tidbit
 }) {
   const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [isTidbitShown, setIsTidbitShown] = useState(false);
   return (
     <div>
-      <h3>
-        please go to /join and enter room number: <br />
-        {joinedRoom.id}
-      </h3>
-      <h6>{gameMessage}</h6>
+      {!hasGameStarted && (
+        <>
+          <h3>
+            please go to /join and enter room number: <br />
+            {joinedRoom.id}
+          </h3>
+          <h6>{gameMessage}</h6>
+        </>
+      )}
       <div>
-        {hasJoinedRoom ? (
-          <button className={css.makeRoom}
-            onClick={() => {
-              setHasJoinedRoom(false);
-              deleteGameRoom();
-              setHasGameStarted(false);
-            }}
-          >
-            make another room
-          </button>
-        ) : (
-          <RoomNumberPicker
-            setHasJoinedRoom={setHasJoinedRoom}
-            makeGameRoom={makeGameRoom}
-          />
+        {!hasGameStarted && (
+          <>
+            {" "}
+            {hasJoinedRoom ? (
+              <button
+                className={css.makeRoom}
+                onClick={() => {
+                  setHasJoinedRoom(false);
+                  deleteGameRoom();
+                  setHasGameStarted(false);
+                }}
+              >
+                make another room
+              </button>
+            ) : (
+              <RoomNumberPicker
+                setHasJoinedRoom={setHasJoinedRoom}
+                makeGameRoom={makeGameRoom}
+              />
+            )}
+          </>
         )}
         <br />
         {!hasGameStarted ? (
-          <button className={css.startGame}
+          <button
+            className={css.startGame}
             onClick={() => {
               startGame();
               setHasGameStarted(true);
+              sendNextQuestion();
             }}
           >
             start game
           </button>
         ) : (
-          <button onClick={sendNextQuestion}>send next question</button>
+          <button
+            onClick={() => {
+              sendNextQuestion();
+              setIsTidbitShown(false);
+            }}
+          >
+            send next question
+          </button>
         )}
       </div>
       {!hasGameStarted ? (
@@ -60,7 +81,15 @@ export default function Host({
           joinedRoom={joinedRoom}
         />
       ) : (
-        <HostScoreBoard teamOptions={teamOptions} joinedRoom={joinedRoom} />
+        <>
+          <h1>{gameMessage}</h1>
+          {isTidbitShown ? (
+            tidbit
+          ) : (
+            <button onClick={() => setIsTidbitShown(true)}>FUN FACT</button>
+          )}{" "}
+          <HostScoreBoard teamOptions={teamOptions} joinedRoom={joinedRoom} />
+        </>
       )}
     </div>
   );
