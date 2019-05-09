@@ -31,12 +31,13 @@ export default function({
       <br />
       {hasAnswered && !hasSubmitted && (
         <button
+        className={css.finalAnswer}
           onClick={() => {
             setHasSubmitted(true);
             sendAnswerToServer(answer);
           }}
         >
-          i think it's {answer}
+          My Final Answer Is: {answer}
         </button>
       )}
     </div>
