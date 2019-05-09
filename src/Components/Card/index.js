@@ -6,9 +6,11 @@ export default function({
   setHasAnswered,
   setHasSubmitted,
   hasAnswered,
-  hasSubmitted
+  hasSubmitted,
+  isAnswerAlreadySubmitted
 }) {
   const [answer, setAnswer] = useState();
+  console.log(isAnswerAlreadySubmitted);
 
   return (
     <div>
@@ -21,7 +23,7 @@ export default function({
             setAnswer(item);
           }}
         >
-          {item}
+          {!isAnswerAlreadySubmitted[item] ? item : "too slow"}
         </button>
       ))}
       <br />

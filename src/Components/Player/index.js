@@ -18,7 +18,8 @@ function Player({
   setHasAnswered,
   setHasSubmitted,
   hasAnswered,
-  hasSubmitted
+  hasSubmitted,
+  isAnswerAlreadySubmitted
 }) {
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
 
@@ -45,6 +46,7 @@ function Player({
       <br />
       {card.gotCard && (
         <Card
+          isAnswerAlreadySubmitted={isAnswerAlreadySubmitted}
           hasAnswered={hasAnswered}
           hasSubmitted={hasSubmitted}
           setHasAnswered={setHasAnswered}
