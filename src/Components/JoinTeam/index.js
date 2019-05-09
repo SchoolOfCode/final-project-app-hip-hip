@@ -1,18 +1,20 @@
 import React, { useState } from "react";
+import css from "./jointeam.module.css";
 
 export default function({ setHasJoinedTeam, joinTeam, teamOptions }) {
   const [name, setName] = useState("");
   return (
     <>
       <input
+      className={css.nameInput}
         type="text"
-        placeholder="whats your name"
+        placeholder="your name here"
         value={name}
         onChange={e => setName(e.target.value)}
       />
       <br />
       {teamOptions.map((item, i) => (
-        <button
+        <button className={css.teamOptions}
           style={{ backgroundColor: item }}
           key={i}
           onClick={() => {
