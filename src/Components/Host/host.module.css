@@ -1,0 +1,13 @@
+/* .makeRoom {
+    height: 5vh;
+    width: 5vw;
+    color: red;
+} */
+
+.startGame {
+    margin-top: 10vh;
+    height: 10vh;
+    width: 20vw;
+    background-color: green;
+    font-weight: bold;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import Keypad from "../Keypad";
+import css from "./enterroom.module.css";
 
 export default function({ enterGameRoom, roomInput, setRoomInput }) {
   return (
@@ -8,6 +9,7 @@ export default function({ enterGameRoom, roomInput, setRoomInput }) {
       <Keypad roomInput={roomInput} setRoomInput={setRoomInput} />
 
       <button
+      className={css.enterRoom}
         onClick={() => {
           enterGameRoom();
         }}

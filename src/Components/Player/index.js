@@ -14,7 +14,12 @@ function Player({
   teamColor,
   sendAnswerToServer,
   card,
-  setRoomInput
+  setRoomInput,
+  setHasAnswered,
+  setHasSubmitted,
+  hasAnswered,
+  hasSubmitted,
+  isAnswerAlreadySubmitted
 }) {
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
 
@@ -40,7 +45,15 @@ function Player({
       )}
       <br />
       {card.gotCard && (
-        <Card card={card} sendAnswerToServer={sendAnswerToServer} />
+        <Card
+          isAnswerAlreadySubmitted={isAnswerAlreadySubmitted}
+          hasAnswered={hasAnswered}
+          hasSubmitted={hasSubmitted}
+          setHasAnswered={setHasAnswered}
+          setHasSubmitted={setHasSubmitted}
+          card={card}
+          sendAnswerToServer={sendAnswerToServer}
+        />
       )}
     </div>
   );

@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Host from "../Host";
 import Player from "../Player";
-import ScoreBoard from "../ScoreBoard"; // branch
 
 const socket = openSocket("192.168.0.74:6001"); // change to your ip address
 
@@ -16,7 +15,15 @@ function App() {
   const [gotNameAndInRoom, setGotNameAndInRoom] = useState(false);
   const [teamColor, setTeamColor] = useState("orange");
   const [card, setCard] = useState({ gotCard: false });
-  const [score, setScore] = useState(""); // branch
+  const [hasAnswered, setHasAnswered] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isAnswerAlreadySubmitted, setIsAnswerAlreadySubmitted] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false
+  });
+  const [tidbit, setTidbit] = useState("");
 
   useEffect(() => {
     socket.on("makeGameRoom", data => {
@@ -35,17 +42,34 @@ function App() {
     socket.on("updateHostRoom", room => {
       setJoinedRoom(room);
     });
-    socket.on("showScore", data => {
-      console.log("showScore", data);
-      setScore(data);
-    });
+    // socket.on("showScore", data => {
+    //   console.log("showScore", data);
+    //   setScore(data);
+    // });
     socket.on("gameMessage", message => {
       setGameMessage(message);
     });
     socket.on("teamColor", color => setTeamColor(color));
-    socket.on("cardMessage", serverCard =>
-      setCard({ gotCard: true, ...serverCard })
-    );
+    socket.on("cardMessage", serverCard => {
+      setCard({ gotCard: true, ...serverCard });
+      setHasAnswered(false);
+      setHasSubmitted(false);
+      setIsAnswerAlreadySubmitted({
+        1: false,
+        2: false,
+        3: false,
+        4: false
+      });
+      console.log(serverCard);
+    });
+    socket.on("updateCardOptions", card => {
+      setIsAnswerAlreadySubmitted({
+        ...isAnswerAlreadySubmitted,
+        [parseInt(card)]: true
+      });
+      console.log(isAnswerAlreadySubmitted);
+    });
+    socket.on("tidbit", bit => setTidbit(bit));
   }, []);
 
   function makeGameRoom(numberOfTeams) {
@@ -67,8 +91,8 @@ function App() {
     socket.emit("startGame", joinedRoom.id);
   }
 
-  function sendTestQuestion() {
-    socket.emit("sendTestQuestion", joinedRoom.id);
+  function sendNextQuestion() {
+    socket.emit("sendNextQuestion", joinedRoom.id);
   }
 
   function deleteGameRoom() {
@@ -96,11 +120,12 @@ function App() {
             render={props => (
               <Host
                 {...props}
+                tidbit={tidbit}
                 startGame={startGame}
                 gameMessage={gameMessage}
                 joinedRoom={joinedRoom}
                 makeGameRoom={makeGameRoom}
-                sendTestQuestion={sendTestQuestion}
+                sendNextQuestion={sendNextQuestion}
                 deleteGameRoom={deleteGameRoom}
                 teamOptions={teamOptions}
               />
@@ -113,6 +138,11 @@ function App() {
                 {...props}
                 card={card}
                 teamColor={teamColor}
+                isAnswerAlreadySubmitted={isAnswerAlreadySubmitted}
+                hasAnswered={hasAnswered}
+                hasSubmitted={hasSubmitted}
+                setHasAnswered={setHasAnswered}
+                setHasSubmitted={setHasSubmitted}
                 gotNameAndInRoom={gotNameAndInRoom}
                 setRoomInput={setRoomInput}
                 teamOptions={teamOptions}
@@ -123,11 +153,6 @@ function App() {
                 sendAnswerToServer={sendAnswerToServer}
               />
             )}
-          />
-          <Route
-            exact
-            path="/score"
-            render={props => <ScoreBoard {...props} score={score} />}
           />
         </div>
       </Router>
