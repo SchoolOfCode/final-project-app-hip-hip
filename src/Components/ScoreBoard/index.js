@@ -1,27 +1,35 @@
 import React from "react";
-import posed from "react-pose";
-import "../css/index.css";
-
-const Box = posed.div({
-  draggable: "x",
-  dragBounds: { left: "0%", right: "1000%" }
-});
-
-// const Box = posed.div({
-//   left: { x: -100 },
-//   right: { x: 100 }
-// });
+import "./ScoreBoard.css";
 
 export default function ScoreBoard({ score }) {
   return (
     <div>
-      {/* <header>SCORE PAGE TEST</header> */}
-      <Box className="box" score={score}>
-        ben
-      </Box>
-      <Box className="box" score={score} />
-      <Box className="box" score={score} />
-      <Box className="box" score={score} />
+      <table>
+        <thead>
+          <tr>
+            <th>Team Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Team 1</td>
+            <td>121</td>
+          </tr>
+          <tr>
+            <td>Team 2</td>
+            <td>112</td>
+          </tr>
+          <tr>
+            <td>Team 3</td>
+            <td>86</td>
+          </tr>
+          <tr>
+            <td>Team 4</td>
+            <td>48</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
