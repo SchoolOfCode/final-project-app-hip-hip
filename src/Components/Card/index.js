@@ -19,13 +19,13 @@ export default function({
       <div>{card.instruction}</div>
       {[1, 2, 3, 4].map(item => (
         <button
-        className={css.numbers}
+          className={css.numbers}
           onClick={() => {
             setHasAnswered(true);
             setAnswer(item);
           }}
         >
-          {!isAnswerAlreadySubmitted[item] ? item : "too slow"}
+          {!isAnswerAlreadySubmitted[item] ? item : "x"}
         </button>
       ))}
       <br />

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Host from "../Host";
 import Player from "../Player";
 
-const socket = openSocket("192.168.0.158:6001"); // change to your ip address
+const socket = openSocket("192.168.0.74:6001"); // change to your ip address
 
 function App() {
   const [roomInput, setRoomInput] = useState("");
@@ -23,6 +23,7 @@ function App() {
     3: false,
     4: false
   });
+  const [tidbit, setTidbit] = useState("");
 
   useEffect(() => {
     socket.on("makeGameRoom", data => {
@@ -53,15 +54,22 @@ function App() {
       setCard({ gotCard: true, ...serverCard });
       setHasAnswered(false);
       setHasSubmitted(false);
+      setIsAnswerAlreadySubmitted({
+        1: false,
+        2: false,
+        3: false,
+        4: false
+      });
       console.log(serverCard);
     });
     socket.on("updateCardOptions", card => {
-      console.log(card);
       setIsAnswerAlreadySubmitted({
         ...isAnswerAlreadySubmitted,
-        [card]: true
+        [parseInt(card)]: true
       });
+      console.log(isAnswerAlreadySubmitted);
     });
+    socket.on("tidbit", bit => setTidbit(bit));
   }, []);
 
   function makeGameRoom(numberOfTeams) {
@@ -112,6 +120,7 @@ function App() {
             render={props => (
               <Host
                 {...props}
+                tidbit={tidbit}
                 startGame={startGame}
                 gameMessage={gameMessage}
                 joinedRoom={joinedRoom}
