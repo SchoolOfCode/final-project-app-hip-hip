@@ -17,6 +17,12 @@ function App() {
   const [card, setCard] = useState({ gotCard: false });
   const [hasAnswered, setHasAnswered] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isAnswerAlreadySubmitted, setIsAnswerAlreadySubmitted] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false
+  });
 
   useEffect(() => {
     socket.on("makeGameRoom", data => {
@@ -48,6 +54,13 @@ function App() {
       setHasAnswered(false);
       setHasSubmitted(false);
       console.log(serverCard);
+    });
+    socket.on("updateCardOptions", card => {
+      console.log(card);
+      setIsAnswerAlreadySubmitted({
+        ...isAnswerAlreadySubmitted,
+        [card]: true
+      });
     });
   }, []);
 
@@ -116,6 +129,7 @@ function App() {
                 {...props}
                 card={card}
                 teamColor={teamColor}
+                isAnswerAlreadySubmitted={isAnswerAlreadySubmitted}
                 hasAnswered={hasAnswered}
                 hasSubmitted={hasSubmitted}
                 setHasAnswered={setHasAnswered}
