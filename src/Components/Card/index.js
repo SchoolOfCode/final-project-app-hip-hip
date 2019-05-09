@@ -37,7 +37,7 @@ export default function({
             sendAnswerToServer(answer);
           }}
         >
-          My Final Answer Is: {answer}
+          Aubmit answer {answer}
         </button>
       )}
     </div>
