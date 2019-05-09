@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RoomNumberPicker from "../RoomNumberPicker";
 import HostTeamJoiningBoxes from "../HostTeamJoiningBoxes";
 import HostScoreBoard from "../HostScoreBoard";
@@ -18,12 +18,14 @@ export default function Host({
   const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [isTidbitShown, setIsTidbitShown] = useState(false);
+  const [isItQuestionTime, setIsItQuestionTime] = useState(true);
+
   return (
     <div>
       {!hasGameStarted && (
         <>
           <h3>
-            please go to /join and enter room number: <br />
+            please go to 192.168.0.74:3000/join and enter room number: <br />
             {joinedRoom.id}
           </h3>
           <h6>{gameMessage}</h6>
@@ -65,14 +67,17 @@ export default function Host({
             start game
           </button>
         ) : (
-          <button
-            onClick={() => {
-              sendNextQuestion();
-              setIsTidbitShown(false);
-            }}
-          >
-            send next question
-          </button>
+          !isItQuestionTime && (
+            <button
+              onClick={() => {
+                sendNextQuestion();
+                setIsTidbitShown(false);
+                setIsItQuestionTime(true);
+              }}
+            >
+              send next question
+            </button>
+          )
         )}
       </div>
       {!hasGameStarted ? (
@@ -80,14 +85,20 @@ export default function Host({
           teamOptions={teamOptions}
           joinedRoom={joinedRoom}
         />
+      ) : isItQuestionTime ? (
+        <>
+          <button onClick={() => setIsItQuestionTime(false)}>
+            show scores
+          </button>
+          <h1>{gameMessage}</h1>
+        </>
       ) : (
         <>
-          <h1>{gameMessage}</h1>
           {isTidbitShown ? (
             tidbit
           ) : (
             <button onClick={() => setIsTidbitShown(true)}>FUN FACT</button>
-          )}{" "}
+          )}
           <HostScoreBoard teamOptions={teamOptions} joinedRoom={joinedRoom} />
         </>
       )}
