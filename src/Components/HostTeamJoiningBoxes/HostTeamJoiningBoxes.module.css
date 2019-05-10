@@ -12,4 +12,6 @@
 .gridItem {
   height: 30vh;
   width: 20vw;
+  border-radius: 20px;
+  border: 1px solid pink;
 }
