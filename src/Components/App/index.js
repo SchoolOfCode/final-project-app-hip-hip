@@ -17,12 +17,12 @@ function App() {
   const [card, setCard] = useState({ gotCard: false });
   const [hasAnswered, setHasAnswered] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [isAnswerAlreadySubmitted, setIsAnswerAlreadySubmitted] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false
-  });
+  const [isAnswerAlreadySubmitted, setIsAnswerAlreadySubmitted] = useState([
+    0,
+    0,
+    0,
+    0
+  ]);
   const [tidbit, setTidbit] = useState("");
 
   useEffect(() => {
@@ -54,19 +54,15 @@ function App() {
       setCard({ gotCard: true, ...serverCard });
       setHasAnswered(false);
       setHasSubmitted(false);
-      setIsAnswerAlreadySubmitted({
-        1: false,
-        2: false,
-        3: false,
-        4: false
-      });
+      setIsAnswerAlreadySubmitted([0, 0, 0, 0]);
       console.log(serverCard);
     });
     socket.on("updateCardOptions", card => {
-      setIsAnswerAlreadySubmitted({
-        ...isAnswerAlreadySubmitted,
-        [parseInt(card)]: true
-      });
+      setIsAnswerAlreadySubmitted([
+        ...isAnswerAlreadySubmitted.slice(0, parseInt(card)),
+        1,
+        ...isAnswerAlreadySubmitted.slice(parseInt(card) + 1)
+      ]);
       console.log(isAnswerAlreadySubmitted);
     });
     socket.on("tidbit", bit => setTidbit(bit));

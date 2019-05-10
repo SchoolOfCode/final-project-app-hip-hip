@@ -5,9 +5,9 @@
 } */
 
 .startGame {
-    margin-top: 10vh;
-    height: 10vh;
-    width: 20vw;
-    background-color: green;
-    font-weight: bold;
+  margin-top: 10vh;
+  height: 10vh;
+  width: 20vw;
+  background-color: lightgreen;
+  font-weight: bold;
 }

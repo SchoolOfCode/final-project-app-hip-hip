@@ -25,7 +25,9 @@ function Player({
 
   return (
     <div>
-      <h3 style={{ backgroundColor: teamColor }}>{gameMessage}</h3>
+      {!card.gotCard && (
+        <h3 style={{ backgroundColor: teamColor }}>{gameMessage}</h3>
+      )}
       {!gotNameAndInRoom ? (
         <EnterRoom
           enterGameRoom={enterGameRoom}
@@ -43,7 +45,6 @@ function Player({
           )}
         </>
       )}
-      <br />
       {card.gotCard && (
         <Card
           isAnswerAlreadySubmitted={isAnswerAlreadySubmitted}

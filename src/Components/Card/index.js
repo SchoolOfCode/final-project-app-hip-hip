@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import css from "./card.module.css";
+import Phone from "./phone.svg";
 
 export default function({
   card,
@@ -11,34 +12,42 @@ export default function({
   isAnswerAlreadySubmitted
 }) {
   const [answer, setAnswer] = useState();
-  console.log(isAnswerAlreadySubmitted);
 
   return (
-    <div>
-      <h3>{card.text}</h3>
-      <div>{card.instruction}</div>
-      {[1, 2, 3, 4].map(item => (
-        <button
-          className={css.numbers}
-          onClick={() => {
-            setHasAnswered(true);
-            setAnswer(item);
-          }}
-        >
-          {!isAnswerAlreadySubmitted[item] ? item : "x"}
-        </button>
-      ))}
+    <div className={css.cardWrapper}>
+      <h1 className={css.cardText}>{card.text}</h1>
+      <div className={css.selectionWrapper}>
+        {[1, 2, 3, 4].map(item => (
+          <button
+            style={{
+              backgroundColor: isAnswerAlreadySubmitted[item] === 1 && "pink"
+            }}
+            className={css.selection}
+            onClick={() => {
+              setHasAnswered(true);
+              setAnswer(item);
+            }}
+          >
+            {item !== answer ? " " : card.text}
+          </button>
+        ))}
+      </div>
       <br />
-      {hasAnswered && !hasSubmitted && (
-        <button
-        className={css.finalAnswer}
-          onClick={() => {
-            setHasSubmitted(true);
-            sendAnswerToServer(answer);
-          }}
-        >
-          My Final Answer Is: {answer}
-        </button>
+      <div>{card.instruction}</div>
+      {hasAnswered && hasSubmitted ? (
+        <p>youve locked it in!!</p>
+      ) : (
+        hasAnswered && (
+          <button
+            className={css.submit}
+            onClick={() => {
+              setHasSubmitted(true);
+              sendAnswerToServer(answer);
+            }}
+          >
+            Submit
+          </button>
+        )
       )}
     </div>
   );

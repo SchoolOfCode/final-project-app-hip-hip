@@ -1,18 +1,18 @@
-.numbers {
+.selection {
   width: 25%;
   height: 60px;
   border-radius: 20px;
   border: 3px solid white;
-  font-size: 30px;
+  font-size: 15px;
   color: white;
   font-family: "Orbitron", serif;
   background: #7fa2ee;
   outline: 0;
+  top: 0;
 }
 
-.finalAnswer {
+.submit {
   width: 75%;
-  /* height: 3; */
   border-radius: 20px;
   border: 3px solid white;
   font-size: 30px;
@@ -20,4 +20,17 @@
   font-family: "Orbitron", serif;
   background: darkblue;
   outline: 0;
+}
+
+.cardWrapper {
+  text-align: center;
+  position: relative;
+}
+.cardText {
+  font-size: 50px;
+}
+.selectionWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
