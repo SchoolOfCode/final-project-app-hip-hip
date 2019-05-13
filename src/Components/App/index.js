@@ -9,7 +9,6 @@ import firebaseConfig from "../../firebaseConfig";
 
 import Host from "../Host";
 import Player from "../Player";
-import Login from "../Login";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -38,7 +37,10 @@ function App(props) {
     4: []
   });
   const [tidbit, setTidbit] = useState("");
-  const [UID, setUID] = useState("");
+
+  useEffect(() => {
+    props.user && socket.emit("login", props.user.uid);
+  });
 
   useEffect(() => {
     socket.on("makeGameRoom", data => {
@@ -98,17 +100,18 @@ function App(props) {
   }
 
   function makeGameRoom(numberOfTeams) {
-    socket.emit("makeGameRoom", numberOfTeams);
+    socket.emit("makeGameRoom", { numberOfTeams, uid: props.user.uid });
   }
   function enterGameRoom() {
-    socket.emit("enterGameRoom", { room: roomInput, uid: props.user.uid });
+    socket.emit("enterGameRoom", { roomId: roomInput, uid: props.user.uid });
   }
 
   function joinTeam(team, name) {
     socket.emit("joinTeam", {
-      joinedRoom: joinedRoom.id,
+      roomId: joinedRoom.id,
       team,
-      name
+      name,
+      uid: props.user.uid
     });
   }
 
@@ -128,7 +131,7 @@ function App(props) {
 
   function sendAnswerToServer(answerNumber) {
     socket.emit("sendAnswer", {
-      roomNumber: joinedRoom.id,
+      roomId: joinedRoom.id,
       team: teamColor,
       playersAnswer: answerNumber,
       correctAnswer: card.order
@@ -139,7 +142,7 @@ function App(props) {
     socket.emit("updateCardOptions", {
       answer,
       cardText,
-      roomNumber: joinedRoom.id,
+      roomId: joinedRoom.id,
       team: teamColor
     });
   }
