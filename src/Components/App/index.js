@@ -151,11 +151,6 @@ function App(props) {
           <Route
             exact
             path="/"
-            render={routerProps => <Login {...routerProps} appProps={props} />}
-          />
-          <Route
-            exact
-            path="/host"
             render={routerProps => (
               <Host
                 {...routerProps}
