@@ -19,7 +19,7 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
-const socket = openSocket("192.168.0.74:6001"); // change to your ip address
+const socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
 function App(props) {
   const [roomInput, setRoomInput] = useState("");
