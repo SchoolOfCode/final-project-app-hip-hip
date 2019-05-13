@@ -101,7 +101,7 @@ function App(props) {
     socket.emit("makeGameRoom", numberOfTeams);
   }
   function enterGameRoom() {
-    socket.emit("enterGameRoom", { room: roomInput });
+    socket.emit("enterGameRoom", { room: roomInput, uid: props.user.uid });
   }
 
   function joinTeam(team, name) {

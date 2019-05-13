@@ -108,11 +108,11 @@ export default function Host({
             </>
           ) : (
             <>
-              {isTidbitShown ? (
+              {/* {isTidbitShown ? (
                 tidbit
               ) : (
                 <button onClick={() => setIsTidbitShown(true)}>FUN FACT</button>
-              )}
+              )} */}
               <HostScoreBoard
                 teamOptions={teamOptions}
                 joinedRoom={joinedRoom}
