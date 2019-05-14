@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import css from "./card.module.css";
 import Phone from "./phone.svg";
 
+const selectionOptions = [1, 2, 3, 4];
+
 export default function({
   card,
   sendAnswerToServer,
@@ -9,35 +11,44 @@ export default function({
   setHasSubmitted,
   hasAnswered,
   hasSubmitted,
-  isAnswerAlreadySubmitted
+  liveCardUpdates,
+  sendliveCardUpdates,
+  isSubmitAllowed
 }) {
   const [answer, setAnswer] = useState();
+  console.log("live card updates", liveCardUpdates);
 
   return (
     <div className={css.cardWrapper}>
       <h1 className={css.cardText}>{card.text}</h1>
       <div className={css.selectionWrapper}>
-        {[1, 2, 3, 4].map(item => (
+        {selectionOptions.map(item => (
           <button
-            style={{
-              backgroundColor: isAnswerAlreadySubmitted[item] === 1 && "pink"
-            }}
             className={css.selection}
             onClick={() => {
               setHasAnswered(true);
               setAnswer(item);
+              sendliveCardUpdates(item, card.text);
             }}
           >
-            {item !== answer ? " " : card.text}
+            {liveCardUpdates[item].map(item => item.cardText)}
           </button>
         ))}
       </div>
       <br />
-      <div>{card.instruction}</div>
+      <div className={css.instructionsWrapper}>
+        <div>
+          {" <-- "}
+          {card.instruction[0]}
+        </div>
+        <div>
+          {card.instruction[1]} {" --> "}
+        </div>
+      </div>
       {hasAnswered && hasSubmitted ? (
         <p>youve locked it in!!</p>
       ) : (
-        hasAnswered && (
+        isSubmitAllowed && (
           <button
             className={css.submit}
             onClick={() => {
