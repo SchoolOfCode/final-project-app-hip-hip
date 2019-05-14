@@ -12,7 +12,8 @@ export default function({
   hasAnswered,
   hasSubmitted,
   liveCardUpdates,
-  sendliveCardUpdates
+  sendliveCardUpdates,
+  isSubmitAllowed
 }) {
   const [answer, setAnswer] = useState();
   console.log("live card updates", liveCardUpdates);
@@ -47,7 +48,7 @@ export default function({
       {hasAnswered && hasSubmitted ? (
         <p>youve locked it in!!</p>
       ) : (
-        hasAnswered && (
+        isSubmitAllowed && (
           <button
             className={css.submit}
             onClick={() => {
