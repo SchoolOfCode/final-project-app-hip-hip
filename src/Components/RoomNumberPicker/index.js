@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import css from "./roomnumberpicker.module.css";
 
-export default function({ makeGameRoom, setHasJoinedRoom }) {
+export default function({
+  makeGameRoom,
+  setHasJoinedRoom,
+  setIsGameReadyToStart
+}) {
   const [numberOfTeams, setNumberOfTeams] = useState(1);
 
   function changeNumberOfTeams(num) {
@@ -19,7 +23,7 @@ export default function({ makeGameRoom, setHasJoinedRoom }) {
   return (
     <>
       <button
-      className={css.chooseNumberOfTeamsLess}
+        className={css.chooseNumberOfTeamsLess}
         onClick={() => {
           changeNumberOfTeams(-1);
         }}
@@ -27,16 +31,17 @@ export default function({ makeGameRoom, setHasJoinedRoom }) {
         -
       </button>
       <button
-      className={css.chooseNumberOfTeams}
+        className={css.chooseNumberOfTeams}
         onClick={() => {
           makeGameRoom(numberOfTeams);
           setHasJoinedRoom(true);
+          setIsGameReadyToStart(true);
         }}
       >
         Make room with {numberOfTeams} teams
       </button>
       <button
-      className={css.chooseNumberOfTeamsMore}
+        className={css.chooseNumberOfTeamsMore}
         onClick={() => {
           changeNumberOfTeams(1);
         }}

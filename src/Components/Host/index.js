@@ -5,10 +5,9 @@ import HostScoreBoard from "../HostScoreBoard";
 import Login from "../Login";
 // import ScoreBoard from "../ScoreBoard"; // branch
 import css from "./host.module.css";
-import Logo from "../Branding/index";
+import CorrelateLogo from "../Branding/index";
 
 export default function Host({
-
   makeGameRoom,
   startGame,
   joinedRoom,
@@ -19,13 +18,12 @@ export default function Host({
   tidbit,
   getRoundScore,
   appProps
-
 }) {
-    const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
-    const [hasGameStarted, setHasGameStarted] = useState(false);
-    const [isTidbitShown, setIsTidbitShown] = useState(false);
-    const [isItQuestionTime, setIsItQuestionTime] = useState(true);
-
+  const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
+  const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [isTidbitShown, setIsTidbitShown] = useState(false);
+  const [isItQuestionTime, setIsItQuestionTime] = useState(true);
+  const [isGameReadyToStart, setIsGameReadyToStart] = useState(false);
 
   return (
     <>
@@ -34,13 +32,11 @@ export default function Host({
         <Login appProps={appProps} />
       ) : (
         <div>
+          <CorrelateLogo />
           {!hasGameStarted && (
             <>
-              <h3>
-                please go to 192.168.0.74:3000/join and enter room number:{" "}
-                <br />
-                {joinedRoom.id}
-              </h3>
+              <h3> Your room number is:</h3>
+              <h1>{joinedRoom.id}</h1>
               <h6>{gameMessage}</h6>
             </>
           )}
@@ -50,11 +46,11 @@ export default function Host({
                 {" "}
                 {hasJoinedRoom ? (
                   <button
-                    className={css.makeRoom}
                     onClick={() => {
                       setHasJoinedRoom(false);
                       deleteGameRoom();
                       setHasGameStarted(false);
+                      setIsGameReadyToStart(false);
                     }}
                   >
                     make another room
@@ -63,34 +59,10 @@ export default function Host({
                   <RoomNumberPicker
                     setHasJoinedRoom={setHasJoinedRoom}
                     makeGameRoom={makeGameRoom}
+                    setIsGameReadyToStart={setIsGameReadyToStart}
                   />
                 )}
               </>
-            )}
-            <br />
-            {!hasGameStarted ? (
-              <button
-                className={css.startGame}
-                onClick={() => {
-                  startGame();
-                  setHasGameStarted(true);
-                  sendNextQuestion();
-                }}
-              >
-                start game
-              </button>
-            ) : (
-              !isItQuestionTime && (
-                <button
-                  onClick={() => {
-                    sendNextQuestion();
-                    setIsTidbitShown(false);
-                    setIsItQuestionTime(true);
-                  }}
-                >
-                  send next question
-                </button>
-              )
             )}
           </div>
           {!hasGameStarted ? (
@@ -101,6 +73,7 @@ export default function Host({
           ) : isItQuestionTime ? (
             <>
               <button
+                className={css.startGame}
                 onClick={() => {
                   getRoundScore();
                   setIsItQuestionTime(false);
@@ -123,6 +96,32 @@ export default function Host({
               />
             </>
           )}
+
+          {!hasGameStarted
+            ? isGameReadyToStart && (
+                <button
+                  className={css.startGame}
+                  onClick={() => {
+                    startGame();
+                    setHasGameStarted(true);
+                    sendNextQuestion();
+                  }}
+                >
+                  start game
+                </button>
+              )
+            : !isItQuestionTime && (
+                <button
+                  className={css.startGame}
+                  onClick={() => {
+                    sendNextQuestion();
+                    setIsTidbitShown(false);
+                    setIsItQuestionTime(true);
+                  }}
+                >
+                  send next question
+                </button>
+              )}
         </div>
       )}
     </>
