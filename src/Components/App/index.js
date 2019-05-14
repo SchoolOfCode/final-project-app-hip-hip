@@ -37,6 +37,7 @@ function App(props) {
     4: []
   });
   const [tidbit, setTidbit] = useState("");
+  const [isSubmitAllowed, setIsSubmitAllowed] = useState(false);
 
   useEffect(() => {
     props.user && socket.emit("login", props.user.uid);
@@ -88,7 +89,8 @@ function App(props) {
     socket.on("tidbit", bit => setTidbit(bit));
     socket.on("scoreMessage", score => console.log("scoreMessage", score));
     socket.emit("login", "username");
-    console.log(props);
+
+    socket.on("submitAllowed", () => setIsSubmitAllowed(true));
   }, []);
 
   useEffect(() => {
@@ -175,6 +177,7 @@ function App(props) {
             render={routerProps => (
               <Player
                 {...routerProps}
+                isSubmitAllowed={isSubmitAllowed}
                 appProps={props}
                 card={card}
                 getRoundScore={getRoundScore}

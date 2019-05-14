@@ -23,7 +23,8 @@ function Player({
   liveCardUpdates,
   sendliveCardUpdates,
   getRoundScore,
-  appProps
+  appProps,
+  isSubmitAllowed
 }) {
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
 
@@ -55,6 +56,7 @@ function Player({
           )}
           {card.gotCard && (
             <Card
+              isSubmitAllowed={isSubmitAllowed}
               sendliveCardUpdates={sendliveCardUpdates}
               liveCardUpdates={liveCardUpdates}
               hasAnswered={hasAnswered}
