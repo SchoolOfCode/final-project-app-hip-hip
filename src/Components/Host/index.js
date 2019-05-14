@@ -6,6 +6,7 @@ import Login from "../Login";
 // import ScoreBoard from "../ScoreBoard"; // branch
 import css from "./host.module.css";
 import CorrelateLogo from "../Branding/index";
+import QuestionHostCard from "../QuestionHostCard";
 
 export default function Host({
   makeGameRoom,
@@ -16,10 +17,12 @@ export default function Host({
   teamOptions,
   sendNextQuestion,
   tidbit,
-  getRoundScore,
-  appProps
+  getCurrentScore,
+  appProps,
+  teamsThatHaveSubmitted,
+  setTeamsThatHaveSubmitted
 }) {
-  const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
+  const [hasMadeRoom, setHasMadeRoom] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [isTidbitShown, setIsTidbitShown] = useState(false);
   const [isItQuestionTime, setIsItQuestionTime] = useState(true);
@@ -32,7 +35,7 @@ export default function Host({
         <Login appProps={appProps} />
       ) : (
         <div>
-          <CorrelateLogo />
+          {!hasGameStarted && <CorrelateLogo />}
           {!hasGameStarted && (
             <>
               <h3> Your room number is:</h3>
@@ -44,20 +47,9 @@ export default function Host({
             {!hasGameStarted && (
               <>
                 {" "}
-                {hasJoinedRoom ? (
-                  <button
-                    onClick={() => {
-                      setHasJoinedRoom(false);
-                      deleteGameRoom();
-                      setHasGameStarted(false);
-                      setIsGameReadyToStart(false);
-                    }}
-                  >
-                    make another room
-                  </button>
-                ) : (
+                {!hasMadeRoom && (
                   <RoomNumberPicker
-                    setHasJoinedRoom={setHasJoinedRoom}
+                    setHasMadeRoom={setHasMadeRoom}
                     makeGameRoom={makeGameRoom}
                     setIsGameReadyToStart={setIsGameReadyToStart}
                   />
@@ -72,16 +64,17 @@ export default function Host({
             />
           ) : isItQuestionTime ? (
             <>
-              <button
-                className={css.startGame}
-                onClick={() => {
-                  getRoundScore();
-                  setIsItQuestionTime(false);
-                }}
-              >
-                show scores
-              </button>
-              <h1>{gameMessage}</h1>
+              <QuestionHostCard
+                setTeamsThatHaveSubmitted={setTeamsThatHaveSubmitted}
+                getCurrentScore={getCurrentScore}
+                setIsItQuestionTime={setIsItQuestionTime}
+                gameMessage={gameMessage}
+              />
+              <ol>
+                {teamsThatHaveSubmitted.map((team, i) => (
+                  <li key={i}>{team} has answered</li>
+                ))}
+              </ol>
             </>
           ) : (
             <>
@@ -112,7 +105,7 @@ export default function Host({
               )
             : !isItQuestionTime && (
                 <button
-                  className={css.startGame}
+                  className={css.showScores}
                   onClick={() => {
                     sendNextQuestion();
                     setIsTidbitShown(false);
@@ -122,6 +115,22 @@ export default function Host({
                   send next question
                 </button>
               )}
+          <br />
+          {hasMadeRoom && (
+            <button
+              onClick={() => {
+                setHasMadeRoom(false);
+                deleteGameRoom();
+                setHasGameStarted(false);
+                setIsGameReadyToStart(false);
+              }}
+            >
+              make another room
+            </button>
+          )}
+          {appProps.user && (
+            <button onClick={appProps.signOut}>sign out</button>
+          )}
         </div>
       )}
     </>

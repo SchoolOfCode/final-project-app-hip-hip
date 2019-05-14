@@ -22,10 +22,10 @@ function Player({
   hasSubmitted,
   liveCardUpdates,
   sendliveCardUpdates,
-  getRoundScore,
   appProps,
   isSubmitAllowed,
-  submitTeamAnswer
+  submitTeamAnswer,
+  teamMessage
 }) {
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
 
@@ -55,8 +55,9 @@ function Player({
               )}
             </>
           )}
-          {card.gotCard && (
+          {card.gotCard && !hasSubmitted ? (
             <Card
+              setHasSubmitted={setHasSubmitted}
               submitTeamAnswer={submitTeamAnswer}
               isSubmitAllowed={isSubmitAllowed}
               sendliveCardUpdates={sendliveCardUpdates}
@@ -68,6 +69,8 @@ function Player({
               card={card}
               sendAnswerToServer={sendAnswerToServer}
             />
+          ) : (
+            <h3>{teamMessage}</h3>
           )}
         </div>
       )}

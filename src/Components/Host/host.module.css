@@ -13,7 +13,15 @@
   background-color: lightgreen;
   font-weight: bold;
 }
-
+.showScores {
+  border-radius: 20px;
+  margin-top: 2vh;
+  padding: 10px;
+  font-size: 1.5em;
+  color: black;
+  background-color: lightgreen;
+  font-weight: bold;
+}
 .ipAddress {
   display: inline-block;
   width: 400px;
