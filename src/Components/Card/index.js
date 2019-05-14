@@ -13,7 +13,8 @@ export default function({
   hasSubmitted,
   liveCardUpdates,
   sendliveCardUpdates,
-  isSubmitAllowed
+  isSubmitAllowed,
+  submitTeamAnswer
 }) {
   const [answer, setAnswer] = useState();
   console.log("live card updates", liveCardUpdates);
@@ -28,7 +29,7 @@ export default function({
             onClick={() => {
               setHasAnswered(true);
               setAnswer(item);
-              sendliveCardUpdates(item, card.text);
+              sendliveCardUpdates(item, card);
             }}
           >
             {liveCardUpdates[item].map(item => item.cardText)}
@@ -53,7 +54,7 @@ export default function({
             className={css.submit}
             onClick={() => {
               setHasSubmitted(true);
-              sendAnswerToServer(answer);
+              submitTeamAnswer(answer);
             }}
           >
             Submit
