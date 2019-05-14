@@ -5,8 +5,10 @@ import HostScoreBoard from "../HostScoreBoard";
 import Login from "../Login";
 // import ScoreBoard from "../ScoreBoard"; // branch
 import css from "./host.module.css";
+import Logo from "../Branding/index";
 
 export default function Host({
+
   makeGameRoom,
   startGame,
   joinedRoom,
@@ -17,11 +19,13 @@ export default function Host({
   tidbit,
   getRoundScore,
   appProps
+
 }) {
-  const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
-  const [hasGameStarted, setHasGameStarted] = useState(false);
-  const [isTidbitShown, setIsTidbitShown] = useState(false);
-  const [isItQuestionTime, setIsItQuestionTime] = useState(true);
+    const [hasJoinedRoom, setHasJoinedRoom] = useState(false);
+    const [hasGameStarted, setHasGameStarted] = useState(false);
+    const [isTidbitShown, setIsTidbitShown] = useState(false);
+    const [isItQuestionTime, setIsItQuestionTime] = useState(true);
+
 
   return (
     <>

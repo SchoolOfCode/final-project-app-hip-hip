@@ -10,6 +10,7 @@ import firebaseConfig from "../../firebaseConfig";
 import Host from "../Host";
 import Player from "../Player";
 
+
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
@@ -117,28 +118,29 @@ function App(props) {
     });
   }
 
-  function startGame() {
-    socket.emit("startGame", joinedRoom.id);
-  }
 
-  function sendNextQuestion() {
-    socket.emit("sendNextQuestion", joinedRoom.id);
-  }
+    function startGame() {
+        socket.emit("startGame", joinedRoom.id);
+    }
 
-  function deleteGameRoom() {
-    socket.emit("deleteGameRoom", joinedRoom.id);
-    setJoinedRoom({});
-    setTeamOptions([]);
-  }
+    function sendNextQuestion() {
+        socket.emit("sendNextQuestion", joinedRoom.id);
+    }
 
-  function sendAnswerToServer(answerNumber) {
-    socket.emit("sendAnswer", {
-      roomId: joinedRoom.id,
-      team: teamColor,
-      playersAnswer: answerNumber,
-      correctAnswer: card.order
-    });
-  }
+    function deleteGameRoom() {
+        socket.emit("deleteGameRoom", joinedRoom.id);
+        setJoinedRoom({});
+        setTeamOptions([]);
+    }
+
+    function sendAnswerToServer(answerNumber) {
+        socket.emit("sendAnswer", {
+            roomId: joinedRoom.id,
+            team: teamColor,
+            playersAnswer: answerNumber,
+            correctAnswer: card.order
+        });
+    }
 
   function sendliveCardUpdates(answer, cardText) {
     socket.emit("updateCardOptions", {
@@ -204,6 +206,7 @@ function App(props) {
       {props.user && <button onClick={props.signOut}>sign out</button>}
     </div>
   );
+
 }
 
 export default withFirebaseAuth({
