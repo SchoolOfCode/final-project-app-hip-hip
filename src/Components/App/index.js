@@ -18,11 +18,11 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
-const props = { user: { uid: Math.random() } };
+// const props = { user: { uid: Math.random() } };
 
 const socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
-function App() {
+function App(props) {
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
