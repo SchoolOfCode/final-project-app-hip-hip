@@ -90,7 +90,7 @@ function App(props) {
     socket.on("scoreMessage", score => console.log("scoreMessage", score));
     socket.emit("login", "username");
 
-    socket.on("submitAllowed", () => setIsSubmitAllowed(true));
+    socket.on("submitAllowed", boolean => setIsSubmitAllowed(boolean));
   }, []);
 
   useEffect(() => {
@@ -140,10 +140,15 @@ function App(props) {
     });
   }
 
-  function sendliveCardUpdates(answer, cardText) {
+  function submitTeamAnswer() {
+    socket.emit("submitTeamAnswer", { roomId: joinedRoom.id, team: teamColor });
+  }
+
+  function sendliveCardUpdates(answer, card) {
     socket.emit("updateCardOptions", {
       answer,
-      cardText,
+      cardText: card.text,
+      correctAnswer: card.order,
       roomId: joinedRoom.id,
       team: teamColor
     });
@@ -177,6 +182,7 @@ function App(props) {
             render={routerProps => (
               <Player
                 {...routerProps}
+                submitTeamAnswer={submitTeamAnswer}
                 isSubmitAllowed={isSubmitAllowed}
                 appProps={props}
                 card={card}
