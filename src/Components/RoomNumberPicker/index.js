@@ -3,7 +3,7 @@ import css from "./roomnumberpicker.module.css";
 
 export default function({
   makeGameRoom,
-  setHasJoinedRoom,
+  setHasMadeRoom,
   setIsGameReadyToStart
 }) {
   const [numberOfTeams, setNumberOfTeams] = useState(1);
@@ -34,7 +34,7 @@ export default function({
         className={css.chooseNumberOfTeams}
         onClick={() => {
           makeGameRoom(numberOfTeams);
-          setHasJoinedRoom(true);
+          setHasMadeRoom(true);
           setIsGameReadyToStart(true);
         }}
       >

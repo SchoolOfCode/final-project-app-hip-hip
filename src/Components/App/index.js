@@ -10,7 +10,6 @@ import firebaseConfig from "../../firebaseConfig";
 import Host from "../Host";
 import Player from "../Player";
 
-
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
@@ -18,6 +17,8 @@ const providers = {
   facebookProvider: new firebase.auth.FacebookAuthProvider(),
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
+
+// const props = { user: { uid: Math.random() } };
 
 const socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
@@ -39,6 +40,8 @@ function App(props) {
   });
   const [tidbit, setTidbit] = useState("");
   const [isSubmitAllowed, setIsSubmitAllowed] = useState(false);
+  const [teamMessage, setTeamMessage] = useState("");
+  const [teamsThatHaveSubmitted, setTeamsThatHaveSubmitted] = useState([]);
 
   useEffect(() => {
     props.user && socket.emit("login", props.user.uid);
@@ -73,6 +76,7 @@ function App(props) {
       setCard({ gotCard: true, ...serverCard });
       setHasAnswered(false);
       setHasSubmitted(false);
+      setIsSubmitAllowed(false);
       setliveCardUpdates({
         1: [],
         2: [],
@@ -92,14 +96,19 @@ function App(props) {
     socket.emit("login", "username");
 
     socket.on("submitAllowed", boolean => setIsSubmitAllowed(boolean));
+    socket.on("scoreUpdateMessage", message => setTeamMessage(message));
+    socket.on("teamHasSubmitted", () => setHasSubmitted(true));
+    socket.on("liveTeamSubmitUpdate", team =>
+      setTeamsThatHaveSubmitted([...teamsThatHaveSubmitted, team])
+    );
   }, []);
 
   useEffect(() => {
     props.user && console.log("user", props.user.uid);
   }, [props.user]);
 
-  function getRoundScore() {
-    socket.emit("getRoundScore");
+  function getCurrentScore() {
+    socket.emit("getCurrentScore", joinedRoom.id);
   }
 
   function makeGameRoom(numberOfTeams) {
@@ -118,29 +127,28 @@ function App(props) {
     });
   }
 
+  function startGame() {
+    socket.emit("startGame", joinedRoom.id);
+  }
 
-    function startGame() {
-        socket.emit("startGame", joinedRoom.id);
-    }
+  function sendNextQuestion() {
+    socket.emit("sendNextQuestion", joinedRoom.id);
+  }
 
-    function sendNextQuestion() {
-        socket.emit("sendNextQuestion", joinedRoom.id);
-    }
+  function deleteGameRoom() {
+    socket.emit("deleteGameRoom", joinedRoom.id);
+    setJoinedRoom({});
+    setTeamOptions([]);
+  }
 
-    function deleteGameRoom() {
-        socket.emit("deleteGameRoom", joinedRoom.id);
-        setJoinedRoom({});
-        setTeamOptions([]);
-    }
-
-    function sendAnswerToServer(answerNumber) {
-        socket.emit("sendAnswer", {
-            roomId: joinedRoom.id,
-            team: teamColor,
-            playersAnswer: answerNumber,
-            correctAnswer: card.order
-        });
-    }
+  function sendAnswerToServer(answerNumber) {
+    socket.emit("sendAnswer", {
+      roomId: joinedRoom.id,
+      team: teamColor,
+      playersAnswer: answerNumber,
+      correctAnswer: card.order
+    });
+  }
 
   function submitTeamAnswer() {
     socket.emit("submitTeamAnswer", { roomId: joinedRoom.id, team: teamColor });
@@ -166,6 +174,7 @@ function App(props) {
             render={routerProps => (
               <Host
                 {...routerProps}
+                setTeamsThatHaveSubmitted={setTeamsThatHaveSubmitted}
                 tidbit={tidbit}
                 startGame={startGame}
                 gameMessage={gameMessage}
@@ -174,8 +183,9 @@ function App(props) {
                 sendNextQuestion={sendNextQuestion}
                 deleteGameRoom={deleteGameRoom}
                 teamOptions={teamOptions}
-                getRoundScore={getRoundScore}
+                getCurrentScore={getCurrentScore}
                 appProps={props}
+                teamsThatHaveSubmitted={teamsThatHaveSubmitted}
               />
             )}
           />
@@ -184,11 +194,11 @@ function App(props) {
             render={routerProps => (
               <Player
                 {...routerProps}
+                teamMessage={teamMessage}
                 submitTeamAnswer={submitTeamAnswer}
                 isSubmitAllowed={isSubmitAllowed}
                 appProps={props}
                 card={card}
-                getRoundScore={getRoundScore}
                 sendliveCardUpdates={sendliveCardUpdates}
                 teamColor={teamColor}
                 liveCardUpdates={liveCardUpdates}
@@ -209,10 +219,8 @@ function App(props) {
           />
         </div>
       </Router>
-      {props.user && <button onClick={props.signOut}>sign out</button>}
     </div>
   );
-
 }
 
 export default withFirebaseAuth({

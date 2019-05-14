@@ -10,7 +10,7 @@ export default function({ teamOptions, joinedRoom }) {
           className={css.gridItem}
         >
           <h3>{color}</h3>
-          <p>{joinedRoom.roundScores[color]}</p>
+          <p>{joinedRoom.scores[color]}</p>
         </div>
       ))}
     </div>
