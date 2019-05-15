@@ -13,8 +13,8 @@ export default function({ teamOptions, joinedRoom, DeleteTeamMember }) {
           <h3>{color}</h3>
           <ul>
             {joinedRoom.teams[color].map((player, i) => (
-              <>
-                <li key={i}>{player.name}</li>
+              <li key={i}>
+                {player.name}{" "}
                 <button
                   onClick={() => {
                     DeleteTeamMember(i, color);
@@ -22,7 +22,7 @@ export default function({ teamOptions, joinedRoom, DeleteTeamMember }) {
                 >
                   X
                 </button>
-              </>
+              </li>
             ))}
           </ul>
         </div>

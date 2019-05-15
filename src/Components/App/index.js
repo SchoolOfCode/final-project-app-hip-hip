@@ -11,7 +11,6 @@ import Host from "../Host";
 import Player from "../Player";
 import ScoreBoard from "../ScoreBoard";
 
-
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
@@ -20,13 +19,11 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
-
-const props = { user: { uid: Math.random() } };
-
+// const props = { user: { uid: Math.random() } };
 
 let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
-function App() {
+function App(props) {
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
@@ -206,11 +203,8 @@ function App() {
                 teamOptions={teamOptions}
                 getCurrentScore={getCurrentScore}
                 appProps={props}
-
                 DeleteTeamMember={DeleteTeamMember}
-
                 teamsThatHaveSubmitted={teamsThatHaveSubmitted}
-
               />
             )}
           />
