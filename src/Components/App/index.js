@@ -9,7 +9,7 @@ import firebaseConfig from "../../firebaseConfig";
 
 import Host from "../Host";
 import Player from "../Player";
-
+import ScoreBoard from "../ScoreBoard";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -19,9 +19,10 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
+const props = { user: { uid: Math.random() } };
 const socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
-function App(props) {
+function App() {
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
@@ -118,29 +119,28 @@ function App(props) {
     });
   }
 
+  function startGame() {
+    socket.emit("startGame", joinedRoom.id);
+  }
 
-    function startGame() {
-        socket.emit("startGame", joinedRoom.id);
-    }
+  function sendNextQuestion() {
+    socket.emit("sendNextQuestion", joinedRoom.id);
+  }
 
-    function sendNextQuestion() {
-        socket.emit("sendNextQuestion", joinedRoom.id);
-    }
+  function deleteGameRoom() {
+    socket.emit("deleteGameRoom", joinedRoom.id);
+    setJoinedRoom({});
+    setTeamOptions([]);
+  }
 
-    function deleteGameRoom() {
-        socket.emit("deleteGameRoom", joinedRoom.id);
-        setJoinedRoom({});
-        setTeamOptions([]);
-    }
-
-    function sendAnswerToServer(answerNumber) {
-        socket.emit("sendAnswer", {
-            roomId: joinedRoom.id,
-            team: teamColor,
-            playersAnswer: answerNumber,
-            correctAnswer: card.order
-        });
-    }
+  function sendAnswerToServer(answerNumber) {
+    socket.emit("sendAnswer", {
+      roomId: joinedRoom.id,
+      team: teamColor,
+      playersAnswer: answerNumber,
+      correctAnswer: card.order
+    });
+  }
 
   function submitTeamAnswer() {
     socket.emit("submitTeamAnswer", { roomId: joinedRoom.id, team: teamColor });
@@ -153,6 +153,15 @@ function App(props) {
       correctAnswer: card.order,
       roomId: joinedRoom.id,
       team: teamColor
+    });
+  }
+
+  function DeleteTeamMember(i, team) {
+    socket.emit("removeUser", {
+      roomId: joinedRoom.id,
+      team,
+      uid: props.user.uid,
+      i
     });
   }
 
@@ -176,6 +185,7 @@ function App(props) {
                 teamOptions={teamOptions}
                 getRoundScore={getRoundScore}
                 appProps={props}
+                DeleteTeamMember={DeleteTeamMember}
               />
             )}
           />
@@ -207,12 +217,21 @@ function App(props) {
               />
             )}
           />
+          <Route
+            path="/score"
+            render={routerProps => (
+              <ScoreBoard
+                {...routerProps}
+                teamOptions={teamOptions}
+                joinedRoom={joinedRoom}
+              />
+            )}
+          />
         </div>
       </Router>
       {props.user && <button onClick={props.signOut}>sign out</button>}
     </div>
   );
-
 }
 
 export default withFirebaseAuth({
