@@ -9,6 +9,8 @@ import firebaseConfig from "../../firebaseConfig";
 
 import Host from "../Host";
 import Player from "../Player";
+import ScoreBoard from "../ScoreBoard";
+
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -18,11 +20,12 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
+
 // const props = { user: { uid: Math.random() } };
 
 const socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
-function App(props) {
+function App() {
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
@@ -164,6 +167,15 @@ function App(props) {
     });
   }
 
+  function DeleteTeamMember(i, team) {
+    socket.emit("removeUser", {
+      roomId: joinedRoom.id,
+      team,
+      uid: props.user.uid,
+      i
+    });
+  }
+
   return (
     <div>
       <Router>
@@ -185,7 +197,11 @@ function App(props) {
                 teamOptions={teamOptions}
                 getCurrentScore={getCurrentScore}
                 appProps={props}
+
+                DeleteTeamMember={DeleteTeamMember}
+
                 teamsThatHaveSubmitted={teamsThatHaveSubmitted}
+
               />
             )}
           />
@@ -214,6 +230,16 @@ function App(props) {
                 enterGameRoom={enterGameRoom}
                 joinTeam={joinTeam}
                 sendAnswerToServer={sendAnswerToServer}
+              />
+            )}
+          />
+          <Route
+            path="/score"
+            render={routerProps => (
+              <ScoreBoard
+                {...routerProps}
+                teamOptions={teamOptions}
+                joinedRoom={joinedRoom}
               />
             )}
           />

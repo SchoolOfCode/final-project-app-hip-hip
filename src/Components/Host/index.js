@@ -17,10 +17,16 @@ export default function Host({
   teamOptions,
   sendNextQuestion,
   tidbit,
+
+  getRoundScore,
+  appProps,
+  DeleteTeamMember
+
   getCurrentScore,
   appProps,
   teamsThatHaveSubmitted,
   setTeamsThatHaveSubmitted
+
 }) {
   const [hasMadeRoom, setHasMadeRoom] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
@@ -61,6 +67,7 @@ export default function Host({
             <HostTeamJoiningBoxes
               teamOptions={teamOptions}
               joinedRoom={joinedRoom}
+              DeleteTeamMember={DeleteTeamMember}
             />
           ) : isItQuestionTime ? (
             <>
