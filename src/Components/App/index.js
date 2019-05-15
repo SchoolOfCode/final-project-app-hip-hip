@@ -19,9 +19,9 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
-const props = { user: { uid: 12345 } };
+// const props = { user: { uid: 12345 } };
 
-// let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
+let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
 function App(props) {
   const [roomInput, setRoomInput] = useState("");
