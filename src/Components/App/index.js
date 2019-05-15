@@ -21,9 +21,9 @@ const providers = {
 
 const props = { user: { uid: 12345 } };
 
-let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
+// let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
-function App() {
+function App(props) {
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
