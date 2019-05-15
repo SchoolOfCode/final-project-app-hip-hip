@@ -21,9 +21,10 @@ const providers = {
 };
 
 
-// const props = { user: { uid: Math.random() } };
+const props = { user: { uid: Math.random() } };
 
-const socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
+
+let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
 function App() {
   const [roomInput, setRoomInput] = useState("");
@@ -47,10 +48,15 @@ function App() {
   const [teamsThatHaveSubmitted, setTeamsThatHaveSubmitted] = useState([]);
 
   useEffect(() => {
-    props.user && socket.emit("login", props.user.uid);
-  });
+    socket.on("whoAreYou", () => {
+      if (props.user) {
+        socket.emit("login", props.user.uid);
+        console.log("logged in");
+      } else {
+        socket.emit("notGotIdYet");
+      }
+    });
 
-  useEffect(() => {
     socket.on("makeGameRoom", data => {
       console.log("new Game Room: ", data);
       setJoinedRoom(data);
@@ -96,8 +102,6 @@ function App() {
     });
     socket.on("tidbit", bit => setTidbit(bit));
     socket.on("scoreMessage", score => console.log("scoreMessage", score));
-    socket.emit("login", "username");
-
     socket.on("submitAllowed", boolean => setIsSubmitAllowed(boolean));
     socket.on("scoreUpdateMessage", message => setTeamMessage(message));
     socket.on("teamHasSubmitted", () => setHasSubmitted(true));
@@ -107,7 +111,12 @@ function App() {
   }, []);
 
   useEffect(() => {
+    !socket.connected ? console.log("discconected") : console.log("connected");
+  }, [socket.connected]);
+
+  useEffect(() => {
     props.user && console.log("user", props.user.uid);
+    props.user && socket.emit("login", props.user.uid);
   }, [props.user]);
 
   function getCurrentScore() {
