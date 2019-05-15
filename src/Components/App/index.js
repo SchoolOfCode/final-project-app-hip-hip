@@ -15,15 +15,16 @@ import ScoreBoard from "../ScoreBoard";
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
-  googleProvider: new firebase.auth.GoogleAuthProvider(),
-  facebookProvider: new firebase.auth.FacebookAuthProvider(),
-  twitterProvider: new firebase.auth.TwitterAuthProvider()
+    googleProvider: new firebase.auth.GoogleAuthProvider(),
+    facebookProvider: new firebase.auth.FacebookAuthProvider(),
+    twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
 
 // const props = { user: { uid: Math.random() } };
 
 const socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
+
 
 function App() {
   const [roomInput, setRoomInput] = useState("");
@@ -85,87 +86,16 @@ function App() {
         2: [],
         3: [],
         4: []
-      });
-      console.log(serverCard);
     });
-    socket.on("updateCardOptions", cards => {
-      if (cards) {
-        setliveCardUpdates(cards);
-      }
-      console.log("app live card updates", cards);
+    const [tidbit, setTidbit] = useState("");
+    const [isSubmitAllowed, setIsSubmitAllowed] = useState(false);
+    const [teamMessage, setTeamMessage] = useState("");
+    const [teamsThatHaveSubmitted, setTeamsThatHaveSubmitted] = useState([]);
+
+    useEffect(() => {
+        props.user && socket.emit("login", props.user.uid);
     });
-    socket.on("tidbit", bit => setTidbit(bit));
-    socket.on("scoreMessage", score => console.log("scoreMessage", score));
-    socket.emit("login", "username");
 
-    socket.on("submitAllowed", boolean => setIsSubmitAllowed(boolean));
-    socket.on("scoreUpdateMessage", message => setTeamMessage(message));
-    socket.on("teamHasSubmitted", () => setHasSubmitted(true));
-    socket.on("liveTeamSubmitUpdate", team =>
-      setTeamsThatHaveSubmitted([...teamsThatHaveSubmitted, team])
-    );
-  }, []);
-
-  useEffect(() => {
-    props.user && console.log("user", props.user.uid);
-  }, [props.user]);
-
-  function getCurrentScore() {
-    socket.emit("getCurrentScore", joinedRoom.id);
-  }
-
-  function makeGameRoom(numberOfTeams) {
-    socket.emit("makeGameRoom", { numberOfTeams, uid: props.user.uid });
-  }
-  function enterGameRoom() {
-    socket.emit("enterGameRoom", { roomId: roomInput, uid: props.user.uid });
-  }
-
-  function joinTeam(team, name) {
-    socket.emit("joinTeam", {
-      roomId: joinedRoom.id,
-      team,
-      name,
-      uid: props.user.uid
-    });
-  }
-
-  function startGame() {
-    socket.emit("startGame", joinedRoom.id);
-  }
-
-  function sendNextQuestion() {
-    socket.emit("sendNextQuestion", joinedRoom.id);
-  }
-
-  function deleteGameRoom() {
-    socket.emit("deleteGameRoom", joinedRoom.id);
-    setJoinedRoom({});
-    setTeamOptions([]);
-  }
-
-  function sendAnswerToServer(answerNumber) {
-    socket.emit("sendAnswer", {
-      roomId: joinedRoom.id,
-      team: teamColor,
-      playersAnswer: answerNumber,
-      correctAnswer: card.order
-    });
-  }
-
-  function submitTeamAnswer() {
-    socket.emit("submitTeamAnswer", { roomId: joinedRoom.id, team: teamColor });
-  }
-
-  function sendliveCardUpdates(answer, card) {
-    socket.emit("updateCardOptions", {
-      answer,
-      cardText: card.text,
-      correctAnswer: card.order,
-      roomId: joinedRoom.id,
-      team: teamColor
-    });
-  }
 
   function DeleteTeamMember(i, team) {
     socket.emit("removeUser", {
@@ -243,13 +173,12 @@ function App() {
               />
             )}
           />
+
         </div>
-      </Router>
-    </div>
-  );
+    );
 }
 
 export default withFirebaseAuth({
-  providers,
-  firebaseAppAuth
+    providers,
+    firebaseAppAuth
 })(App);

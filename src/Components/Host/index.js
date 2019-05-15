@@ -9,6 +9,7 @@ import CorrelateLogo from "../Branding/index";
 import QuestionHostCard from "../QuestionHostCard";
 
 export default function Host({
+
   makeGameRoom,
   startGame,
   joinedRoom,
@@ -27,12 +28,14 @@ export default function Host({
   teamsThatHaveSubmitted,
   setTeamsThatHaveSubmitted
 
+
 }) {
-  const [hasMadeRoom, setHasMadeRoom] = useState(false);
-  const [hasGameStarted, setHasGameStarted] = useState(false);
-  const [isTidbitShown, setIsTidbitShown] = useState(false);
-  const [isItQuestionTime, setIsItQuestionTime] = useState(true);
-  const [isGameReadyToStart, setIsGameReadyToStart] = useState(false);
+    const [hasMadeRoom, setHasMadeRoom] = useState(false);
+    const [hasGameStarted, setHasGameStarted] = useState(false);
+    const [isTidbitShown, setIsTidbitShown] = useState(false);
+    const [isItQuestionTime, setIsItQuestionTime] = useState(true);
+    const [isGameReadyToStart, setIsGameReadyToStart] = useState(false);
+
 
   return (
     <>
@@ -86,60 +89,61 @@ export default function Host({
           ) : (
             <>
               {/* {isTidbitShown ? (
+
                 tidbit
               ) : (
                 <button onClick={() => setIsTidbitShown(true)}>FUN FACT</button>
               )} */}
-              <HostScoreBoard
-                teamOptions={teamOptions}
-                joinedRoom={joinedRoom}
-              />
-            </>
-          )}
+                            <HostScoreBoard
+                                teamOptions={teamOptions}
+                                joinedRoom={joinedRoom}
+                            />
+                        </>
+                    )}
 
-          {!hasGameStarted
-            ? isGameReadyToStart && (
-                <button
-                  className={css.startGame}
-                  onClick={() => {
-                    startGame();
-                    setHasGameStarted(true);
-                    sendNextQuestion();
-                  }}
-                >
-                  start game
-                </button>
-              )
-            : !isItQuestionTime && (
-                <button
-                  className={css.showScores}
-                  onClick={() => {
-                    sendNextQuestion();
-                    setIsTidbitShown(false);
-                    setIsItQuestionTime(true);
-                  }}
-                >
-                  send next question
-                </button>
-              )}
-          <br />
-          {hasMadeRoom && (
-            <button
-              onClick={() => {
-                setHasMadeRoom(false);
-                deleteGameRoom();
-                setHasGameStarted(false);
-                setIsGameReadyToStart(false);
-              }}
-            >
-              make another room
-            </button>
-          )}
-          {appProps.user && (
-            <button onClick={appProps.signOut}>sign out</button>
-          )}
-        </div>
-      )}
-    </>
-  );
+                    {!hasGameStarted
+                        ? isGameReadyToStart && (
+                              <button
+                                  className={css.startGame}
+                                  onClick={() => {
+                                      startGame();
+                                      setHasGameStarted(true);
+                                      sendNextQuestion();
+                                  }}
+                              >
+                                  start game
+                              </button>
+                          )
+                        : !isItQuestionTime && (
+                              <button
+                                  className={css.showScores}
+                                  onClick={() => {
+                                      sendNextQuestion();
+                                      setIsTidbitShown(false);
+                                      setIsItQuestionTime(true);
+                                  }}
+                              >
+                                  send next question
+                              </button>
+                          )}
+                    <br />
+                    {hasMadeRoom && (
+                        <button
+                            onClick={() => {
+                                setHasMadeRoom(false);
+                                deleteGameRoom();
+                                setHasGameStarted(false);
+                                setIsGameReadyToStart(false);
+                            }}
+                        >
+                            make another room
+                        </button>
+                    )}
+                    {appProps.user && (
+                        <button onClick={appProps.signOut}>sign out</button>
+                    )}
+                </div>
+            )}
+        </>
+    );
 }
