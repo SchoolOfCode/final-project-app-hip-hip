@@ -46,20 +46,16 @@ export default function({
           {card.instruction[1]} {" --> "}
         </div>
       </div>
-      {hasAnswered && hasSubmitted ? (
-        <p>youve locked it in!!</p>
-      ) : (
-        isSubmitAllowed && (
-          <button
-            className={css.submit}
-            onClick={() => {
-              setHasSubmitted(true);
-              submitTeamAnswer(answer);
-            }}
-          >
-            Submit
-          </button>
-        )
+      {isSubmitAllowed && (
+        <button
+          className={css.submit}
+          onClick={() => {
+            setHasSubmitted(true);
+            submitTeamAnswer();
+          }}
+        >
+          Submit
+        </button>
       )}
     </div>
   );

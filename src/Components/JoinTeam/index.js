@@ -6,7 +6,7 @@ export default function({ setHasJoinedTeam, joinTeam, teamOptions }) {
   return (
     <>
       <input
-      className={css.nameInput}
+        className={css.nameInput}
         type="text"
         placeholder="your name here"
         value={name}
@@ -14,7 +14,8 @@ export default function({ setHasJoinedTeam, joinTeam, teamOptions }) {
       />
       <br />
       {teamOptions.map((item, i) => (
-        <button className={css.teamOptions}
+        <button
+          className={css.teamOptions}
           style={{ backgroundColor: item }}
           key={i}
           onClick={() => {
@@ -24,7 +25,7 @@ export default function({ setHasJoinedTeam, joinTeam, teamOptions }) {
             }
           }}
         >
-          {item}
+          join the {item} team
         </button>
       ))}
     </>
