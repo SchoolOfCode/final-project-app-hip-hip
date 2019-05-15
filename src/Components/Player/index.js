@@ -25,10 +25,10 @@ function Player({
   appProps,
   isSubmitAllowed,
   submitTeamAnswer,
-  teamMessage
+  teamMessage,
+  hasJoinedTeam,
+  setHasJoinedTeam
 }) {
-  const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
-
   return (
     <>
       {!appProps.user ? (

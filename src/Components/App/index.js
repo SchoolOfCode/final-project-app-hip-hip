@@ -19,7 +19,7 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
-// const props = { user: { uid: Math.random() } };
+// const props = { user: { uid: 12345 } };
 
 let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
@@ -43,6 +43,7 @@ function App(props) {
   const [isSubmitAllowed, setIsSubmitAllowed] = useState(false);
   const [teamMessage, setTeamMessage] = useState("");
   const [teamsThatHaveSubmitted, setTeamsThatHaveSubmitted] = useState([]);
+  const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
 
   useEffect(() => {
     socket.on("whoAreYou", () => {
@@ -53,7 +54,9 @@ function App(props) {
         socket.emit("notGotIdYet");
       }
     });
-
+    socket.on("rejoinMidGame", () => {
+      setHasJoinedTeam(true);
+    });
     socket.on("makeGameRoom", data => {
       console.log("new Game Room: ", data);
       setJoinedRoom(data);
@@ -213,6 +216,8 @@ function App(props) {
             render={routerProps => (
               <Player
                 {...routerProps}
+                hasJoinedTeam={hasJoinedTeam}
+                setHasJoinedTeam={setHasJoinedTeam}
                 teamMessage={teamMessage}
                 submitTeamAnswer={submitTeamAnswer}
                 isSubmitAllowed={isSubmitAllowed}
