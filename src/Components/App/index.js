@@ -9,6 +9,8 @@ import firebaseConfig from "../../firebaseConfig";
 
 import Host from "../Host";
 import Player from "../Player";
+import ScoreBoard from "../ScoreBoard";
+
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -18,28 +20,11 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
+
 const props = { user: { uid: Math.random() } };
 
-let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
-// setTimeout(
-//   () =>
-//     firebaseApp
-//       .auth()
-//       .currentUser.getIdToken()
-//       .then(idToken => {
-//         // idToken can be passed back to server.
-//         console.log(idToken);
-//       })
-//       .catch(error => {
-//         console.log(error);
-//         // Error occurred.
-//       }),
-//   1000
-// );
-// setTimeout(() => {
-//   console.log(firebaseApp.auth().currentUser);
-// }, 1000);
+let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
 function App() {
   const [roomInput, setRoomInput] = useState("");
@@ -191,6 +176,15 @@ function App() {
     });
   }
 
+  function DeleteTeamMember(i, team) {
+    socket.emit("removeUser", {
+      roomId: joinedRoom.id,
+      team,
+      uid: props.user.uid,
+      i
+    });
+  }
+
   return (
     <div>
       <Router>
@@ -212,7 +206,11 @@ function App() {
                 teamOptions={teamOptions}
                 getCurrentScore={getCurrentScore}
                 appProps={props}
+
+                DeleteTeamMember={DeleteTeamMember}
+
                 teamsThatHaveSubmitted={teamsThatHaveSubmitted}
+
               />
             )}
           />
@@ -241,6 +239,16 @@ function App() {
                 enterGameRoom={enterGameRoom}
                 joinTeam={joinTeam}
                 sendAnswerToServer={sendAnswerToServer}
+              />
+            )}
+          />
+          <Route
+            path="/score"
+            render={routerProps => (
+              <ScoreBoard
+                {...routerProps}
+                teamOptions={teamOptions}
+                joinedRoom={joinedRoom}
               />
             )}
           />

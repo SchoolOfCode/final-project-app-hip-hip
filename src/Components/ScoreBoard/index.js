@@ -1,7 +1,7 @@
 import React from "react";
 import "./ScoreBoard.css";
 
-export default function ScoreBoard({ score }) {
+export default function ScoreBoard({ teamOptions, joinedRoom }) {
   return (
     <div>
       <table>
@@ -32,4 +32,19 @@ export default function ScoreBoard({ score }) {
       </table>
     </div>
   );
+}
+
+{
+  /* <div>
+  {teamOptions.map((color, i) => (
+    <div
+      key={i}
+      style={{ backgroundColor: color }}
+      className={css.gridItem}
+    >
+      <h3>{color}</h3>
+      <p>{joinedRoom.roundScores[color]}</p>
+    </div>
+  ))}
+</div> */
 }
