@@ -13,7 +13,8 @@ export default function({
         style={{
           fontSize: 50,
           backgroundColor: "pink",
-          borderRadius: "10px"
+          borderRadius: "10px",
+          padding: "50px"
         }}
       >
         {gameMessage}
