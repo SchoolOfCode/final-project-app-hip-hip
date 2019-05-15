@@ -17,16 +17,12 @@ export default function Host({
   teamOptions,
   sendNextQuestion,
   tidbit,
-
   getRoundScore,
-  appProps,
-  DeleteTeamMember
-
+  DeleteTeamMember,
   getCurrentScore,
   appProps,
   teamsThatHaveSubmitted,
   setTeamsThatHaveSubmitted
-
 }) {
   const [hasMadeRoom, setHasMadeRoom] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
