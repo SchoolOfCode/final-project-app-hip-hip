@@ -16,20 +16,27 @@ export default function({
   isSubmitAllowed,
   submitTeamAnswer
 }) {
-  const [answer, setAnswer] = useState();
   console.log("live card updates", liveCardUpdates);
+
+  // const [cardHighlight, setCardHighlight] = useState({
+  //   0: false,
+  //   1: false,
+  //   2: false,
+  //   3: false
+  // });
 
   return (
     <div className={css.cardWrapper}>
       <h1 className={css.cardText}>{card.text}</h1>
       <div className={css.selectionWrapper}>
-        {selectionOptions.map(item => (
+        {selectionOptions.map((item, i) => (
           <button
+            // style={{ backgroundColor: cardHighlight[i] && "lightgreen" }}
             className={css.selection}
             onClick={() => {
               setHasAnswered(true);
-              setAnswer(item);
               sendliveCardUpdates(item, card);
+              // setCardHighlight({ [i]: true });
             }}
           >
             {liveCardUpdates[item].map(item => item.cardText)}

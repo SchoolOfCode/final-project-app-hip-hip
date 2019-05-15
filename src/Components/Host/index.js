@@ -32,12 +32,11 @@ export default function Host({
 
   return (
     <>
-      {" "}
       {!appProps.user ? (
         <Login appProps={appProps} />
       ) : (
         <div>
-          {!hasGameStarted && <CorrelateLogo />}
+          {!hasGameStarted ? <CorrelateLogo /> : ""}
           {!hasGameStarted && (
             <>
               <h3> Your room number is:</h3>
@@ -78,6 +77,7 @@ export default function Host({
                   <li key={i}>{team} has answered</li>
                 ))}
               </ol>
+              <h1>you are in room {joinedRoom.id}</h1>
             </>
           ) : (
             <>
