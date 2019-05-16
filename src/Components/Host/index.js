@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
+import { Route, Switch } from "react-router-dom";
+
 import RoomNumberPicker from "../RoomNumberPicker";
 import HostTeamJoiningBoxes from "../HostTeamJoiningBoxes";
 import HostScoreBoard from "../HostScoreBoard";
@@ -22,7 +25,8 @@ export default function Host({
   getCurrentScore,
   appProps,
   teamsThatHaveSubmitted,
-  setTeamsThatHaveSubmitted
+  setTeamsThatHaveSubmitted,
+  match
 }) {
   const [hasMadeRoom, setHasMadeRoom] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
@@ -35,106 +39,108 @@ export default function Host({
       {!appProps.user ? (
         <Login appProps={appProps} />
       ) : (
-        <div>
-          {!hasGameStarted ? <CorrelateLogo /> : ""}
-          {!hasGameStarted && (
-            <>
-              <h3> Your room number is:</h3>
-              <h1>{joinedRoom.id}</h1>
-              <h6>{gameMessage}</h6>
-            </>
-          )}
+        <>
           <div>
+            {!hasGameStarted ? <CorrelateLogo /> : ""}
             {!hasGameStarted && (
               <>
-                {" "}
-                {!hasMadeRoom && (
-                  <RoomNumberPicker
-                    setHasMadeRoom={setHasMadeRoom}
-                    makeGameRoom={makeGameRoom}
-                    setIsGameReadyToStart={setIsGameReadyToStart}
-                  />
-                )}
+                <h3> Your room number is:</h3>
+                <h1>{joinedRoom.id}</h1>
+                <h6>{gameMessage}</h6>
               </>
             )}
-          </div>
-          {!hasGameStarted ? (
-            <HostTeamJoiningBoxes
-              teamOptions={teamOptions}
-              joinedRoom={joinedRoom}
-              DeleteTeamMember={DeleteTeamMember}
-            />
-          ) : isItQuestionTime ? (
-            <>
-              <QuestionHostCard
-                setTeamsThatHaveSubmitted={setTeamsThatHaveSubmitted}
-                getCurrentScore={getCurrentScore}
-                setIsItQuestionTime={setIsItQuestionTime}
-                gameMessage={gameMessage}
+            <div>
+              {!hasGameStarted && (
+                <>
+                  {" "}
+                  {!hasMadeRoom && (
+                    <RoomNumberPicker
+                      setHasMadeRoom={setHasMadeRoom}
+                      makeGameRoom={makeGameRoom}
+                      setIsGameReadyToStart={setIsGameReadyToStart}
+                    />
+                  )}
+                </>
+              )}
+            </div>
+            {!hasGameStarted ? (
+              <HostTeamJoiningBoxes
+                teamOptions={teamOptions}
+                joinedRoom={joinedRoom}
+                DeleteTeamMember={DeleteTeamMember}
               />
-              <ol>
-                {teamsThatHaveSubmitted.map((team, i) => (
-                  <li key={i}>{team} has answered</li>
-                ))}
-              </ol>
-              <h1>you are in room {joinedRoom.id}</h1>
-            </>
-          ) : (
-            <>
-              {/* {isTidbitShown ? (
+            ) : isItQuestionTime ? (
+              <>
+                <QuestionHostCard
+                  setTeamsThatHaveSubmitted={setTeamsThatHaveSubmitted}
+                  getCurrentScore={getCurrentScore}
+                  setIsItQuestionTime={setIsItQuestionTime}
+                  gameMessage={gameMessage}
+                />
+                <ol>
+                  {teamsThatHaveSubmitted.map((team, i) => (
+                    <li key={i}>{team} has answered</li>
+                  ))}
+                </ol>
+                <h1>you are in room {joinedRoom.id}</h1>
+              </>
+            ) : (
+              <>
+                {/* {isTidbitShown ? (
                 tidbit
               ) : (
                 <button onClick={() => setIsTidbitShown(true)}>FUN FACT</button>
               )} */}
-              <HostScoreBoard
-                teamOptions={teamOptions}
-                joinedRoom={joinedRoom}
-              />
-            </>
-          )}
+                <HostScoreBoard
+                  teamOptions={teamOptions}
+                  joinedRoom={joinedRoom}
+                />
+              </>
+            )}
 
-          {!hasGameStarted
-            ? isGameReadyToStart && (
-                <button
-                  className={css.startGame}
-                  onClick={() => {
-                    startGame();
-                    setHasGameStarted(true);
-                    sendNextQuestion();
-                  }}
-                >
-                  start game
-                </button>
-              )
-            : !isItQuestionTime && (
-                <button
-                  className={css.showScores}
-                  onClick={() => {
-                    sendNextQuestion();
-                    setIsTidbitShown(false);
-                    setIsItQuestionTime(true);
-                  }}
-                >
-                  send next question
-                </button>
-              )}
-          <br />
-          {hasMadeRoom && (
-            <button
-              onClick={() => {
-                setHasMadeRoom(false);
-                deleteGameRoom();
-                setHasGameStarted(false);
-                setIsGameReadyToStart(false);
-              }}
-            >
-              make another room
-            </button>
-          )}
-          {appProps.user && (
-            <button onClick={appProps.signOut}>sign out</button>
-          )}
-        </div>
+            {!hasGameStarted
+              ? isGameReadyToStart && (
+                  <button
+                    className={css.startGame}
+                    onClick={() => {
+                      startGame();
+                      setHasGameStarted(true);
+                      sendNextQuestion();
+                    }}
+                  >
+                    start game
+                  </button>
+                )
+              : !isItQuestionTime && (
+                  <button
+                    className={css.showScores}
+                    onClick={() => {
+                      sendNextQuestion();
+                      setIsTidbitShown(false);
+                      setIsItQuestionTime(true);
+                    }}
+                  >
+                    send next question
+                  </button>
+                )}
+            <br />
+            {hasMadeRoom && (
+              <button
+                onClick={() => {
+                  setHasMadeRoom(false);
+                  deleteGameRoom();
+                  setHasGameStarted(false);
+                  setIsGameReadyToStart(false);
+                }}
+              >
+                make another room
+              </button>
+            )}
+            {appProps.user && (
+              <button onClick={appProps.signOut}>sign out</button>
+            )}
+          </div>
+        </>
       )}
     </>
   );

@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import css from "./roomnumberpicker.module.css";
 
-export default function({
-  makeGameRoom,
-  setHasMadeRoom,
-  setIsGameReadyToStart
-}) {
+export default function({ makeGameRoom }) {
   const [numberOfTeams, setNumberOfTeams] = useState(1);
 
   function changeNumberOfTeams(num) {
@@ -34,8 +30,6 @@ export default function({
         className={css.chooseNumberOfTeams}
         onClick={() => {
           makeGameRoom(numberOfTeams);
-          setHasMadeRoom(true);
-          setIsGameReadyToStart(true);
         }}
       >
         Make room with {numberOfTeams} teams

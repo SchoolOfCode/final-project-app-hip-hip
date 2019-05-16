@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import EnterRoom from "../EnterRoom";
 import JoinTeam from "../JoinTeam";
@@ -57,7 +57,6 @@ function Player({
           )}
           {card.gotCard && !hasSubmitted ? (
             <Card
-              setHasSubmitted={setHasSubmitted}
               submitTeamAnswer={submitTeamAnswer}
               isSubmitAllowed={isSubmitAllowed}
               sendliveCardUpdates={sendliveCardUpdates}

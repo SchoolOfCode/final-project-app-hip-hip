@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import openSocket from "socket.io-client";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import withFirebaseAuth from "react-with-firebase-auth";
 import * as firebase from "firebase/app";
@@ -10,6 +10,8 @@ import firebaseConfig from "../../firebaseConfig";
 import Host from "../Host";
 import Player from "../Player";
 import ScoreBoard from "../ScoreBoard";
+import Card from "../Card";
+import HostRouter from "../HostRouter";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -19,11 +21,11 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
-const props = { user: { uid: Math.random() } };
+// const props = { user: { uid: Math.random() } };
 
 let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
-function App() {
+function App(props) {
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
@@ -46,12 +48,14 @@ function App() {
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
 
   useEffect(() => {
+    socket.on("pageNavigation", path => controlRouteFromServer(path));
     socket.on("whoAreYou", () => {
       if (props.user) {
         socket.emit("login", props.user.uid);
         console.log("logged in");
       } else {
         socket.emit("notGotIdYet");
+        console.log("not logged in yet");
       }
     });
     socket.on("rejoinMidGame", () => {
@@ -109,15 +113,6 @@ function App() {
       setTeamsThatHaveSubmitted(teams)
     );
   }, []);
-
-  useEffect(() => {
-    !socket.connected ? console.log("discconected") : console.log("connected");
-  }, [socket.connected]);
-
-  useEffect(() => {
-    props.user && console.log("user", props.user.uid);
-    props.user && socket.emit("login", props.user.uid);
-  }, [props.user]);
 
   function getCurrentScore() {
     socket.emit("getCurrentScore", joinedRoom.id);
@@ -185,75 +180,93 @@ function App() {
     });
   }
 
+  function controlRouteFromServer(path) {
+    try {
+      props.history.replace(path);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
-    <div>
-      <Router>
-        <div>
-          <Route
-            exact
-            path="/"
-            render={routerProps => (
-              <Host
-                {...routerProps}
-                setTeamsThatHaveSubmitted={setTeamsThatHaveSubmitted}
-                tidbit={tidbit}
-                startGame={startGame}
-                gameMessage={gameMessage}
-                joinedRoom={joinedRoom}
-                makeGameRoom={makeGameRoom}
-                sendNextQuestion={sendNextQuestion}
-                deleteGameRoom={deleteGameRoom}
-                teamOptions={teamOptions}
-                getCurrentScore={getCurrentScore}
-                appProps={props}
-                DeleteTeamMember={DeleteTeamMember}
-                teamsThatHaveSubmitted={teamsThatHaveSubmitted}
-              />
-            )}
-          />
-          <Route
-            path="/join"
-            render={routerProps => (
-              <Player
-                {...routerProps}
-                hasJoinedTeam={hasJoinedTeam}
-                setHasJoinedTeam={setHasJoinedTeam}
-                teamMessage={teamMessage}
-                submitTeamAnswer={submitTeamAnswer}
-                isSubmitAllowed={isSubmitAllowed}
-                appProps={props}
-                card={card}
-                sendliveCardUpdates={sendliveCardUpdates}
-                teamColor={teamColor}
-                liveCardUpdates={liveCardUpdates}
-                hasAnswered={hasAnswered}
-                hasSubmitted={hasSubmitted}
-                setHasAnswered={setHasAnswered}
-                setHasSubmitted={setHasSubmitted}
-                gotNameAndInRoom={gotNameAndInRoom}
-                setRoomInput={setRoomInput}
-                teamOptions={teamOptions}
-                gameMessage={gameMessage}
-                roomInput={roomInput}
-                enterGameRoom={enterGameRoom}
-                joinTeam={joinTeam}
-                sendAnswerToServer={sendAnswerToServer}
-              />
-            )}
-          />
-          <Route
-            path="/score"
-            render={routerProps => (
-              <ScoreBoard
-                {...routerProps}
-                teamOptions={teamOptions}
-                joinedRoom={joinedRoom}
-              />
-            )}
-          />
-        </div>
-      </Router>
-    </div>
+    <>
+      <Switch>
+        <Route
+          path="/host"
+          render={routerProps => (
+            <HostRouter
+              {...routerProps}
+              appProps={props}
+              joinedRoom={joinedRoom}
+              makeGameRoom={makeGameRoom}
+              deleteGameRoom={deleteGameRoom}
+            />
+          )}
+        />
+        <Route
+          path="/oldhost"
+          render={routerProps => (
+            <Host
+              {...routerProps}
+              setTeamsThatHaveSubmitted={setTeamsThatHaveSubmitted}
+              tidbit={tidbit}
+              startGame={startGame}
+              gameMessage={gameMessage}
+              joinedRoom={joinedRoom}
+              makeGameRoom={makeGameRoom}
+              sendNextQuestion={sendNextQuestion}
+              deleteGameRoom={deleteGameRoom}
+              teamOptions={teamOptions}
+              getCurrentScore={getCurrentScore}
+              appProps={props}
+              DeleteTeamMember={DeleteTeamMember}
+              teamsThatHaveSubmitted={teamsThatHaveSubmitted}
+            />
+          )}
+        />
+        <Route
+          path="/join"
+          render={routerProps => (
+            <Player
+              {...routerProps}
+              hasJoinedTeam={hasJoinedTeam}
+              setHasJoinedTeam={setHasJoinedTeam}
+              teamMessage={teamMessage}
+              submitTeamAnswer={submitTeamAnswer}
+              isSubmitAllowed={isSubmitAllowed}
+              appProps={props}
+              card={card}
+              sendliveCardUpdates={sendliveCardUpdates}
+              teamColor={teamColor}
+              liveCardUpdates={liveCardUpdates}
+              hasAnswered={hasAnswered}
+              hasSubmitted={hasSubmitted}
+              setHasAnswered={setHasAnswered}
+              setHasSubmitted={setHasSubmitted}
+              gotNameAndInRoom={gotNameAndInRoom}
+              setRoomInput={setRoomInput}
+              teamOptions={teamOptions}
+              gameMessage={gameMessage}
+              roomInput={roomInput}
+              enterGameRoom={enterGameRoom}
+              joinTeam={joinTeam}
+              sendAnswerToServer={sendAnswerToServer}
+            />
+          )}
+        />
+        <Route
+          path="/score"
+          render={routerProps => (
+            <ScoreBoard
+              {...routerProps}
+              teamOptions={teamOptions}
+              joinedRoom={joinedRoom}
+            />
+          )}
+        />
+      </Switch>
+      <button onClick={props.signOut}>sign out</button>
+    </>
   );
 }
 
