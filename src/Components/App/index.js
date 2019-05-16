@@ -19,11 +19,11 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
-// const props = { user: { uid: 12345 } };
+const props = { user: { uid: Math.random() } };
 
 let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
-function App(props) {
+function App() {
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
@@ -105,8 +105,8 @@ function App(props) {
     socket.on("submitAllowed", boolean => setIsSubmitAllowed(boolean));
     socket.on("scoreUpdateMessage", message => setTeamMessage(message));
     socket.on("teamHasSubmitted", () => setHasSubmitted(true));
-    socket.on("liveTeamSubmitUpdate", team =>
-      setTeamsThatHaveSubmitted([...teamsThatHaveSubmitted, team])
+    socket.on("liveTeamSubmitUpdate", teams =>
+      setTeamsThatHaveSubmitted(teams)
     );
   }, []);
 
