@@ -8,7 +8,8 @@ export default function({
   liveCardUpdates,
   sendliveCardUpdates,
   isSubmitAllowed,
-  submitTeamAnswer
+  submitTeamAnswer,
+  answerFeedback
 }) {
   return (
     <div className={css.cardWrapper}>
@@ -16,6 +17,7 @@ export default function({
       <div className={css.selectionWrapper}>
         {selectionOptions.map((item, i) => (
           <button
+            style={{ backgroundColor: answerFeedback[i] }}
             key={i}
             className={css.selection}
             onClick={() => {
