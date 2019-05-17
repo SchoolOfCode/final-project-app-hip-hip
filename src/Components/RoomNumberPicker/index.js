@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import css from "./roomnumberpicker.module.css";
 
+
 export default function({ makeGameRoom }) {
   const [numberOfTeams, setNumberOfTeams] = useState(1);
 
-  function changeNumberOfTeams(num) {
-    if (num === 1) {
-      if (numberOfTeams < 4) {
-        setNumberOfTeams(numberOfTeams + num);
-      }
-    } else {
-      if (numberOfTeams > 1) {
-        setNumberOfTeams(numberOfTeams + num);
-      }
+
+    function changeNumberOfTeams(num) {
+        if (num === 1) {
+            if (numberOfTeams < 4) {
+                setNumberOfTeams(numberOfTeams + num);
+            }
+        } else {
+            if (numberOfTeams > 1) {
+                setNumberOfTeams(numberOfTeams + num);
+            }
+        }
     }
-  }
 
   return (
     <>
@@ -44,4 +46,5 @@ export default function({ makeGameRoom }) {
       </button>
     </>
   );
+
 }

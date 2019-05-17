@@ -12,6 +12,7 @@ import CorrelateLogo from "../Branding/index";
 import QuestionHostCard from "../QuestionHostCard";
 
 export default function Host({
+
   makeGameRoom,
   startGame,
   joinedRoom,
@@ -27,12 +28,14 @@ export default function Host({
   teamsThatHaveSubmitted,
   setTeamsThatHaveSubmitted,
   match
+
 }) {
-  const [hasMadeRoom, setHasMadeRoom] = useState(false);
-  const [hasGameStarted, setHasGameStarted] = useState(false);
-  const [isTidbitShown, setIsTidbitShown] = useState(false);
-  const [isItQuestionTime, setIsItQuestionTime] = useState(true);
-  const [isGameReadyToStart, setIsGameReadyToStart] = useState(false);
+    const [hasMadeRoom, setHasMadeRoom] = useState(false);
+    const [hasGameStarted, setHasGameStarted] = useState(false);
+    const [isTidbitShown, setIsTidbitShown] = useState(false);
+    const [isItQuestionTime, setIsItQuestionTime] = useState(true);
+    const [isGameReadyToStart, setIsGameReadyToStart] = useState(false);
+
 
   return (
     <>
@@ -87,6 +90,7 @@ export default function Host({
             ) : (
               <>
                 {/* {isTidbitShown ? (
+
                 tidbit
               ) : (
                 <button onClick={() => setIsTidbitShown(true)}>FUN FACT</button>
@@ -144,4 +148,5 @@ export default function Host({
       )}
     </>
   );
+
 }
