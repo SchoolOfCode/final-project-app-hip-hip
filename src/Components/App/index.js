@@ -49,16 +49,23 @@ function App(props) {
   const [teamsThatHaveSubmitted, setTeamsThatHaveSubmitted] = useState([]);
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
   const [serverCounter, setServerCounter] = useState({
-    question: 3,
-    round: 30
+    question: 0,
+    round: 0
   });
+  const [roundNumber, setRoundNumber] = useState(0);
 
   useEffect(() => {
     socket.on("pageNavigation", path => controlRouteFromServer(path));
-
+    socket.on("roundHasFinished", () => {
+      controlRouteFromServer("/play/score");
+    });
     socket.on("messageAndNav", data => {
-      console.log("got mes and nav");
+      console.log("message and nav", data.message);
       setGameMessage(data.message);
+
+      if (data.roundNumber) {
+        setRoundNumber(data.roundNumber);
+      }
       controlRouteFromServer(data.path);
     });
 
@@ -102,11 +109,12 @@ function App(props) {
     socket.on("gameMessage", message => {
       setGameMessage(message);
     });
-    socket.on("teamColor", color => setTeamColor(color));
+    socket.on("teamColor", color => {
+      controlRouteFromServer("/play/holding");
+      setTeamColor(color);
+    });
     socket.on("cardMessage", serverCard => {
       setCard({ gotCard: true, ...serverCard });
-      setHasAnswered(false);
-      setHasSubmitted(false);
       setIsSubmitAllowed(false);
       setliveCardUpdates({
         1: [],
@@ -114,6 +122,7 @@ function App(props) {
         3: [],
         4: []
       });
+      controlRouteFromServer("/play/card");
       console.log(serverCard);
     });
     socket.on("updateCardOptions", cards => {
@@ -257,6 +266,7 @@ function App(props) {
               deleteTeamMember={deleteTeamMember}
               gameMessage={gameMessage}
               serverCounter={serverCounter}
+              roundNumber={roundNumber}
             />
           )}
         />
@@ -271,6 +281,14 @@ function App(props) {
               setRoomInput={setRoomInput}
               joinTeam={joinTeam}
               teamOptions={teamOptions}
+              joinedRoom={joinedRoom}
+              teamColor={teamColor}
+              card={card}
+              sendliveCardUpdates={sendliveCardUpdates}
+              liveCardUpdates={liveCardUpdates}
+              submitTeamAnswer={submitTeamAnswer}
+              isSubmitAllowed={isSubmitAllowed}
+              serverCounter={serverCounter}
             />
           )}
         />
