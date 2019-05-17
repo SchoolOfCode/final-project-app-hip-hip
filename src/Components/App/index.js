@@ -143,7 +143,7 @@ function App(props) {
     socket.on("scoreMessage", score => console.log("scoreMessage", score));
     socket.on("submitAllowed", boolean => setIsSubmitAllowed(boolean));
     socket.on("scoreUpdateMessage", message => setTeamMessage(message));
-    socket.on("teamHasSubmitted", () => setHasSubmitted(true));
+    socket.on("teamHasSubmitted", () => setIsSubmitAllowed(false));
     socket.on("liveTeamSubmitUpdate", teams =>
       setTeamsThatHaveSubmitted(teams)
     );
