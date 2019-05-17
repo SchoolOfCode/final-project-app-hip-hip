@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function() {
-  return <div>join</div>;
+  return <div>the correct answer was</div>;
 }

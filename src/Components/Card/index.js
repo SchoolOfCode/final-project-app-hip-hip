@@ -5,22 +5,11 @@ const selectionOptions = [1, 2, 3, 4];
 
 export default function({
   card,
-  setHasAnswered,
-  setHasSubmitted,
   liveCardUpdates,
   sendliveCardUpdates,
   isSubmitAllowed,
   submitTeamAnswer
 }) {
-  console.log("live card updates", liveCardUpdates);
-
-  // const [cardHighlight, setCardHighlight] = useState({
-  //   0: false,
-  //   1: false,
-  //   2: false,
-  //   3: false
-  // });
-
   return (
     <div className={css.cardWrapper}>
       <h1 className={css.cardText}>{card.text}</h1>
@@ -28,12 +17,9 @@ export default function({
         {selectionOptions.map((item, i) => (
           <button
             key={i}
-            // style={{ backgroundColor: cardHighlight[i] && "lightgreen" }}
             className={css.selection}
             onClick={() => {
-              setHasAnswered(true);
               sendliveCardUpdates(item, card);
-              // setCardHighlight({ [i]: true });
             }}
           >
             {liveCardUpdates[item].map(item => item.cardText)}
@@ -54,7 +40,6 @@ export default function({
         <button
           className={css.submit}
           onClick={() => {
-            setHasSubmitted(true);
             submitTeamAnswer();
           }}
         >

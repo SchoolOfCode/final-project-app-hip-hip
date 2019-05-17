@@ -2,8 +2,11 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Login from "../../Components/Login";
-import EnterRoom from "../../Components/EnterRoom";
-import JoinTeam from "../..//Components/JoinTeam";
+import EnterRoomView from "../../Views/Player/EnterRoomView";
+import JoinTeamView from "../../Views/Player/JoinTeamView";
+import Holding from "../../Views/Player/HoldingPageView";
+import CardView from "../../Views/Player/CardView";
+import PlayerScoreView from "../../Views/Player/PlayerScore";
 
 export default function({
   match,
@@ -12,7 +15,16 @@ export default function({
   roomInput,
   setRoomInput,
   joinTeam,
-  teamOptions
+  teamOptions,
+  joinedRoom,
+  teamColor,
+  submitTeamAnswer,
+  isSubmitAllowed,
+  sendliveCardUpdates,
+  liveCardUpdates,
+  card,
+  sendAnswerToServer,
+  serverCounter
 }) {
   return !appProps.user ? (
     <Login appProps={appProps} />
@@ -22,7 +34,7 @@ export default function({
         exact
         path={`${match.url}`}
         render={() => (
-          <EnterRoom
+          <EnterRoomView
             enterGameRoom={enterGameRoom}
             roomInput={roomInput}
             setRoomInput={setRoomInput}
@@ -32,9 +44,28 @@ export default function({
       <Route
         path={`${match.url}/team`}
         render={() => (
-          <JoinTeam joinTeam={joinTeam} teamOptions={teamOptions} />
+          <JoinTeamView joinTeam={joinTeam} teamOptions={teamOptions} />
         )}
       />
+      <Route
+        path={`${match.url}/holding`}
+        render={() => <Holding joinedRoom={joinedRoom} teamColor={teamColor} />}
+      />
+      <Route
+        path={`${match.url}/card`}
+        render={() => (
+          <CardView
+            serverCounter={serverCounter}
+            card={card}
+            sendliveCardUpdates={sendliveCardUpdates}
+            liveCardUpdates={liveCardUpdates}
+            submitTeamAnswer={submitTeamAnswer}
+            isSubmitAllowed={isSubmitAllowed}
+          />
+        )}
+      />
+      <Route path={`${match.url}/score`} render={() => <PlayerScoreView />} />
+
       <Route render={() => <div>component not found...</div>} />
     </Switch>
   );
