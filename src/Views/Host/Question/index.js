@@ -9,7 +9,7 @@ export default function({ gameMessage, serverCounter }) {
       {serverCounter.question === 0 ? (
         <>
           <h2>CORRELATE!</h2>
-          <h2>{serverCounter.round} snds left</h2>
+          <h2 style={{ fontSize: "50px" }}>{serverCounter.round}</h2>
         </>
       ) : (
         <h2> {serverCounter.question}</h2>

@@ -248,6 +248,10 @@ function App(props) {
     }
   }
 
+  function abortGame() {
+    socket.emit("abort", joinedRoom.id);
+  }
+
   return (
     <>
       <Switch>
@@ -355,6 +359,7 @@ function App(props) {
         />
       </Switch>
       <button onClick={props.signOut}>sign out</button>
+      <button onClick={abortGame}>ABORT GAME</button>
     </>
   );
 }
