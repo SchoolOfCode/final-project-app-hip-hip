@@ -26,6 +26,7 @@ const providers = {
 let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
 function App(props) {
+  const [uid, setUid] = useState("");
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
@@ -46,15 +47,25 @@ function App(props) {
   const [teamMessage, setTeamMessage] = useState("");
   const [teamsThatHaveSubmitted, setTeamsThatHaveSubmitted] = useState([]);
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
+  const [serverCounter, setServerCounter] = useState(3);
 
   useEffect(() => {
     socket.on("pageNavigation", path => controlRouteFromServer(path));
+
+    socket.on("messageAndNav", data => {
+      console.log("got mes and nav");
+      setGameMessage(data.message);
+      controlRouteFromServer(data.path);
+    });
+
     socket.on("whoAreYou", () => {
-      if (props.user) {
-        socket.emit("login", props.user.uid);
+      console.log("who am i?");
+      if (firebaseAppAuth.currentUser) {
+        socket.emit("login", firebaseAppAuth.currentUser.uid);
         console.log("logged in");
       } else {
         socket.emit("notGotIdYet");
+        console.log(firebaseAppAuth.currentUser);
         console.log("not logged in yet");
       }
     });
@@ -66,7 +77,9 @@ function App(props) {
       setJoinedRoom(data);
       let options = Object.keys(data.teams);
       setTeamOptions(options);
+      controlRouteFromServer("/host/teams");
     });
+
     socket.on("enterGameRoom", data => {
       console.log("Entered Room", data);
       let options = Object.keys(data.teams);
@@ -112,6 +125,29 @@ function App(props) {
     socket.on("liveTeamSubmitUpdate", teams =>
       setTeamsThatHaveSubmitted(teams)
     );
+    socket.on("updateCounter", count => setServerCounter(count));
+  }, []);
+
+  // useEffect(() => {
+  //   !socket.connected ? console.log("discconected") : console.log("connected");
+  // }, [socket.connected]);
+
+  // useEffect(() => {
+  //   props.user && console.log("user", props.user.uid);
+  //   props.user && socket.emit("login", props.user.uid);
+  //   props.user && setUid(props.user.uid);
+  // }, [props.user]);
+
+  useEffect(() => {
+    setUid(firebaseAppAuth.currentUser);
+    if (firebaseAppAuth.currentUser) {
+      socket.emit("login", firebaseAppAuth.currentUser.uid);
+      console.log("logged in");
+    } else {
+      socket.emit("notGotIdYet");
+      console.log(firebaseAppAuth.currentUser);
+      console.log("not logged in yet");
+    }
   }, []);
 
   function getCurrentScore() {
@@ -135,6 +171,7 @@ function App(props) {
   }
 
   function startGame() {
+    console.log("startgame message sent");
     socket.emit("startGame", joinedRoom.id);
   }
 
@@ -146,6 +183,7 @@ function App(props) {
     socket.emit("deleteGameRoom", joinedRoom.id);
     setJoinedRoom({});
     setTeamOptions([]);
+    controlRouteFromServer("/host/makeroom");
   }
 
   function sendAnswerToServer(answerNumber) {
@@ -171,7 +209,7 @@ function App(props) {
     });
   }
 
-  function DeleteTeamMember(i, team) {
+  function deleteTeamMember(i, team) {
     socket.emit("removeUser", {
       roomId: joinedRoom.id,
       team,
@@ -196,10 +234,16 @@ function App(props) {
           render={routerProps => (
             <HostRouter
               {...routerProps}
+              card={card}
               appProps={props}
+              startGame={startGame}
               joinedRoom={joinedRoom}
               makeGameRoom={makeGameRoom}
               deleteGameRoom={deleteGameRoom}
+              teamOptions={teamOptions}
+              deleteTeamMember={deleteTeamMember}
+              gameMessage={gameMessage}
+              serverCounter={serverCounter}
             />
           )}
         />
@@ -219,7 +263,7 @@ function App(props) {
               teamOptions={teamOptions}
               getCurrentScore={getCurrentScore}
               appProps={props}
-              DeleteTeamMember={DeleteTeamMember}
+              deleteTeamMember={deleteTeamMember}
               teamsThatHaveSubmitted={teamsThatHaveSubmitted}
             />
           )}

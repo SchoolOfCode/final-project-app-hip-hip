@@ -1,11 +1,24 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import MakeGameRoom from "../../Views/MakeGameRoom";
+import MakeGameRoom from "../../Views/Host/MakeGameRoom";
+import PopulateTeams from "../../Views/Host/PopulateTeams";
+import Question from "../..//Views/Host/Question";
+
 import Login from "../../Components/Login";
 
-export default function({ match, appProps, makeGameRoom }) {
-  console.log(match);
+export default function({
+  match,
+  appProps,
+  makeGameRoom,
+  teamOptions,
+  joinedRoom,
+  deleteTeamMember,
+  deleteGameRoom,
+  startGame,
+  gameMessage,
+  serverCounter
+}) {
   return !appProps.user ? (
     <Login appProps={appProps} />
   ) : (
@@ -15,9 +28,24 @@ export default function({ match, appProps, makeGameRoom }) {
         render={() => <MakeGameRoom makeGameRoom={makeGameRoom} />}
       />
       <Route
-        path={`${match.url}/124`}
-        render={() => <div>i am a 124 route</div>}
+        path={`${match.url}/teams`}
+        render={() => (
+          <PopulateTeams
+            startGame={startGame}
+            teamOptions={teamOptions}
+            joinedRoom={joinedRoom}
+            deleteTeamMember={deleteTeamMember}
+            deleteGameRoom={deleteGameRoom}
+          />
+        )}
       />
+      <Route
+        path={`${match.url}/question`}
+        render={() => (
+          <Question gameMessage={gameMessage} serverCounter={serverCounter} />
+        )}
+      />
+
       <Route exact path={match.url} render={() => <div>i am a route</div>} />
       <Route render={() => <div>componet not found...</div>} />
     </Switch>
