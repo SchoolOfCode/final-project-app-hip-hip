@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import css from "./card.module.css";
-import Phone from "./phone.svg";
 
 const selectionOptions = [1, 2, 3, 4];
 
 export default function({
   card,
-  sendAnswerToServer,
   setHasAnswered,
   setHasSubmitted,
-  hasAnswered,
-  hasSubmitted,
   liveCardUpdates,
   sendliveCardUpdates,
   isSubmitAllowed,
@@ -31,6 +27,7 @@ export default function({
       <div className={css.selectionWrapper}>
         {selectionOptions.map((item, i) => (
           <button
+            key={i}
             // style={{ backgroundColor: cardHighlight[i] && "lightgreen" }}
             className={css.selection}
             onClick={() => {
@@ -47,10 +44,10 @@ export default function({
       <div className={css.instructionsWrapper}>
         <div>
           {" <-- "}
-          {card.instruction[0]}
+          {card.gotCard && card.instruction[0]}
         </div>
         <div>
-          {card.instruction[1]} {" --> "}
+          {card.gotCard && card.instruction[1]} {" --> "}
         </div>
       </div>
       {isSubmitAllowed && (
