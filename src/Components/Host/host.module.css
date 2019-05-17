@@ -5,33 +5,50 @@
 } */
 
 .startGame {
-  border-radius: 20px;
-  margin-top: 2vh;
-  padding: 10px;
-  font-size: 2em;
-  color: black;
-  background-color: lightgreen;
-  font-weight: bold;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-top: 2vh;
+    padding: 10px;
+    font-size: 2em;
+    color: black;
+    background-color: orange;
+    font-weight: bold;
 }
 .showScores {
-  border-radius: 20px;
-  margin-top: 2vh;
-  padding: 10px;
-  font-size: 1.5em;
-  color: black;
-  background-color: lightgreen;
-  font-weight: bold;
+    border-radius: 20px;
+    margin-top: 2vh;
+    padding: 10px;
+    font-size: 1.5em;
+    color: black;
+    background-color: lightgreen;
+    font-weight: bold;
 }
 .ipAddress {
-  display: inline-block;
-  width: 400px;
-  height: 50px;
-  background-color: lightgreen;
-  border: white 2px;
-  box-shadow: 5px black;
-  font-size: 30px;
+    display: inline-block;
+    width: 400px;
+    height: 50px;
+    background-color: lightgreen;
+    border: white 2px;
+    box-shadow: 5px black;
+    font-size: 30px;
 }
 
 .h3 {
-  font-size: 150px;
+    font-size: 150px;
+}
+
+.makeAnotherRoom {
+    margin-top: 20px;
+}
+
+.signOut {
+    margin-top: 20px;
+}
+
+.roomNumberBox {
+    margin: auto;
+    font-size: 4em;
+    width: 15%;
+    height: 10%;
+    /* background: orange; */
 }

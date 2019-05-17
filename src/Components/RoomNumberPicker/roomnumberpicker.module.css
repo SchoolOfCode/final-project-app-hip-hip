@@ -1,23 +1,34 @@
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .chooseNumberOfTeamsLess {
-  margin-top: 10vh;
-  height: 10vh;
-  width: 5vw;
-  background-color: lightgreen;
-  font-weight: bold;
+    margin-top: 10vh;
+    height: 10vh;
+    width: 5vw;
+    background-color: rgb(243, 187, 123);
+    font-weight: bold;
+    font-size: 3em;
 }
 
 .chooseNumberOfTeamsMore {
-  margin-top: 10vh;
-  height: 10vh;
-  width: 5vw;
-  background-color: lightgreen;
-  font-weight: bold;
+    margin-top: 10vh;
+    height: 10vh;
+    width: 5vw;
+    background-color: rgb(243, 187, 123);
+    font-weight: bold;
+    font-size: 3em;
 }
 
 .chooseNumberOfTeams {
-  margin-top: 10vh;
-  height: 10vh;
-  width: 20vw;
-  background-color: lightgreen;
-  font-weight: bold;
+    margin-top: 10vh;
+    height: 10vh;
+    width: 20vw;
+    background-color: orange;
+    font-weight: bold;
+    font-size: 1em;
+    margin-left: 2em;
+    margin-right: 2em;
 }
