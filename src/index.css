@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -7,6 +7,26 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  background: rgb(48, 82, 244);
+  background: linear-gradient(
+    27deg,
+    rgba(48, 82, 244, 1) 19%,
+    rgba(85, 167, 245, 0.9644900196406687) 46%,
+    rgba(110, 229, 247, 0.7936216723017332) 77%,
+    rgba(206, 245, 247, 0.8860586470916492) 93%
+  );
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 }
 
 code {

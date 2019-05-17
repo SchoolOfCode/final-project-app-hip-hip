@@ -20,7 +20,7 @@ export default function({ setHasJoinedTeam, joinTeam, teamOptions }) {
           key={i}
           onClick={() => {
             if (name.length > 0) {
-              setHasJoinedTeam(true);
+              // setHasJoinedTeam(true);
               joinTeam(item, name);
             }
           }}
