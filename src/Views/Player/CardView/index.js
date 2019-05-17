@@ -8,7 +8,8 @@ export default function({
   sendliveCardUpdates,
   isSubmitAllowed,
   submitTeamAnswer,
-  serverCounter
+  serverCounter,
+  answerFeedback
 }) {
   return (
     <div>
@@ -19,6 +20,7 @@ export default function({
         liveCardUpdates={liveCardUpdates}
         isSubmitAllowed={isSubmitAllowed}
         submitTeamAnswer={submitTeamAnswer}
+        answerFeedback={answerFeedback}
       />
     </div>
   );

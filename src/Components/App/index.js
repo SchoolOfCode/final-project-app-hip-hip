@@ -22,6 +22,8 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
+const initialAnswerColors = ["#7fa2ee", "#7fa2ee", "#7fa2ee", "#7fa2ee"];
+
 // const props = { user: { uid: Math.random() } };
 
 let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
@@ -53,8 +55,13 @@ function App(props) {
     round: 0
   });
   const [roundNumber, setRoundNumber] = useState(0);
+  const [answerFeedback, setAnswerFeedback] = useState(initialAnswerColors);
 
   useEffect(() => {
+    socket.on("answerFeedback", data => {
+      setGameMessage(data.message);
+      setAnswerFeedback(data.feedback);
+    });
     socket.on("pageNavigation", path => controlRouteFromServer(path));
     socket.on("roundHasFinished", () => {
       controlRouteFromServer("/play/score");
@@ -122,6 +129,7 @@ function App(props) {
         3: [],
         4: []
       });
+      setAnswerFeedback(initialAnswerColors);
       controlRouteFromServer("/play/card");
       console.log(serverCard);
     });
@@ -293,6 +301,7 @@ function App(props) {
               submitTeamAnswer={submitTeamAnswer}
               isSubmitAllowed={isSubmitAllowed}
               serverCounter={serverCounter}
+              answerFeedback={answerFeedback}
             />
           )}
         />
