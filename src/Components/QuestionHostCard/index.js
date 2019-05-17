@@ -2,33 +2,26 @@ import React from "react";
 import css from "./QuestionHostCard.module.css";
 
 export default function({
-  setIsItQuestionTime,
-  gameMessage,
-  getCurrentScore,
-  setTeamsThatHaveSubmitted
+    setIsItQuestionTime,
+    gameMessage,
+    getCurrentScore,
+    setTeamsThatHaveSubmitted
 }) {
-  return (
-    <>
-      <h1
-        style={{
-          fontSize: 50,
-          backgroundColor: "pink",
-          borderRadius: "10px",
-          padding: "50px"
-        }}
-      >
-        {gameMessage}
-      </h1>
-      <button
-        className={css.showScores}
-        onClick={() => {
-          getCurrentScore();
-          setIsItQuestionTime(false);
-          setTeamsThatHaveSubmitted([]);
-        }}
-      >
-        show scores
-      </button>
-    </>
-  );
+    return (
+        <>
+            <div className={css.questionBox}>
+                <h1>{gameMessage}</h1>
+            </div>
+            <button
+                className={css.showScores}
+                onClick={() => {
+                    getCurrentScore();
+                    setIsItQuestionTime(false);
+                    setTeamsThatHaveSubmitted([]);
+                }}
+            >
+                show scores
+            </button>
+        </>
+    );
 }

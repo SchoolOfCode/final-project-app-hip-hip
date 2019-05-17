@@ -1,19 +1,19 @@
 @import url(https://fonts.googleapis.com/css?family=Modak);
 
 .cardContainer {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30vw;
-
-    background: linear-gradient(#d3e2ee, #787ec2, #4c55b8);
 }
 .roundNumber {
     display: inline-block;
     font-family: "Modak", sans-serif;
-    font-size: 200px;
+    font-size: 290px;
     color: #da6608;
-    -webkit-text-stroke: 3px #282828;
+    -webkit-text-stroke: 4px #282828;
     position: relative;
     z-index: 10;
     top: -20px;
@@ -132,7 +132,7 @@
 .roundName {
     display: inline-block;
     font-family: "Modak", sans-serif;
-    font-size: 50px;
+    font-size: 100px;
     color: #da6608;
     -webkit-text-stroke: 2px #282828;
     position: relative;
@@ -173,7 +173,7 @@
 .roundMessage {
     display: inline-block;
     font-family: "Modak", sans-serif;
-    font-size: 50px;
+    font-size: 100px;
     color: #da6608;
     -webkit-text-stroke: 2px #282828;
     position: relative;
