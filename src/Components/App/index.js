@@ -10,8 +10,9 @@ import firebaseConfig from "../../firebaseConfig";
 import Host from "../Host";
 import Player from "../Player";
 import ScoreBoard from "../ScoreBoard";
-import Card from "../Card";
+// import Card from "../Card";
 import HostRouter from "../HostRouter";
+import PlayerRouter from "../PlayerRouter";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -47,7 +48,10 @@ function App(props) {
   const [teamMessage, setTeamMessage] = useState("");
   const [teamsThatHaveSubmitted, setTeamsThatHaveSubmitted] = useState([]);
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
-  const [serverCounter, setServerCounter] = useState(3);
+  const [serverCounter, setServerCounter] = useState({
+    question: 3,
+    round: 30
+  });
 
   useEffect(() => {
     socket.on("pageNavigation", path => controlRouteFromServer(path));
@@ -86,6 +90,7 @@ function App(props) {
       setTeamOptions(options);
       setJoinedRoom(data);
       setGotNameAndInRoom(true);
+      controlRouteFromServer("/play/team");
     });
     socket.on("updateHostRoom", room => {
       setJoinedRoom(room);
@@ -125,7 +130,9 @@ function App(props) {
     socket.on("liveTeamSubmitUpdate", teams =>
       setTeamsThatHaveSubmitted(teams)
     );
-    socket.on("updateCounter", count => setServerCounter(count));
+    socket.on("updateCounter", count =>
+      setServerCounter({ ...serverCounter, ...count })
+    );
   }, []);
 
   // useEffect(() => {
@@ -155,10 +162,16 @@ function App(props) {
   }
 
   function makeGameRoom(numberOfTeams) {
-    socket.emit("makeGameRoom", { numberOfTeams, uid: props.user.uid });
+    socket.emit("makeGameRoom", {
+      numberOfTeams,
+      uid: firebaseAppAuth.currentUser.uid
+    });
   }
   function enterGameRoom() {
-    socket.emit("enterGameRoom", { roomId: roomInput, uid: props.user.uid });
+    socket.emit("enterGameRoom", {
+      roomId: roomInput,
+      uid: firebaseAppAuth.currentUser.uid
+    });
   }
 
   function joinTeam(team, name) {
@@ -166,7 +179,7 @@ function App(props) {
       roomId: joinedRoom.id,
       team,
       name,
-      uid: props.user.uid
+      uid: firebaseAppAuth.currentUser.uid
     });
   }
 
@@ -213,14 +226,14 @@ function App(props) {
     socket.emit("removeUser", {
       roomId: joinedRoom.id,
       team,
-      uid: props.user.uid,
+      uid: firebaseAppAuth.currentUser.uid,
       i
     });
   }
 
   function controlRouteFromServer(path) {
     try {
-      props.history.replace(path);
+      props.history.push(path);
     } catch (err) {
       console.log(err);
     }
@@ -248,6 +261,20 @@ function App(props) {
           )}
         />
         <Route
+          path="/play"
+          render={routerProps => (
+            <PlayerRouter
+              {...routerProps}
+              appProps={props}
+              enterGameRoom={enterGameRoom}
+              roomInput={roomInput}
+              setRoomInput={setRoomInput}
+              joinTeam={joinTeam}
+              teamOptions={teamOptions}
+            />
+          )}
+        />
+        <Route
           path="/oldhost"
           render={routerProps => (
             <Host
@@ -269,7 +296,7 @@ function App(props) {
           )}
         />
         <Route
-          path="/join"
+          path="/oldjoin"
           render={routerProps => (
             <Player
               {...routerProps}
