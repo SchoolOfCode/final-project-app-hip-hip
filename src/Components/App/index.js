@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import openSocket from "socket.io-client";
 import { Route, Switch } from "react-router-dom";
+import initialState from "./initialState";
 
 import withFirebaseAuth from "react-with-firebase-auth";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "../../firebaseConfig";
 
-import Host from "../Host";
-import Player from "../Player";
-import ScoreBoard from "../ScoreBoard";
-// import Card from "../Card";
 import HostRouter from "../HostRouter";
 import PlayerRouter from "../PlayerRouter";
 
@@ -22,29 +19,21 @@ const providers = {
   twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
-const initialAnswerColors = ["#7fa2ee", "#7fa2ee", "#7fa2ee", "#7fa2ee"];
-
 // const props = { user: { uid: Math.random() } };
 
 let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
 function App(props) {
-  const [uid, setUid] = useState("");
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
   const [teamOptions, setTeamOptions] = useState([]);
-  const [gotNameAndInRoom, setGotNameAndInRoom] = useState(false);
+
   const [teamColor, setTeamColor] = useState("orange");
   const [card, setCard] = useState({ gotCard: false });
-  const [hasAnswered, setHasAnswered] = useState(false);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [liveCardUpdates, setliveCardUpdates] = useState({
-    1: [],
-    2: [],
-    3: [],
-    4: []
-  });
+  const [liveCardUpdates, setliveCardUpdates] = useState(
+    initialState.liveCardUpdates
+  );
   const [tidbit, setTidbit] = useState("");
   const [isSubmitAllowed, setIsSubmitAllowed] = useState(false);
   const [teamMessage, setTeamMessage] = useState("");
@@ -55,12 +44,16 @@ function App(props) {
     round: 0
   });
   const [roundNumber, setRoundNumber] = useState(0);
-  const [answerFeedback, setAnswerFeedback] = useState(initialAnswerColors);
+  const [answerFeedback, setAnswerFeedback] = useState(
+    initialState.answerColors
+  );
+  const [showPoints, setShowPoints] = useState(false);
 
   useEffect(() => {
     socket.on("answerFeedback", data => {
       setGameMessage(data.message);
       setAnswerFeedback(data.feedback);
+      setShowPoints(true);
     });
     socket.on("pageNavigation", path => controlRouteFromServer(path));
     socket.on("roundHasFinished", () => {
@@ -103,16 +96,11 @@ function App(props) {
       let options = Object.keys(data.teams);
       setTeamOptions(options);
       setJoinedRoom(data);
-      setGotNameAndInRoom(true);
       controlRouteFromServer("/play/team");
     });
     socket.on("updateHostRoom", room => {
       setJoinedRoom(room);
     });
-    // socket.on("showScore", data => {
-    //   console.log("showScore", data);
-    //   setScore(data);
-    // });
     socket.on("gameMessage", message => {
       setGameMessage(message);
     });
@@ -123,13 +111,9 @@ function App(props) {
     socket.on("cardMessage", serverCard => {
       setCard({ gotCard: true, ...serverCard });
       setIsSubmitAllowed(false);
-      setliveCardUpdates({
-        1: [],
-        2: [],
-        3: [],
-        4: []
-      });
-      setAnswerFeedback(initialAnswerColors);
+      setliveCardUpdates(initialState.liveCardUpdates);
+      setAnswerFeedback(initialState.answerColors);
+      setShowPoints(false);
       controlRouteFromServer("/play/card");
       console.log(serverCard);
     });
@@ -137,13 +121,11 @@ function App(props) {
       if (cards) {
         setliveCardUpdates(cards);
       }
-      console.log("app live card updates", cards);
     });
     socket.on("tidbit", bit => setTidbit(bit));
     socket.on("scoreMessage", score => console.log("scoreMessage", score));
     socket.on("submitAllowed", boolean => setIsSubmitAllowed(boolean));
     socket.on("scoreUpdateMessage", message => setTeamMessage(message));
-    socket.on("teamHasSubmitted", () => setHasSubmitted(true));
     socket.on("liveTeamSubmitUpdate", teams =>
       setTeamsThatHaveSubmitted(teams)
     );
@@ -152,18 +134,7 @@ function App(props) {
     );
   }, []);
 
-  // useEffect(() => {
-  //   !socket.connected ? console.log("discconected") : console.log("connected");
-  // }, [socket.connected]);
-
-  // useEffect(() => {
-  //   props.user && console.log("user", props.user.uid);
-  //   props.user && socket.emit("login", props.user.uid);
-  //   props.user && setUid(props.user.uid);
-  // }, [props.user]);
-
   useEffect(() => {
-    setUid(firebaseAppAuth.currentUser);
     if (firebaseAppAuth.currentUser) {
       socket.emit("login", firebaseAppAuth.currentUser.uid);
       console.log("logged in");
@@ -264,6 +235,21 @@ function App(props) {
     <>
       <Switch>
         <Route
+          exact
+          path="/"
+          render={() => (
+            <div>
+              <button onClick={() => controlRouteFromServer("/host/makeroom")}>
+                make room
+              </button>
+              <button onClick={() => controlRouteFromServer("/play")}>
+                join room
+              </button>
+            </div>
+          )}
+        />
+
+        <Route
           path="/host"
           render={routerProps => (
             <HostRouter
@@ -279,6 +265,7 @@ function App(props) {
               gameMessage={gameMessage}
               serverCounter={serverCounter}
               roundNumber={roundNumber}
+              teamsThatHaveSubmitted={teamsThatHaveSubmitted}
             />
           )}
         />
@@ -302,67 +289,7 @@ function App(props) {
               isSubmitAllowed={isSubmitAllowed}
               serverCounter={serverCounter}
               answerFeedback={answerFeedback}
-            />
-          )}
-        />
-        <Route
-          path="/oldhost"
-          render={routerProps => (
-            <Host
-              {...routerProps}
-              setTeamsThatHaveSubmitted={setTeamsThatHaveSubmitted}
-              tidbit={tidbit}
-              startGame={startGame}
-              gameMessage={gameMessage}
-              joinedRoom={joinedRoom}
-              makeGameRoom={makeGameRoom}
-              sendNextQuestion={sendNextQuestion}
-              deleteGameRoom={deleteGameRoom}
-              teamOptions={teamOptions}
-              getCurrentScore={getCurrentScore}
-              appProps={props}
-              deleteTeamMember={deleteTeamMember}
-              teamsThatHaveSubmitted={teamsThatHaveSubmitted}
-            />
-          )}
-        />
-        <Route
-          path="/oldjoin"
-          render={routerProps => (
-            <Player
-              {...routerProps}
-              hasJoinedTeam={hasJoinedTeam}
-              setHasJoinedTeam={setHasJoinedTeam}
-              teamMessage={teamMessage}
-              submitTeamAnswer={submitTeamAnswer}
-              isSubmitAllowed={isSubmitAllowed}
-              appProps={props}
-              card={card}
-              sendliveCardUpdates={sendliveCardUpdates}
-              teamColor={teamColor}
-              liveCardUpdates={liveCardUpdates}
-              hasAnswered={hasAnswered}
-              hasSubmitted={hasSubmitted}
-              setHasAnswered={setHasAnswered}
-              setHasSubmitted={setHasSubmitted}
-              gotNameAndInRoom={gotNameAndInRoom}
-              setRoomInput={setRoomInput}
-              teamOptions={teamOptions}
-              gameMessage={gameMessage}
-              roomInput={roomInput}
-              enterGameRoom={enterGameRoom}
-              joinTeam={joinTeam}
-              sendAnswerToServer={sendAnswerToServer}
-            />
-          )}
-        />
-        <Route
-          path="/score"
-          render={routerProps => (
-            <ScoreBoard
-              {...routerProps}
-              teamOptions={teamOptions}
-              joinedRoom={joinedRoom}
+              showPoints={showPoints}
             />
           )}
         />

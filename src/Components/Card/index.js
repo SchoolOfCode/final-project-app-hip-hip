@@ -11,23 +11,27 @@ export default function({
   sendliveCardUpdates,
   isSubmitAllowed,
   submitTeamAnswer,
-  answerFeedback
+  answerFeedback,
+  showPoints
 }) {
   return (
     <div className={css.cardWrapper}>
       <h1 className={css.cardText}>{card.text}</h1>
       <div className={css.selectionWrapper}>
         {selectionOptions.map((item, i) => (
-          <button
-            style={{ backgroundColor: answerFeedback[i] }}
-            key={i}
-            className={css.selection}
-            onClick={() => {
-              sendliveCardUpdates(item, card);
-            }}
-          >
-            {liveCardUpdates[item].map(item => item.cardText)}
-          </button>
+          <>
+            {showPoints && <div>{item.points}</div>}
+            <button
+              style={{ backgroundColor: answerFeedback[i].color }}
+              key={i}
+              className={css.selection}
+              onClick={() => {
+                sendliveCardUpdates(item, card);
+              }}
+            >
+              {liveCardUpdates[item].map(item => item.cardText)}
+            </button>
+          </>
         ))}
       </div>
       <br />

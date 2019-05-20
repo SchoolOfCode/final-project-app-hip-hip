@@ -24,7 +24,8 @@ export default function({
   liveCardUpdates,
   card,
   serverCounter,
-  answerFeedback
+  answerFeedback,
+  showPoints
 }) {
   return !appProps.user ? (
     <Login appProps={appProps} />
@@ -62,6 +63,7 @@ export default function({
             submitTeamAnswer={submitTeamAnswer}
             isSubmitAllowed={isSubmitAllowed}
             answerFeedback={answerFeedback}
+            showPoints={showPoints}
           />
         )}
       />
