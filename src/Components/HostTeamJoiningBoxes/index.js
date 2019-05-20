@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./HostTeamJoiningBoxes.module.css";
 
-export default function({ teamOptions, joinedRoom, DeleteTeamMember }) {
+export default function({ teamOptions, joinedRoom, deleteTeamMember }) {
   return (
     <div className={css.teamsWrapper}>
       {teamOptions.map((color, i) => (
@@ -17,7 +17,7 @@ export default function({ teamOptions, joinedRoom, DeleteTeamMember }) {
                 {player.name}{" "}
                 <button
                   onClick={() => {
-                    DeleteTeamMember(i, color);
+                    deleteTeamMember(i, color);
                   }}
                 >
                   X
