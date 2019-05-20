@@ -1,0 +1,14 @@
+.counter {
+  display: inline-block;
+  font-family: "Modak", sans-serif;
+  font-size: 190px;
+  color: #da6608;
+  -webkit-text-stroke: 1.5px #282828;
+  position: relative;
+  z-index: 0;
+  top: 10%;
+  line-height: 130%;
+
+  margin-right: -10px;
+  transform: translate3d(0, -300px, 0);
+}

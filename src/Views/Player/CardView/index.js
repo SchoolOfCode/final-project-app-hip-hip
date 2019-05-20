@@ -1,6 +1,7 @@
 import React from "react";
 
 import Card from "../../../Components/Card";
+import Timer from "../../../Components/CountdownTimer";
 
 export default function({
   card,
@@ -13,7 +14,6 @@ export default function({
 }) {
   return (
     <div>
-      {serverCounter.round}
       <Card
         card={card}
         sendliveCardUpdates={sendliveCardUpdates}
@@ -22,6 +22,8 @@ export default function({
         submitTeamAnswer={submitTeamAnswer}
         answerFeedback={answerFeedback}
       />
+
+      <Timer counter={serverCounter.round} />
     </div>
   );
 }
