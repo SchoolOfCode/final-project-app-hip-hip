@@ -1,5 +1,7 @@
 import React from "react";
 import css from "./card.module.css";
+import LeftArrow from "../LeftArrow";
+import RightArrow from "../RightArrow";
 
 const selectionOptions = [1, 2, 3, 4];
 
@@ -31,11 +33,11 @@ export default function({
       <br />
       <div className={css.instructionsWrapper}>
         <div>
-          {" <-- "}
+          {LeftArrow}
           {card.gotCard && card.instruction[0]}
         </div>
         <div>
-          {card.gotCard && card.instruction[1]} {" --> "}
+          {card.gotCard && card.instruction[1]} {RightArrow}
         </div>
       </div>
       {isSubmitAllowed && (

@@ -1,8 +1,8 @@
 import React from "react";
-import css from "../CountdownTimer/CountDownTimer.module.css";
+import css from "./CountDownTimer.module.css";
 
-const Timer = () => {
-    return <div className={css.container} />;
+const Timer = props => {
+  return <div className={css.counter}>{props.counter}</div>;
 };
 
 export default Timer;
