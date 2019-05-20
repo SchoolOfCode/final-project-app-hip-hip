@@ -1,5 +1,10 @@
 import React from "react";
+import CorrectAnswer from "../../../Components/CorrectAnswer";
 
 export default function() {
-  return <div>the correct answer was</div>;
+  return (
+    <div>
+      <CorrectAnswer card={liveCardUpdates()} />
+    </div>
+  );
 }
