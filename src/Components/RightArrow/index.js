@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./rightarrow.module.css";
 
-const LeftArrow = () => {
+const RightArrow = () => {
   return <div className={css.rightArrow} />;
 };
 
