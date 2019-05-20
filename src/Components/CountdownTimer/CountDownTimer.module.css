@@ -5,4 +5,15 @@
   -webkit-text-stroke: 1.5px #282828;
   z-index: 0;
   line-height: 130%;
+  animation-name: widthChange;
+  animation-duration: 30s;
+}
+
+@keyframes counter {
+  from {
+    width: 600px;
+  }
+  to {
+    width: 0px;
+  }
 }
