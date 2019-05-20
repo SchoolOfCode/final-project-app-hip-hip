@@ -1,21 +1,23 @@
 import React from "react";
 import css from "../ScoreBoard/ScoreBoard.module.css";
 
+import cn from "classnames";
+
+const cssOrder = ["teamOne", "teamTwo", "teamThree", "teamFour"].reverse();
+
 export default function ScoreBoard({ teamOptions, joinedRoom }) {
+  let orderedTeams = teamOptions.sort(
+    (team, team2) => joinedRoom.scores[team] - joinedRoom.scores[team2]
+  );
   return (
     <div className={css.teamScoreContainer}>
-      <p className={css.teamOne}>
-        {teamOptions[0]}: {joinedRoom.scores[teamOptions[0]]}{" "}
-      </p>
-      <p className={css.teamTwo}>
-        {teamOptions[1]}: {joinedRoom.scores[teamOptions[1]]}{" "}
-      </p>
-      <p className={css.teamThree}>
-        {teamOptions[2]}: {joinedRoom.scores[teamOptions[2]]}{" "}
-      </p>
-      <p className={css.teamFour}>
-        {teamOptions[3]}: {joinedRoom.scores[teamOptions[3]]}{" "}
-      </p>
+      {orderedTeams.map((team, i) => {
+        return (
+          <p key={i} className={cn(css[cssOrder[i]])}>
+            {team}: {joinedRoom.scores[team]}
+          </p>
+        );
+      })}
     </div>
   );
 }

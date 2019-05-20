@@ -10,7 +10,8 @@ export default function({
   isSubmitAllowed,
   submitTeamAnswer,
   serverCounter,
-  answerFeedback
+  answerFeedback,
+  showPoints
 }) {
   return (
     <div>
@@ -21,6 +22,7 @@ export default function({
         isSubmitAllowed={isSubmitAllowed}
         submitTeamAnswer={submitTeamAnswer}
         answerFeedback={answerFeedback}
+        showPoints={showPoints}
       />
 
       <Timer counter={serverCounter.round} />
