@@ -1,5 +1,7 @@
 import React from "react";
 import css from "./HostScoreBoard.module.css";
+import RoomNumberBox from "../../Components/RoomNumberBox";
+
 export default function({ teamOptions, joinedRoom }) {
   return (
     <div>
@@ -13,6 +15,8 @@ export default function({ teamOptions, joinedRoom }) {
           <p>{joinedRoom.scores[color]}</p>
         </div>
       ))}
+
+      <RoomNumberBox joinedRoom={joinedRoom.id} />
     </div>
   );
 }

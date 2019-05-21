@@ -4,7 +4,8 @@ import css from "./PlayerScore.module.css";
 export default function() {
   return (
     <div className={css.textContainer}>
-      well done, you may have scored some points
+      <span>well done!</span>
+      you may have scored some points
     </div>
   );
 }

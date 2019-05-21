@@ -10,6 +10,7 @@ import firebaseConfig from "../../firebaseConfig";
 
 import HostRouter from "../HostRouter";
 import PlayerRouter from "../PlayerRouter";
+import RoomNumberBox from "../RoomNumberBox";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -295,7 +296,7 @@ function App(props) {
         />
       </Switch>
       <button onClick={props.signOut}>sign out</button>
-      <button onClick={abortGame}>ABORT GAME</button>
+      <button onClick={abortGame}>QUIT</button>
     </>
   );
 }
