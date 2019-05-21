@@ -11,6 +11,7 @@ import firebaseConfig from "../../firebaseConfig";
 import HostRouter from "../HostRouter";
 import PlayerRouter from "../PlayerRouter";
 
+
 import RoomNumberBox from "../RoomNumberBox";
 
 import GameInstructions from "../GameInstructions"
@@ -67,7 +68,9 @@ function App(props) {
     });
     socket.on("messageAndNav", data => {
       console.log("message and nav", data.message);
-      setGameMessage(data.message);
+      if (data.message) {
+        setGameMessage(data.message);
+      }
 
       if (data.roundNumber) {
         setRoundNumber(data.roundNumber);
@@ -239,7 +242,7 @@ function App(props) {
   }
 
   function toggle() {
-    setIsShow(!isShow)
+    setIsShow(!isShow);
   }
 
   return (

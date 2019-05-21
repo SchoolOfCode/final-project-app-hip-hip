@@ -6,9 +6,6 @@ class KeyPadComponent extends Component {
     let { result } = this.props;
     return (
       <div className={css.keypad}>
-        <div className={css.result}>
-          <p>{result}</p>
-        </div>
         <br />
         <button
           className={css.button}

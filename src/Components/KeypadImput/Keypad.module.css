@@ -14,11 +14,6 @@
   background: #7fa2ee;
   outline: 0;
 }
-.result {
-  height: 60px;
-  background-color: #bbb;
-  width: 100%;
-}
 
 .result p {
   font-size: 40px;
