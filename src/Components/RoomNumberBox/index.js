@@ -1,11 +1,11 @@
 import React from "react";
 import css from "./RoomNumberBox.module.css";
 
-const RoomNumberBox = props => {
+const RoomNumberBox = ({ joinedRoom }) => {
   return (
     <div className={css.roomNumber}>
       <span className={css.text}>Room</span>
-      <span className={css.number}>{props.joinedRoom}</span>
+      <span className={css.number}>{joinedRoom.id && joinedRoom.id}</span>
     </div>
   );
 };
