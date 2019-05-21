@@ -53,6 +53,7 @@ function App(props) {
   );
   const [showPoints, setShowPoints] = useState(false);
   const [isShow, setIsShow] = useState(false);
+  const [pictureUrl, setPictureUrl] = useState("");
 
   useEffect(() => {
     socket.on("answerFeedback", data => {
@@ -124,6 +125,10 @@ function App(props) {
       setShowPoints(false);
       controlRouteFromServer("/play/card");
       console.log(serverCard);
+    });
+    socket.on("pictureMessage", ({ url }) => {
+      setPictureUrl(url);
+      controlRouteFromServer("/play/picture");
     });
     socket.on("updateCardOptions", cards => {
       if (cards) {
@@ -306,6 +311,7 @@ function App(props) {
               answerFeedback={answerFeedback}
               showPoints={showPoints}
               gameMessage={gameMessage}
+              pictureUrl={pictureUrl}
             />
           )}
         />

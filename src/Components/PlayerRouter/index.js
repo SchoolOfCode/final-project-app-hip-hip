@@ -7,6 +7,7 @@ import JoinTeamView from "../../Views/Player/JoinTeamView";
 import Holding from "../../Views/Player/HoldingPageView";
 import CardView from "../../Views/Player/CardView";
 import PlayerScoreView from "../../Views/Player/PlayerScore";
+import PictureRoundView from "../../Views/Player/PictureRoundView";
 
 export default function({
   match,
@@ -26,7 +27,8 @@ export default function({
   serverCounter,
   answerFeedback,
   showPoints,
-  gameMessage
+  gameMessage,
+  pictureUrl
 }) {
   return !appProps.user ? (
     <Login appProps={appProps} />
@@ -77,6 +79,10 @@ export default function({
             gameMessage={gameMessage}
           />
         )}
+      />
+      <Route
+        path={`${match.url}/picture`}
+        render={() => <PictureRoundView pictureUrl={pictureUrl} />}
       />
 
       <Route render={() => <div>component not found...</div>} />
