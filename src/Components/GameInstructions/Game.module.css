@@ -1,0 +1,32 @@
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background-color: rgb(85, 203, 243); */
+  background: rgb(48, 82, 244);
+  background: linear-gradient(
+    27deg,
+    rgba(48, 82, 244, 1) 19%,
+    rgba(85, 167, 245, 0.9644900196406687) 46%,
+    rgba(110, 229, 247, 0.7936216723017332) 77%,
+    rgba(206, 245, 247, 0.8860586470916492) 93%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instruction {
+  background-color: white;
+  color: black;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

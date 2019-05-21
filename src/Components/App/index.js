@@ -10,6 +10,7 @@ import firebaseConfig from "../../firebaseConfig";
 
 import HostRouter from "../HostRouter";
 import PlayerRouter from "../PlayerRouter";
+import GameInstructions from "../GameInstructions"
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -48,6 +49,7 @@ function App(props) {
     initialState.answerColors
   );
   const [showPoints, setShowPoints] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
     socket.on("answerFeedback", data => {
@@ -231,6 +233,10 @@ function App(props) {
     socket.emit("abort", joinedRoom.id);
   }
 
+  function toggle() {
+    setIsShow(!isShow)
+  }
+
   return (
     <>
       <Switch>
@@ -297,6 +303,13 @@ function App(props) {
       </Switch>
       <button onClick={props.signOut}>sign out</button>
       <button onClick={abortGame}>ABORT GAME</button>
+      <br />
+      <br />
+      <br />
+      <div>
+        <button onClick={setIsShow}>Show</button>
+        {isShow && <GameInstructions onClose={toggle} />}
+      </div>
     </>
   );
 }
