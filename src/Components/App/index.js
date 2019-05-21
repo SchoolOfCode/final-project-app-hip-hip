@@ -67,6 +67,7 @@ function App(props) {
         setRoundNumber(data.roundNumber);
       }
       controlRouteFromServer(data.path);
+      setTeamsThatHaveSubmitted([]);
     });
 
     socket.on("whoAreYou", () => {
