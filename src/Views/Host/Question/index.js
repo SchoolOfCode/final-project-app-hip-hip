@@ -13,7 +13,7 @@ export default function({
       {serverCounter.question === 0 ? (
         <>
           <h2>CORRELATE!</h2>
-          <h2 style={{ fontSize: "50px" }}>{serverCounter.round}</h2>
+          <Timer counter={serverCounter.question} />
         </>
       ) : (
         <h2> {serverCounter.question}</h2>
