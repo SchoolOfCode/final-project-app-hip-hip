@@ -9,6 +9,7 @@ export default function ScoreBoard({ teamOptions, joinedRoom }) {
   let orderedTeams = teamOptions.sort(
     (team, team2) => joinedRoom.scores[team] - joinedRoom.scores[team2]
   );
+
   return (
     <div className={css.teamScoreContainer}>
       {orderedTeams.map((team, i) => {
