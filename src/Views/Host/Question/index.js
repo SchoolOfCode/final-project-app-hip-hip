@@ -1,5 +1,7 @@
 import React from "react";
 
+import Timer from "../../../Components/CountdownTimer";
+
 export default function({
   gameMessage,
   serverCounter,
