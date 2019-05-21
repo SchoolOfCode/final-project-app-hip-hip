@@ -25,7 +25,8 @@ export default function({
   card,
   serverCounter,
   answerFeedback,
-  showPoints
+  showPoints,
+  gameMessage
 }) {
   return !appProps.user ? (
     <Login appProps={appProps} />
@@ -67,7 +68,16 @@ export default function({
           />
         )}
       />
-      <Route path={`${match.url}/score`} render={() => <PlayerScoreView />} />
+      <Route
+        path={`${match.url}/score`}
+        render={() => (
+          <PlayerScoreView
+            joinedRoom={joinedRoom}
+            teamColor={teamColor}
+            gameMessage={gameMessage}
+          />
+        )}
+      />
 
       <Route render={() => <div>component not found...</div>} />
     </Switch>

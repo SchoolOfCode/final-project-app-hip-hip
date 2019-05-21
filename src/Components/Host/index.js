@@ -10,9 +10,9 @@ import Login from "../Login";
 import css from "./host.module.css";
 import CorrelateLogo from "../Branding/index";
 import QuestionHostCard from "../QuestionHostCard";
+import RoomNumberBox from "../../Components/RoomNumberBox";
 
 export default function Host({
-
   makeGameRoom,
   startGame,
   joinedRoom,
@@ -28,14 +28,12 @@ export default function Host({
   teamsThatHaveSubmitted,
   setTeamsThatHaveSubmitted,
   match
-
 }) {
-    const [hasMadeRoom, setHasMadeRoom] = useState(false);
-    const [hasGameStarted, setHasGameStarted] = useState(false);
-    const [isTidbitShown, setIsTidbitShown] = useState(false);
-    const [isItQuestionTime, setIsItQuestionTime] = useState(true);
-    const [isGameReadyToStart, setIsGameReadyToStart] = useState(false);
-
+  const [hasMadeRoom, setHasMadeRoom] = useState(false);
+  const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [isTidbitShown, setIsTidbitShown] = useState(false);
+  const [isItQuestionTime, setIsItQuestionTime] = useState(true);
+  const [isGameReadyToStart, setIsGameReadyToStart] = useState(false);
 
   return (
     <>
@@ -143,10 +141,11 @@ export default function Host({
             {appProps.user && (
               <button onClick={appProps.signOut}>sign out</button>
             )}
+
+            <RoomNumberBox joinedRoom={joinedRoom.id} />
           </div>
         </>
       )}
     </>
   );
-
 }
