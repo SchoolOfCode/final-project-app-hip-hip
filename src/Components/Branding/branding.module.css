@@ -1,17 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Modak);
-/* body {
-    width: 100vw;
-    height: 100vh;
-    text-align: center;
-    background: rgb(48, 82, 244);
-    background: linear-gradient(
-        27deg,
-        rgba(48, 82, 244, 1) 19%,
-        rgba(85, 167, 245, 0.9644900196406687) 46%,
-        rgba(110, 229, 247, 0.7936216723017332) 77%,
-        rgba(206, 245, 247, 0.8860586470916492) 93%
-    );
-} */
 
 .container {
     overflow: hidden;
@@ -21,14 +8,13 @@
     display: inline-block;
     position: relative;
     top: 30px;
-    /* z-index: 0; */
 }
 
 .letter {
     display: inline-block;
     font-family: "Modak", sans-serif;
     font-size: 190px;
-    color: #da6608;
+
     -webkit-text-stroke: 1.5px #282828;
     position: relative;
     z-index: 0;
@@ -197,6 +183,7 @@
         -moz-transform: translate3d(0, -30px, 0);
         -ms-transform: translate3d(0, -30px, 0);
         transform: translate3d(0, -30px, 0);
+        color: #da6608;
     }
 }
 @keyframes up {
@@ -205,6 +192,7 @@
         -moz-transform: translate3d(0, -21px, 0);
         -ms-transform: translate3d(0, -21px, 0);
         transform: translate3d(0, -21px, 0);
+        color: whitesmoke;
     }
     60% {
         -webkit-transform: translate3d(0, -12px, 0);
@@ -269,53 +257,5 @@
         -moz-transform: translate3d(0, -21px, 0);
         -ms-transform: translate3d(0, -21px, 0);
         transform: translate3d(0, -21px, 0);
-    }
-}
-
-.container:after {
-    height: 100%;
-    margin-top: 5%;
-    display: inline-block;
-    margin-left: 28%;
-    border-radius: 35%;
-    animation: shine 8s ease-in infinite;
-    animation-fill-mode: forwards;
-    content: "";
-    position: absolute;
-    width: 10%;
-    opacity: 0;
-    transform: skewX(-30deg);
-    background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.1) 10%,
-        rgba(255, 255, 255, 0.3) 77%,
-        rgba(255, 255, 255, 0.9) 92%,
-        rgba(255, 255, 255, 3) 100%
-    );
-}
-
-@keyframes shine {
-    10% {
-        opacity: 0;
-        top: -30%;
-        left: -30%;
-    }
-
-    25% {
-        opacity: 0;
-        top: -30%;
-        left: -30%;
-    }
-
-    50% {
-        opacity: 0.75;
-        top: -30%;
-        left: -30%;
-    }
-
-    100% {
-        opacity: 1;
-        top: -30%;
-        left: 100%;
     }
 }
