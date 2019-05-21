@@ -51,13 +51,13 @@ function App(props) {
 
   useEffect(() => {
     socket.on("answerFeedback", data => {
-      setGameMessage(data.message);
       setAnswerFeedback(data.feedback);
       setShowPoints(true);
     });
     socket.on("pageNavigation", path => controlRouteFromServer(path));
-    socket.on("roundHasFinished", () => {
+    socket.on("roundHasFinished", ({ message }) => {
       controlRouteFromServer("/play/score");
+      setGameMessage(message);
     });
     socket.on("messageAndNav", data => {
       console.log("message and nav", data.message);
@@ -290,6 +290,7 @@ function App(props) {
               serverCounter={serverCounter}
               answerFeedback={answerFeedback}
               showPoints={showPoints}
+              gameMessage={gameMessage}
             />
           )}
         />
