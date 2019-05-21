@@ -1,5 +1,10 @@
 import React from "react";
+import css from "./PlayerScore.module.css";
 
 export default function() {
-  return <div> well done, you may have scored some points</div>;
+  return (
+    <div className={css.textContainer}>
+      well done, you may have scored some points
+    </div>
+  );
 }
