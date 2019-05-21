@@ -10,7 +10,12 @@ import firebaseConfig from "../../firebaseConfig";
 
 import HostRouter from "../HostRouter";
 import PlayerRouter from "../PlayerRouter";
-import GameInstructions from "../GameInstructions";
+
+
+import RoomNumberBox from "../RoomNumberBox";
+
+import GameInstructions from "../GameInstructions"
+
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -305,6 +310,9 @@ function App(props) {
         />
       </Switch>
       <button onClick={props.signOut}>sign out</button>
+
+      <button onClick={abortGame}>QUIT</button>
+
       <button onClick={abortGame}>ABORT GAME</button>
       <br />
       <br />
@@ -313,6 +321,7 @@ function App(props) {
         <button onClick={setIsShow}>Show</button>
         {isShow && <GameInstructions onClose={toggle} />}
       </div>
+
     </>
   );
 }

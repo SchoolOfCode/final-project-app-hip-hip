@@ -1,0 +1,32 @@
+.roomNumber {
+  background-color: darkblue;
+  height: 10vh;
+  width: 10vw;
+  justify-content: center;
+  border-radius: 5px;
+  background: darkblue;
+  /* padding: 20px; */
+  width: 20vw;
+  height: 10vh;
+}
+
+.text {
+  display: flex;
+  font-family: "Baloo Bhai", cursive;
+  font-size: 3vh;
+  z-index: 0;
+  line-height: 130%;
+  color: #da6608;
+  font-weight: bold;
+  justify-content: center;
+}
+
+.number {
+  margin-top: 2vh;
+  font-family: "Modak", sans-serif;
+  font-size: 5vh;
+  color: #da6608;
+  -webkit-text-stroke: 1.5px #282828;
+  z-index: 0;
+  line-height: 130%;
+}
