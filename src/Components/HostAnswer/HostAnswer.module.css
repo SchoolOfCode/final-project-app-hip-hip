@@ -1,17 +1,99 @@
-.cards {
-  width: 25%;
-  height: 60px;
-  border-radius: 20px;
-  border: 3px solid white;
-  font-size: 30px;
-  color: white;
-  font-family: "Orbitron", serif;
-  background: #7fa2ee;
-  outline: 0;
-  top: 0;
-}
 .cardsWrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-around;
+}
+.cards:nth-child(4) {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 20%;
+    height: 60px;
+    border-radius: 20px;
+    border: 3px solid white;
+    padding: 5px;
+    font-size: 30px;
+    color: white;
+    font-family: "Orbitron", serif;
+    background: #7fa2ee;
+    animation: roll 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: 1s;
+}
+
+.cards:nth-child(3) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    width: 20%;
+    height: 60px;
+    border-radius: 20px;
+    border: 3px solid white;
+    padding: 5px;
+    font-size: 30px;
+    color: white;
+    font-family: "Orbitron", serif;
+    background: #7fa2ee;
+    animation: roll 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: 2s;
+}
+
+.cards:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    width: 20%;
+    height: 60px;
+    border-radius: 20px;
+    border: 3px solid white;
+    padding: 5px;
+    font-size: 30px;
+    color: white;
+    font-family: "Orbitron", serif;
+    background: #7fa2ee;
+    animation: roll 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: 3s;
+}
+
+.cards:nth-child(1) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    width: 20%;
+    height: 60px;
+    border-radius: 20px;
+    border: 3px solid white;
+    padding: 5px;
+    font-size: 30px;
+    color: white;
+    font-family: "Orbitron", serif;
+    background: #7fa2ee;
+    animation: roll 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: 4s;
+}
+
+@keyframes roll {
+    0% {
+        transform: translateX(-1000px) rotate(-720deg);
+        filter: blur(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotate(0deg);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+.question {
+    background-color: antiquewhite;
+    padding: 50px;
+    border: 5px solid pink;
+    border-radius: 5px;
+    width: 80vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
