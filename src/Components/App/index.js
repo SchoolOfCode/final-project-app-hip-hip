@@ -10,7 +10,11 @@ import firebaseConfig from "../../firebaseConfig";
 
 import HostRouter from "../HostRouter";
 import PlayerRouter from "../PlayerRouter";
+
 import RoomNumberBox from "../RoomNumberBox";
+
+import GameInstructions from "../GameInstructions"
+
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -49,16 +53,17 @@ function App(props) {
     initialState.answerColors
   );
   const [showPoints, setShowPoints] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
     socket.on("answerFeedback", data => {
-      setGameMessage(data.message);
       setAnswerFeedback(data.feedback);
       setShowPoints(true);
     });
     socket.on("pageNavigation", path => controlRouteFromServer(path));
-    socket.on("roundHasFinished", () => {
+    socket.on("roundHasFinished", ({ message }) => {
       controlRouteFromServer("/play/score");
+      setGameMessage(message);
     });
     socket.on("messageAndNav", data => {
       console.log("message and nav", data.message);
@@ -68,6 +73,7 @@ function App(props) {
         setRoundNumber(data.roundNumber);
       }
       controlRouteFromServer(data.path);
+      setTeamsThatHaveSubmitted([]);
     });
 
     socket.on("whoAreYou", () => {
@@ -232,6 +238,10 @@ function App(props) {
     socket.emit("abort", joinedRoom.id);
   }
 
+  function toggle() {
+    setIsShow(!isShow)
+  }
+
   return (
     <>
       <Switch>
@@ -291,12 +301,24 @@ function App(props) {
               serverCounter={serverCounter}
               answerFeedback={answerFeedback}
               showPoints={showPoints}
+              gameMessage={gameMessage}
             />
           )}
         />
       </Switch>
       <button onClick={props.signOut}>sign out</button>
+
       <button onClick={abortGame}>QUIT</button>
+
+      <button onClick={abortGame}>ABORT GAME</button>
+      <br />
+      <br />
+      <br />
+      <div>
+        <button onClick={setIsShow}>Show</button>
+        {isShow && <GameInstructions onClose={toggle} />}
+      </div>
+
     </>
   );
 }
