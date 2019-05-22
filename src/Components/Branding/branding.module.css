@@ -2,10 +2,12 @@
 
 .container {
     height: 160px;
-    width: 90%;
-    display: inline-block;
-    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
     top: 50px;
+
     z-index: 1;
 }
 
@@ -267,14 +269,35 @@
 }
 
 .bot {
-    position: absolute;
-    left: 45%;
+    position: relative;
+    left: 70%;
     z-index: 0;
-    transform: translateY(-100px);
-    animation: wobble 0.8s both;
-    animation-delay: 7s;
+    animation: cssAnimation 7s 6.5s;
+    visibility: hidden;
 }
 
+.botAfter {
+    animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 2) both;
+    animation-delay: 6.5s;
+    position: relative;
+    top: -40px;
+}
+
+@keyframes slide-in-bottom {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes cssAnimation {
+    to {
+        visibility: visible;
+    }
+}
 @keyframes wobble {
     0%,
     100% {

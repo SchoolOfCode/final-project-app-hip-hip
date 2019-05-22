@@ -5,7 +5,11 @@ import bot from "../images/bot.png";
 const Logo = () => {
     return (
         <>
-            <img className={css.bot} src={bot} alt="bot" />
+            <img
+                className={(css.bot = " " + css.botAfter)}
+                src={bot}
+                alt="bot"
+            />
             <div className={css.container}>
                 <span className={css.C + " " + css.letter}>C</span>
                 <span className={css.O + " " + css.letter}>O</span>
