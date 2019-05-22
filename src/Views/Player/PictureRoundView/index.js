@@ -15,11 +15,11 @@ export default function({
   return (
     <div>
       <h3>{gameMessage}</h3>
-      <PictureCard pictureUrl={pictureUrl} />
       <div>
         <input type="text" value={pictureAnswer} onChange={handleChange} />
         {isSubmitAllowed && <button onClick={submitTeamAnswer}>submit</button>}
       </div>
+      <PictureCard pictureUrl={pictureUrl} />
     </div>
   );
 }

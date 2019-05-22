@@ -23,7 +23,8 @@ export default function({
   gameMessage,
   serverCounter,
   roundNumber,
-  teamsThatHaveSubmitted
+  teamsThatHaveSubmitted,
+  abortGame
 }) {
   return !appProps.user ? (
     <Login appProps={appProps} />
@@ -81,6 +82,7 @@ export default function({
         <Route render={() => <div>componet not found...</div>} />
       </Switch>
       <RoomNumberBox joinedRoom={joinedRoom} />
+      <button onClick={abortGame}>ABORT GAME</button>
     </div>
   );
 }
