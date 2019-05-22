@@ -5,11 +5,11 @@ import css from "./enterroom.module.css";
 export default function({ enterGameRoom, roomInput, setRoomInput }) {
   return (
     <div>
-      <h3 className={css.room}>ENTER ROOM NUMBER</h3>
+      {/* <h3 className={css.enterRoomTitle}>ENTER ROOM NUMBER</h3> */}
       <Keypad roomInput={roomInput} setRoomInput={setRoomInput} />
 
       <button
-        className={css.enterRoom}
+        className={css.enterRoomButton}
         onClick={() => {
           enterGameRoom();
         }}

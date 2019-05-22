@@ -7,6 +7,7 @@ import Question from "../../Views/Host/Question";
 import RoundCard from "../../Views/Host/RoundCard";
 import ScoreView from "../../Views/Host/ScoreView";
 import AnswerView from "../../Views/Host/AnswerView";
+import EndPageView from "../../Views/Host/EndPage";
 
 import Login from "../../Components/Login";
 import RoomNumberBox from "../RoomNumberBox";
@@ -76,6 +77,12 @@ export default function({
           path={`${match.url}/score`}
           render={() => (
             <ScoreView teamOptions={teamOptions} joinedRoom={joinedRoom} />
+          )}
+        />
+        <Route
+          path={`${match.url}/endpage`}
+          render={() => (
+            <EndPageView teamOptions={teamOptions} joinedRoom={joinedRoom} />
           )}
         />
 
