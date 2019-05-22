@@ -1,6 +1,6 @@
 import React from "react";
 import Keypad from "../Keypad";
-import css from "./enterroom.module.css";
+import css from "./EnterRoom.module.css";
 
 export default function({ enterGameRoom, roomInput, setRoomInput }) {
   return (
