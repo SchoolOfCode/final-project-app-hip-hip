@@ -295,8 +295,8 @@ function App(props) {
           )}
         />
       </Switch>
-      <button onClick={props.signOut}>sign out</button>
-      <button onClick={abortGame}>QUIT</button>
+      {/* <button onClick={props.signOut}>sign out</button> */}
+      {/* <button onClick={abortGame}>QUIT</button> */}
     </>
   );
 }
