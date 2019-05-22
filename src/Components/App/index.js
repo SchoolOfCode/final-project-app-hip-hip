@@ -334,7 +334,9 @@ function App(props) {
         />
       </Switch>
 
+
       {/* 
+
 
       <button onClick={abortGame}>QUIT</button>
 
@@ -355,6 +357,7 @@ function App(props) {
         <button onClick={setIsShow}>more info</button>
         {isShow && <GameInstructions onClose={toggle} />}
       </div>
+
     </>
   );
 }
