@@ -1,7 +1,25 @@
 .enterRoom {
-    margin-top: 3vh;
-    height: 10vh;
-    width: 70vw;
-    background-color: green;
-    font-weight: bold;
+  margin-top: 3vh;
+  height: 10vh;
+  width: 70vw;
+  background-color: darkblue;
+  color: white;
+  font-weight: bold;
+  font-size: 5vh;
+  border-radius: 15px;
+  font-family: "Baloo Bhai", cursive;
+}
+
+.room {
+  margin-top: 3vh;
+  height: 10vh;
+  width: 70vw;
+  background-color: darkblue;
+  color: white;
+  font-weight: bold;
+  font-size: 5vh;
+  border-radius: 15px;
+  justify-content: center;
+  margin-left: 15vw;
+  font-family: "Baloo Bhai", cursive;
 }

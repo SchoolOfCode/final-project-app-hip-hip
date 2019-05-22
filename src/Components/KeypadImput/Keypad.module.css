@@ -9,15 +9,19 @@
   border-radius: 20px;
   border: 3px solid white;
   font-size: 30px;
-  color: white;
+  color: black;
+  font-weight: bold;
   font-family: "Orbitron", serif;
-  background: #7fa2ee;
+  /* background: #7fa2ee; */
+  background: #ffa500;
   outline: 0;
+  font-family: "Baloo Bhai", cursive;
 }
 .result {
   height: 60px;
-  background-color: #bbb;
+  background-color: #ffa500;
   width: 100%;
+  font-family: "Baloo Bhai", cursive;
 }
 
 .result p {
