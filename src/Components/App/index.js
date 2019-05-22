@@ -132,6 +132,7 @@ function App(props) {
     socket.on("pictureMessage", ({ url }) => {
       setPictureUrl(url);
       setGameMessage("");
+      setPictureAnswer("");
       controlRouteFromServer("/play/picture");
     });
     socket.on("updateCardOptions", cards => {
@@ -298,6 +299,7 @@ function App(props) {
               serverCounter={serverCounter}
               roundNumber={roundNumber}
               teamsThatHaveSubmitted={teamsThatHaveSubmitted}
+              abortGame={abortGame}
             />
           )}
         />
@@ -331,16 +333,26 @@ function App(props) {
           )}
         />
       </Switch>
-      <button onClick={props.signOut}>sign out</button>
+
+      {/* 
 
       <button onClick={abortGame}>QUIT</button>
 
       <button onClick={abortGame}>ABORT GAME</button>
       <br />
       <br />
-      <br />
-      <div>
-        <button onClick={setIsShow}>Show</button>
+      <br /> */}
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: 20,
+          left: "50vw",
+          transform: "translateX(-50%)"
+        }}
+      >
+        <button onClick={props.signOut}>sign out</button>
+        <button onClick={setIsShow}>more info</button>
         {isShow && <GameInstructions onClose={toggle} />}
       </div>
     </>
