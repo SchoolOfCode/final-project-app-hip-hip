@@ -5,14 +5,16 @@ import MakeGameRoom from "../../Views/Host/MakeGameRoom";
 
 const cssOrder = ["teamOne", "teamTwo", "teamThree", "teamFour"].reverse();
 
-//use startgame functionality
+
 
 export default function({ joinedRoom, teamOptions }) {
+
   let orderedTeams = teamOptions.sort(
     (team, team2) => joinedRoom.scores[team] - joinedRoom.scores[team2]
   );
 
   return (
+
     <>
       <div className={css.teamScoreContainer}>
         {orderedTeams.map((team, i) => {
@@ -29,5 +31,6 @@ export default function({ joinedRoom, teamOptions }) {
         New Game With Same Players
       </button>
     </>
+
   );
 }
