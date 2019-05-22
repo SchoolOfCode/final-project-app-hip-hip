@@ -1,0 +1,8 @@
+.textContainer {
+  border: solid 10px #da6608;
+  height: 75vh;
+  margin-top: 10vh;
+  justify-content: center;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
