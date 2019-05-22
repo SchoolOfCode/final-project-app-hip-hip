@@ -5,9 +5,9 @@ import MakeGameRoom from "../../Views/Host/MakeGameRoom";
 
 const cssOrder = ["teamOne", "teamTwo", "teamThree", "teamFour"].reverse();
 
-//use startgame functionality
 
-export default function EndPage({ joinedRoom, teamOptions }) {
+
+export default function EndPage({ joinedRoom, teamOptions, props }) {
   let orderedTeams = teamOptions.sort(
     (team, team2) => joinedRoom.scores[team] - joinedRoom.scores[team2]
   );
@@ -25,7 +25,7 @@ export default function EndPage({ joinedRoom, teamOptions }) {
       })}
     </div>
 
-    <button className={css.quitButton} onClick={MakeGameRoom()}
+    <button className={css.quitButton} onClick={(controlRouteFromServer("host/makeRoom")}
     >QUIT GAME</button>
     //does putting the function here route you to make game room page/view?
 
