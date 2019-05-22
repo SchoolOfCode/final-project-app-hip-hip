@@ -1,10 +1,10 @@
 import React from "react";
-import RoundCard from "../../../Components/Rounds";
 
 const RoundCard = ({ gameMessage, roundNumber }) => {
   return (
     <div>
-      <RoundCard gameMessage={gameMessage} roundNumber={roundNumber} />
+      <h1>Round {roundNumber}</h1>
+      <h3>{gameMessage}</h3>
     </div>
   );
 };

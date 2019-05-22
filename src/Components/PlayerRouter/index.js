@@ -8,6 +8,7 @@ import Holding from "../../Views/Player/HoldingPageView";
 import CardView from "../../Views/Player/CardView";
 import PlayerScoreView from "../../Views/Player/PlayerScore";
 import PictureRoundView from "../../Views/Player/PictureRoundView";
+import RoundView from "../../Views/Player/RoundView";
 
 export default function({
   match,
@@ -28,7 +29,10 @@ export default function({
   answerFeedback,
   showPoints,
   gameMessage,
-  pictureUrl
+  pictureUrl,
+  pictureAnswer,
+  sendLivePictureAnswer,
+  roundNumber
 }) {
   return !appProps.user ? (
     <Login appProps={appProps} />
@@ -82,7 +86,22 @@ export default function({
       />
       <Route
         path={`${match.url}/picture`}
-        render={() => <PictureRoundView pictureUrl={pictureUrl} />}
+        render={() => (
+          <PictureRoundView
+            pictureUrl={pictureUrl}
+            pictureAnswer={pictureAnswer}
+            sendLivePictureAnswer={sendLivePictureAnswer}
+            gameMessage={gameMessage}
+            isSubmitAllowed={isSubmitAllowed}
+            submitTeamAnswer={submitTeamAnswer}
+          />
+        )}
+      />
+      <Route
+        path={`${match.url}/round`}
+        render={() => (
+          <RoundView roundNumber={roundNumber} gameMessage={gameMessage} />
+        )}
       />
 
       <Route render={() => <div>component not found...</div>} />

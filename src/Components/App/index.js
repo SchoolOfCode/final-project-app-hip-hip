@@ -11,8 +11,6 @@ import firebaseConfig from "../../firebaseConfig";
 import HostRouter from "../HostRouter";
 import PlayerRouter from "../PlayerRouter";
 
-import RoomNumberBox from "../RoomNumberBox";
-
 import GameInstructions from "../GameInstructions";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -54,12 +52,17 @@ function App(props) {
   const [showPoints, setShowPoints] = useState(false);
   const [isShow, setIsShow] = useState(false);
   const [pictureUrl, setPictureUrl] = useState("");
+  const [pictureAnswer, setPictureAnswer] = useState("");
 
   useEffect(() => {
+    socket.on("livePictureAnswer", text => {
+      setPictureAnswer(text);
+    });
     socket.on("answerFeedback", data => {
       setAnswerFeedback(data.feedback);
       setShowPoints(true);
     });
+    socket.on("pictureAnswerFeedback", message => setGameMessage(message));
     socket.on("pageNavigation", path => controlRouteFromServer(path));
     socket.on("roundHasFinished", ({ message }) => {
       controlRouteFromServer("/play/score");
@@ -128,6 +131,7 @@ function App(props) {
     });
     socket.on("pictureMessage", ({ url }) => {
       setPictureUrl(url);
+      setGameMessage("");
       controlRouteFromServer("/play/picture");
     });
     socket.on("updateCardOptions", cards => {
@@ -251,6 +255,14 @@ function App(props) {
     setIsShow(!isShow);
   }
 
+  function sendLivePictureAnswer(text) {
+    socket.emit("livePictureAnswer", {
+      text,
+      roomId: joinedRoom.id,
+      team: teamColor
+    });
+  }
+
   return (
     <>
       <Switch>
@@ -312,6 +324,9 @@ function App(props) {
               showPoints={showPoints}
               gameMessage={gameMessage}
               pictureUrl={pictureUrl}
+              pictureAnswer={pictureAnswer}
+              sendLivePictureAnswer={sendLivePictureAnswer}
+              roundNumber={roundNumber}
             />
           )}
         />
