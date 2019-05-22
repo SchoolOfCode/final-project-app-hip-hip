@@ -7,6 +7,8 @@ import JoinTeamView from "../../Views/Player/JoinTeamView";
 import Holding from "../../Views/Player/HoldingPageView";
 import CardView from "../../Views/Player/CardView";
 import PlayerScoreView from "../../Views/Player/PlayerScore";
+import PictureRoundView from "../../Views/Player/PictureRoundView";
+import RoundView from "../../Views/Player/RoundView";
 
 export default function({
   match,
@@ -25,7 +27,12 @@ export default function({
   card,
   serverCounter,
   answerFeedback,
-  showPoints
+  showPoints,
+  gameMessage,
+  pictureUrl,
+  pictureAnswer,
+  sendLivePictureAnswer,
+  roundNumber
 }) {
   return !appProps.user ? (
     <Login appProps={appProps} />
@@ -67,7 +74,35 @@ export default function({
           />
         )}
       />
-      <Route path={`${match.url}/score`} render={() => <PlayerScoreView />} />
+      <Route
+        path={`${match.url}/score`}
+        render={() => (
+          <PlayerScoreView
+            joinedRoom={joinedRoom}
+            teamColor={teamColor}
+            gameMessage={gameMessage}
+          />
+        )}
+      />
+      <Route
+        path={`${match.url}/picture`}
+        render={() => (
+          <PictureRoundView
+            pictureUrl={pictureUrl}
+            pictureAnswer={pictureAnswer}
+            sendLivePictureAnswer={sendLivePictureAnswer}
+            gameMessage={gameMessage}
+            isSubmitAllowed={isSubmitAllowed}
+            submitTeamAnswer={submitTeamAnswer}
+          />
+        )}
+      />
+      <Route
+        path={`${match.url}/round`}
+        render={() => (
+          <RoundView roundNumber={roundNumber} gameMessage={gameMessage} />
+        )}
+      />
 
       <Route render={() => <div>component not found...</div>} />
     </Switch>

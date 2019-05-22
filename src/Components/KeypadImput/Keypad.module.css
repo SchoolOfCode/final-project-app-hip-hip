@@ -17,12 +17,14 @@
   outline: 0;
   font-family: "Baloo Bhai", cursive;
 }
+
 .result {
   height: 60px;
   background-color: #ffa500;
   width: 100%;
   font-family: "Baloo Bhai", cursive;
 }
+
 
 .result p {
   font-size: 40px;

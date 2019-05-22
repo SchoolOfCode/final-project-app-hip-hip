@@ -17,19 +17,18 @@ export default function({
       <h1 className={css.cardText}>{card.text}</h1>
       <div className={css.selectionWrapper}>
         {selectionOptions.map((item, i) => (
-          <>
-            {showPoints && <div>{item.points}</div>}
-            <button
-              style={{ backgroundColor: answerFeedback[i].color }}
-              key={i}
-              className={css.selection}
-              onClick={() => {
-                sendliveCardUpdates(item, card);
-              }}
-            >
-              {liveCardUpdates[item].map(item => item.cardText)}
-            </button>
-          </>
+          <button
+            style={{ backgroundColor: answerFeedback[i].color }}
+            key={i}
+            className={css.selection}
+            onClick={() => {
+              sendliveCardUpdates(item, card);
+            }}
+          >
+            {showPoints
+              ? answerFeedback[i].points
+              : liveCardUpdates[item].map(item => item.cardText)}
+          </button>
         ))}
       </div>
       <br />

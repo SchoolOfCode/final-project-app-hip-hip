@@ -10,7 +10,8 @@ import firebaseConfig from "../../firebaseConfig";
 
 import HostRouter from "../HostRouter";
 import PlayerRouter from "../PlayerRouter";
-import RoomNumberBox from "../RoomNumberBox";
+
+import GameInstructions from "../GameInstructions";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -49,25 +50,35 @@ function App(props) {
     initialState.answerColors
   );
   const [showPoints, setShowPoints] = useState(false);
+  const [isShow, setIsShow] = useState(false);
+  const [pictureUrl, setPictureUrl] = useState("");
+  const [pictureAnswer, setPictureAnswer] = useState("");
 
   useEffect(() => {
+    socket.on("livePictureAnswer", text => {
+      setPictureAnswer(text);
+    });
     socket.on("answerFeedback", data => {
-      setGameMessage(data.message);
       setAnswerFeedback(data.feedback);
       setShowPoints(true);
     });
+    socket.on("pictureAnswerFeedback", message => setGameMessage(message));
     socket.on("pageNavigation", path => controlRouteFromServer(path));
-    socket.on("roundHasFinished", () => {
+    socket.on("roundHasFinished", ({ message }) => {
       controlRouteFromServer("/play/score");
+      setGameMessage(message);
     });
     socket.on("messageAndNav", data => {
       console.log("message and nav", data.message);
-      setGameMessage(data.message);
+      if (data.message) {
+        setGameMessage(data.message);
+      }
 
       if (data.roundNumber) {
         setRoundNumber(data.roundNumber);
       }
       controlRouteFromServer(data.path);
+      setTeamsThatHaveSubmitted([]);
     });
 
     socket.on("whoAreYou", () => {
@@ -117,6 +128,12 @@ function App(props) {
       setShowPoints(false);
       controlRouteFromServer("/play/card");
       console.log(serverCard);
+    });
+    socket.on("pictureMessage", ({ url }) => {
+      setPictureUrl(url);
+      setGameMessage("");
+      setPictureAnswer("");
+      controlRouteFromServer("/play/picture");
     });
     socket.on("updateCardOptions", cards => {
       if (cards) {
@@ -198,7 +215,10 @@ function App(props) {
   }
 
   function submitTeamAnswer() {
-    socket.emit("submitTeamAnswer", { roomId: joinedRoom.id, team: teamColor });
+    socket.emit("submitTeamAnswer", {
+      roomId: joinedRoom.id,
+      team: teamColor
+    });
   }
 
   function sendliveCardUpdates(answer, card) {
@@ -230,6 +250,18 @@ function App(props) {
 
   function abortGame() {
     socket.emit("abort", joinedRoom.id);
+  }
+
+  function toggle() {
+    setIsShow(!isShow);
+  }
+
+  function sendLivePictureAnswer(text) {
+    socket.emit("livePictureAnswer", {
+      text,
+      roomId: joinedRoom.id,
+      team: teamColor
+    });
   }
 
   return (
@@ -267,6 +299,7 @@ function App(props) {
               serverCounter={serverCounter}
               roundNumber={roundNumber}
               teamsThatHaveSubmitted={teamsThatHaveSubmitted}
+              abortGame={abortGame}
             />
           )}
         />
@@ -291,12 +324,40 @@ function App(props) {
               serverCounter={serverCounter}
               answerFeedback={answerFeedback}
               showPoints={showPoints}
+              gameMessage={gameMessage}
+              pictureUrl={pictureUrl}
+              pictureAnswer={pictureAnswer}
+              sendLivePictureAnswer={sendLivePictureAnswer}
+              roundNumber={roundNumber}
             />
           )}
         />
       </Switch>
-      {/* <button onClick={props.signOut}>sign out</button> */}
-      {/* <button onClick={abortGame}>QUIT</button> */}
+
+
+      {/* 
+
+
+      <button onClick={abortGame}>QUIT</button>
+
+      <button onClick={abortGame}>ABORT GAME</button>
+      <br />
+      <br />
+      <br /> */}
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: 20,
+          left: "50vw",
+          transform: "translateX(-50%)"
+        }}
+      >
+        <button onClick={props.signOut}>sign out</button>
+        <button onClick={setIsShow}>more info</button>
+        {isShow && <GameInstructions onClose={toggle} />}
+      </div>
+
     </>
   );
 }
