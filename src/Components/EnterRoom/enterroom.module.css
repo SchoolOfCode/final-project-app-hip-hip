@@ -1,20 +1,20 @@
-.enterRoom {
+.enterRoomButton {
   margin-top: 3vh;
   height: 10vh;
   width: 70vw;
   background-color: darkblue;
   color: white;
-  font-weight: bold;
+  /* font-weight: bold; */
   font-size: 5vh;
   border-radius: 15px;
   font-family: "Baloo Bhai", cursive;
 }
 
-.room {
+.enterRoomTitle {
   margin-top: 3vh;
   height: 10vh;
   width: 70vw;
-  background-color: darkblue;
+  background-color: lightblue;
   color: white;
   font-weight: bold;
   font-size: 5vh;
