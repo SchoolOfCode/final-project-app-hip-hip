@@ -1,11 +1,8 @@
 import React from "react";
-
 import cn from "classnames";
-import MakeGameRoom from "../../Views/Host/MakeGameRoom";
+import css from "./endpagescoreboard.module.css";
 
 const cssOrder = ["teamOne", "teamTwo", "teamThree", "teamFour"].reverse();
-
-
 
 export default function EndPage({ joinedRoom, teamOptions, props }) {
   let orderedTeams = teamOptions.sort(
@@ -13,8 +10,6 @@ export default function EndPage({ joinedRoom, teamOptions, props }) {
   );
 
   return (
-   
-
     <div className={css.teamScoreContainer}>
       {orderedTeams.map((team, i) => {
         return (
@@ -24,13 +19,5 @@ export default function EndPage({ joinedRoom, teamOptions, props }) {
         );
       })}
     </div>
-
-    <button className={css.quitButton} onClick={(controlRouteFromServer("host/makeRoom")}
-    >QUIT GAME</button>
-    //does putting the function here route you to make game room page/view?
-
-
-<button className={css.startAnotherGameButton} onclick={startGame()}>NEW GAME</button> 
-
   );
 }
