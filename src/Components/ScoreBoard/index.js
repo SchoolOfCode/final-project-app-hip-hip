@@ -23,9 +23,7 @@ export default function ScoreBoard({ teamOptions, joinedRoom }) {
             }}
             className={cn(css[cssOrder[i]], css.teams)}
           >
-            <p>
-              {team}: {joinedRoom.scoresTotal[team]}
-            </p>
+            {team}: {joinedRoom.scoresTotal[team]}
           </li>
         );
       })}
