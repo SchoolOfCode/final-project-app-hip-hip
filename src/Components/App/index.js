@@ -26,6 +26,84 @@ const providers = {
 let socket = openSocket(process.env.REACT_APP_SERVER_URL); // change to your ip address
 
 function App(props) {
+  const [game, setGame] = useGame(props);
+
+  return (
+    <>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div>
+              <button
+                onClick={() => setGame.controlRouteFromServer("/host/makeroom")}
+              >
+                make room
+              </button>
+              <button onClick={() => setGame.controlRouteFromServer("/play")}>
+                join room
+              </button>
+            </div>
+          )}
+        />
+
+        <Route
+          path="/host"
+          render={routerProps => (
+            <HostRouter
+              {...routerProps}
+              appProps={props}
+              {...game}
+              {...setGame}
+            />
+          )}
+        />
+        <Route
+          path="/play"
+          render={routerProps => (
+            <PlayerRouter
+              {...routerProps}
+              appProps={props}
+              {...game}
+              {...setGame}
+            />
+          )}
+        />
+      </Switch>
+
+      {/* 
+
+
+      <button onClick={abortGame}>QUIT</button>
+
+      <button onClick={abortGame}>ABORT GAME</button>
+      <br />
+      <br />
+      <br /> */}
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: 20,
+          left: "50vw",
+          transform: "translateX(-50%)"
+        }}
+      >
+        <button onClick={props.signOut}>sign out</button>
+        <button onClick={setGame.setIsShow}>more info</button>
+        {game.isShow && <GameInstructions onClose={setGame.toggle} />}
+      </div>
+    </>
+  );
+}
+
+export default withFirebaseAuth({
+  providers,
+  firebaseAppAuth
+})(App);
+
+function useGame(props) {
   const [roomInput, setRoomInput] = useState("");
   const [joinedRoom, setJoinedRoom] = useState({});
   const [gameMessage, setGameMessage] = useState("");
@@ -264,105 +342,45 @@ function App(props) {
     });
   }
 
-  return (
-    <>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <div>
-              <button onClick={() => controlRouteFromServer("/host/makeroom")}>
-                make room
-              </button>
-              <button onClick={() => controlRouteFromServer("/play")}>
-                join room
-              </button>
-            </div>
-          )}
-        />
-
-        <Route
-          path="/host"
-          render={routerProps => (
-            <HostRouter
-              {...routerProps}
-              card={card}
-              appProps={props}
-              startGame={startGame}
-              joinedRoom={joinedRoom}
-              makeGameRoom={makeGameRoom}
-              deleteGameRoom={deleteGameRoom}
-              teamOptions={teamOptions}
-              deleteTeamMember={deleteTeamMember}
-              gameMessage={gameMessage}
-              serverCounter={serverCounter}
-              roundNumber={roundNumber}
-              teamsThatHaveSubmitted={teamsThatHaveSubmitted}
-              abortGame={abortGame}
-            />
-          )}
-        />
-        <Route
-          path="/play"
-          render={routerProps => (
-            <PlayerRouter
-              {...routerProps}
-              appProps={props}
-              enterGameRoom={enterGameRoom}
-              roomInput={roomInput}
-              setRoomInput={setRoomInput}
-              joinTeam={joinTeam}
-              teamOptions={teamOptions}
-              joinedRoom={joinedRoom}
-              teamColor={teamColor}
-              card={card}
-              sendliveCardUpdates={sendliveCardUpdates}
-              liveCardUpdates={liveCardUpdates}
-              submitTeamAnswer={submitTeamAnswer}
-              isSubmitAllowed={isSubmitAllowed}
-              serverCounter={serverCounter}
-              answerFeedback={answerFeedback}
-              showPoints={showPoints}
-              gameMessage={gameMessage}
-              pictureUrl={pictureUrl}
-              pictureAnswer={pictureAnswer}
-              sendLivePictureAnswer={sendLivePictureAnswer}
-              roundNumber={roundNumber}
-            />
-          )}
-        />
-      </Switch>
-
-
-      {/* 
-
-
-      <button onClick={abortGame}>QUIT</button>
-
-      <button onClick={abortGame}>ABORT GAME</button>
-      <br />
-      <br />
-      <br /> */}
-
-      <div
-        style={{
-          position: "absolute",
-          bottom: 20,
-          left: "50vw",
-          transform: "translateX(-50%)"
-        }}
-      >
-        <button onClick={props.signOut}>sign out</button>
-        <button onClick={setIsShow}>more info</button>
-        {isShow && <GameInstructions onClose={toggle} />}
-      </div>
-
-    </>
-  );
+  return [
+    {
+      joinedRoom,
+      gameMessage,
+      teamOptions,
+      teamColor,
+      card,
+      liveCardUpdates,
+      tidbit,
+      isSubmitAllowed,
+      teamMessage,
+      teamsThatHaveSubmitted,
+      hasJoinedTeam,
+      serverCounter,
+      roundNumber,
+      answerFeedback,
+      showPoints,
+      isShow,
+      pictureUrl,
+      pictureAnswer,
+      roomInput
+    },
+    {
+      setRoomInput,
+      getCurrentScore,
+      makeGameRoom,
+      enterGameRoom,
+      joinTeam,
+      startGame,
+      sendNextQuestion,
+      deleteGameRoom,
+      sendAnswerToServer,
+      submitTeamAnswer,
+      sendliveCardUpdates,
+      deleteTeamMember,
+      controlRouteFromServer,
+      abortGame,
+      toggle,
+      sendLivePictureAnswer
+    }
+  ];
 }
-
-export default withFirebaseAuth({
-  providers,
-  firebaseAppAuth
-})(App);
