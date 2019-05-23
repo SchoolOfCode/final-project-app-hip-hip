@@ -6,9 +6,12 @@ import cn from "classnames";
 const cssOrder = ["teamOne", "teamTwo", "teamThree", "teamFour"].reverse();
 
 export default function ScoreBoard({ teamOptions, joinedRoom }) {
-  let orderedTeams = teamOptions.sort(
-    (team, team2) => joinedRoom.scores[team] - joinedRoom.scores[team2]
-  );
+  let orderedTeams = teamOptions
+    .sort(
+      (team, team2) =>
+        joinedRoom.scoresTotal[team] - joinedRoom.scoresTotal[team2]
+    )
+    .reverse();
 
   return (
     <ul className={css.teamScoreContainer}>
