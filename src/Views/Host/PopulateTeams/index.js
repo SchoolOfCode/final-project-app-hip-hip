@@ -2,6 +2,7 @@ import React from "react";
 
 import TeamBoxes from "../../../Components/HostTeamJoiningBoxes";
 import CorrelateLogo from "../../../Components/Branding";
+import css from "./PopulateTeams.module.css";
 
 export default function({
     teamOptions,
@@ -13,9 +14,14 @@ export default function({
     return (
         <main>
             <CorrelateLogo />
-            <h3>Room Code:</h3>
-            <h1>{joinedRoom.id}</h1>
-            <button onClick={startGame}>Start Game</button>
+            <div className={css.roomCodeContainer}>
+                <p className={css.p1}>Room Code:</p>
+                <p className={css.p2}>{joinedRoom.id}</p>
+            </div>
+
+            <button className={css.startGame} onClick={startGame}>
+                Start Game
+            </button>
             <TeamBoxes
                 teamOptions={teamOptions}
                 joinedRoom={joinedRoom}
