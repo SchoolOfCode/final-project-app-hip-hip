@@ -1,0 +1,24 @@
+.roomCodeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: bottom;
+    padding-top: 4em;
+}
+
+.p1 {
+    font-size: 30px;
+}
+
+.p2 {
+    font-size: 30px;
+}
+.p1 {
+    margin-right: 20px;
+}
+
+.startGame {
+    height: 5%;
+    width: 5%;
+    border: solid 2px black;
+}

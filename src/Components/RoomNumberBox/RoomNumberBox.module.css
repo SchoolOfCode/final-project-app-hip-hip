@@ -1,12 +1,13 @@
 .roomNumber {
     position: absolute;
     justify-content: center;
+    text-align: middle;
     border-radius: 5px;
     width: 15vw;
     height: 12vh;
     bottom: 20px;
     right: 20px;
-    background-color: oldlace;
+    border: 2px white solid;
 }
 
 .text {
