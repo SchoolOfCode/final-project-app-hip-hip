@@ -3,9 +3,8 @@ import React from "react";
 import css from "./HostAnswer.module.css";
 import RoomNumberBox from "../../Components/RoomNumberBox";
 
-
 export default function({ joinedRoom }) {
-  let correctOrder = joinedRoom.currentQuestion.sort(
+  let correctOrder = joinedRoom.currentQuestionCards.sort(
     (a, b) => a.order - b.order
   );
   return (
@@ -19,5 +18,4 @@ export default function({ joinedRoom }) {
       <RoomNumberBox joinedRoom={joinedRoom.id} />
     </div>
   );
-
 }
