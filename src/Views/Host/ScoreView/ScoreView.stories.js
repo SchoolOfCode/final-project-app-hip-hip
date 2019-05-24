@@ -2,7 +2,7 @@ import React from "react";
 
 import { storiesOf } from "@storybook/react";
 
-import ScoreBoard from "./index";
+import ScoreView from "./index";
 
 const props = {
   joinedRoom: {
@@ -17,4 +17,4 @@ const props = {
   teamOptions: ["red", "blue", "yellow", "lime"]
 };
 
-storiesOf("Scoreboard", module).add("Card", () => <ScoreBoard {...props} />);
+storiesOf("Score View", module).add("Card", () => <ScoreView {...props} />);

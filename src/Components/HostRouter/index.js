@@ -27,6 +27,8 @@ export default function({
   teamsThatHaveSubmitted,
   abortGame
 }) {
+  console.log(match);
+
   return !appProps.user ? (
     <Login appProps={appProps} />
   ) : (
@@ -86,10 +88,12 @@ export default function({
           )}
         />
 
-        <Route render={() => <div>componet not found...</div>} />
+        <Route render={() => <div>component not found...</div>} />
       </Switch>
-      <RoomNumberBox joinedRoom={joinedRoom} />
-      <button onClick={abortGame}>ABORT GAME</button>
+      {match.path !== "/host/makeroom" && (
+        <RoomNumberBox joinedRoom={joinedRoom} />
+      )}
+      {/* <button onClick={abortGame}>ABORT GAME</button> */}
     </div>
   );
 }
