@@ -1,6 +1,6 @@
 import React from "react";
 import ScoreBoard from "../../../Components/ScoreBoard/index";
-import css from "./Scoreview.module.css";
+import css from "./ScoreView.module.css";
 // import HostScoreBoard from "../../../Components/HostScoreBoard";
 export default function({ teamOptions, joinedRoom }) {
   return (
