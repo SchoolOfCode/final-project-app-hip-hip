@@ -4,28 +4,30 @@ import Card from "../../../Components/Card";
 import Timer from "../../../Components/CountdownTimer";
 
 export default function({
-  card,
-  liveCardUpdates,
-  sendliveCardUpdates,
-  isSubmitAllowed,
-  submitTeamAnswer,
-  serverCounter,
-  answerFeedback,
-  showPoints
+	card,
+	liveCardUpdates,
+	sendliveCardUpdates,
+	isSubmitAllowed,
+	submitTeamAnswer,
+	serverCounter,
+	answerFeedback,
+	showPoints,
+	isTeamCaptain
 }) {
-  return (
-    <div>
-      <Card
-        card={card}
-        sendliveCardUpdates={sendliveCardUpdates}
-        liveCardUpdates={liveCardUpdates}
-        isSubmitAllowed={isSubmitAllowed}
-        submitTeamAnswer={submitTeamAnswer}
-        answerFeedback={answerFeedback}
-        showPoints={showPoints}
-      />
+	return (
+		<div>
+			<Card
+				card={card}
+				sendliveCardUpdates={sendliveCardUpdates}
+				liveCardUpdates={liveCardUpdates}
+				isSubmitAllowed={isSubmitAllowed}
+				submitTeamAnswer={submitTeamAnswer}
+				answerFeedback={answerFeedback}
+				showPoints={showPoints}
+				isTeamCaptain={isTeamCaptain}
+			/>
 
-      <Timer counter={serverCounter.round} />
-    </div>
-  );
+			<Timer counter={serverCounter.round} />
+		</div>
+	);
 }
