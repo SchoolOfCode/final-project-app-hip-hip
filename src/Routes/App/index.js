@@ -136,6 +136,9 @@ function useGame(props) {
   const [isTeamCaptain, setIsTeamCaptain] = useState(false);
 
   useEffect(() => {
+    socket.on("roomNumber", number => {
+      setRoomInput(number);
+    });
     socket.on("pictureAnswerNav", ({ path, message, url }) => {
       setGameMessage(message);
       setPictureUrl(url);
