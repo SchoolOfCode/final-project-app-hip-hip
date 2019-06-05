@@ -28,7 +28,7 @@ export default function({
             <h1 className={css.question}>{gameMessage}</h1>
             {serverCounter.question === 0 ? (
                 <>
-                    <h2 className={css.letsCollaborate}>LET'S COLLABORATE!</h2>
+                    <h1 className={css.letsCollaborate}>LET'S COLLABORATE!</h1>
                     <Timer counter={serverCounter.round} />
                 </>
             ) : (
