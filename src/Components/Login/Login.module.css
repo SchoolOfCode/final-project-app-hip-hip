@@ -1,0 +1,11 @@
+.signIn {
+    width: 200px;
+    height: 50px;
+    background-color: orange;
+}
+
+.signOut {
+    width: 50px;
+    height: 30px;
+    background-color: black;
+}

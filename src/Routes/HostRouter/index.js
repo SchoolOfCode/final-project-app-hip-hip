@@ -13,10 +13,11 @@ import PictureAnswerView from "../../Views/Host/PictureAnswerView";
 import GoFindTeam from "../../Views/Host/GoFindTeam";
 
 import Login from "../../Components/Login";
-import RoomNumberBox from "../../Components/RoomNumberBox";
+// import RoomNumberBox from "../../Components/RoomNumberBox";
 
 export default function(props) {
-  console.log(props.match);
+    console.log(props.match);
+
 
   return !props.appProps.user ? (
     <Login appProps={props.appProps} />
@@ -40,34 +41,37 @@ export default function(props) {
           render={() => <RoundCard {...props} />}
         />
 
-        <Route
-          path={`${props.match.url}/question`}
-          render={() => <Question {...props} />}
-        />
 
-        <Route
-          path={`${props.match.url}/answer`}
-          render={() => <AnswerView {...props} />}
-        />
-        <Route
-          path={`${props.match.url}/pictureanswer`}
-          render={() => <PictureAnswerView {...props} />}
-        />
+                <Route
+                    path={`${props.match.url}/question`}
+                    render={() => <Question {...props} />}
+                />
 
-        <Route
-          path={`${props.match.url}/score`}
-          render={() => <ScoreView {...props} />}
-        />
-        <Route
-          path={`${props.match.url}/endpage`}
-          render={() => <EndPageView {...props} />}
-        />
+                <Route
+                    path={`${props.match.url}/answer`}
+                    render={() => <AnswerView {...props} />}
+                />
+                <Route
+                    path={`${props.match.url}/pictureanswer`}
+                    render={() => <PictureAnswerView {...props} />}
+                />
 
-        <Route render={() => <div>component not found...</div>} />
-      </Switch>
+                <Route
+                    path={`${props.match.url}/score`}
+                    render={() => <ScoreView {...props} />}
+                />
+                <Route
+                    path={`${props.match.url}/endpage`}
+                    render={() => <EndPageView {...props} />}
+                />
 
-      {props.match.path !== "/host/makeroom" && <RoomNumberBox {...props} />}
-      <button onClick={props.pauseGame}>pause</button>
-    </div>
-  );
+                <Route render={() => <div>component not found...</div>} />
+            </Switch>
+
+            {/* {props.match.path !== "/host/makeroom" && (
+                <RoomNumberBox {...props} />
+            )} */}
+            {/* <button onClick={props.pauseGame}>pause</button> */}
+        </div>
+    );
 }
