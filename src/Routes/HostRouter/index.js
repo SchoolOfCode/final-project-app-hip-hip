@@ -14,111 +14,55 @@ import PictureAnswerView from "../../Views/Host/PictureAnswerView";
 import Login from "../../Components/Login";
 import RoomNumberBox from "../../Components/RoomNumberBox";
 
-export default function({
-	match,
-	appProps,
-	makeGameRoom,
-	teamOptions,
-	joinedRoom,
-	deleteTeamMember,
-	deleteGameRoom,
-	startGame,
-	gameMessage,
-	serverCounter,
-	roundNumber,
-	teamsThatHaveSubmitted,
-	pauseGame,
-	pictureUrl
-}) {
-	console.log(match);
+export default function(props) {
+  console.log(props.match);
 
-	return !appProps.user ? (
-		<Login appProps={appProps} />
-	) : (
-		<div>
-			<Switch>
-				<Route
-					path={`${match.url}/makeroom`}
-					render={() => <MakeGameRoom makeGameRoom={makeGameRoom} />}
-				/>
-				{/* <Route
-					path={`${match.url}/teams`}
-					render={() => (
-						<PopulateTeams
-							startGame={startGame}
-							teamOptions={teamOptions}
-							joinedRoom={joinedRoom}
-							deleteTeamMember={deleteTeamMember}
-							deleteGameRoom={deleteGameRoom}
-						/>
-					)}
-				/> */}
-				<Route
-					path={`${match.url}/teams`}
-					render={() => (
-						<ListOfPlayersJoiningRoom
-							startGame={startGame}
-							teamOptions={teamOptions}
-							joinedRoom={joinedRoom}
-							deleteTeamMember={deleteTeamMember}
-							deleteGameRoom={deleteGameRoom}
-						/>
-					)}
-				/>
-				<Route
-					path={`${match.url}/roundcard`}
-					render={() => (
-						<RoundCard roundNumber={roundNumber} gameMessage={gameMessage} />
-					)}
-				/>
+  return !props.appProps.user ? (
+    <Login appProps={props.appProps} />
+  ) : (
+    <div>
+      <Switch>
+        <Route
+          path={`${props.match.url}/makeroom`}
+          render={() => <MakeGameRoom {...props} />}
+        />
+        <Route
+          path={`${props.match.url}/teams`}
+          render={() => <ListOfPlayersJoiningRoom {...props} />}
+        />
+        <Route
+          path={`${props.match.url}/roundcard`}
+          render={() => <RoundCard {...props} />}
+        />
 
-				<Route
-					path={`${match.url}/question`}
-					render={() => (
-						<Question
-							gameMessage={gameMessage}
-							serverCounter={serverCounter}
-							teamsThatHaveSubmitted={teamsThatHaveSubmitted}
-						/>
-					)}
-				/>
+        <Route
+          path={`${props.match.url}/question`}
+          render={() => <Question {...props} />}
+        />
 
-				<Route
-					path={`${match.url}/answer`}
-					render={() => (
-						<AnswerView joinedRoom={joinedRoom} gameMessage={gameMessage} />
-					)}
-				/>
-				<Route
-					path={`${match.url}/pictureanswer`}
-					render={() => (
-						<PictureAnswerView
-							joinedRoom={joinedRoom}
-							gameMessage={gameMessage}
-							pictureUrl={pictureUrl}
-						/>
-					)}
-				/>
+        <Route
+          path={`${props.match.url}/answer`}
+          render={() => <AnswerView {...props} />}
+        />
+        <Route
+          path={`${props.match.url}/pictureanswer`}
+          render={() => <PictureAnswerView {...props} />}
+        />
 
-				<Route
-					path={`${match.url}/score`}
-					render={() => (
-						<ScoreView teamOptions={teamOptions} joinedRoom={joinedRoom} />
-					)}
-				/>
-				<Route
-					path={`${match.url}/endpage`}
-					render={() => (
-						<EndPageView teamOptions={teamOptions} joinedRoom={joinedRoom} />
-					)}
-				/>
+        <Route
+          path={`${props.match.url}/score`}
+          render={() => <ScoreView {...props} />}
+        />
+        <Route
+          path={`${props.match.url}/endpage`}
+          render={() => <EndPageView {...props} />}
+        />
 
-				<Route render={() => <div>component not found...</div>} />
-			</Switch>
-			{match.path !== "/host/makeroom" && (
-				<RoomNumberBox joinedRoom={joinedRoom} />
-			)}
-			<button onClick={pauseGame}>pause</button>
-		</div>
-	);
+        <Route render={() => <div>component not found...</div>} />
+      </Switch>
+
+      {props.match.path !== "/host/makeroom" && <RoomNumberBox {...props} />}
+      <button onClick={props.pauseGame}>pause</button>
+    </div>
+  );
 }
