@@ -4,7 +4,7 @@ import css from "./ScoreView.module.css";
 import useAudio from "../../../Hooks/UseAudio";
 
 // import HostScoreBoard from "../../../Components/HostScoreBoard";
-export default function({ teamOptions, joinedRoom }) {
+export default function({ joinedRoom }) {
   const [playing, toggle] = useAudio(`${process.env.PUBLIC_URL}/winner.mp3`);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function({ teamOptions, joinedRoom }) {
   return (
     <div>
       <h1 className={css.title}>The Scores...</h1>
-      <ScoreBoard teamOptions={teamOptions} joinedRoom={joinedRoom} />
+      <ScoreBoard {...joinedRoom} />
     </div>
   );
 }

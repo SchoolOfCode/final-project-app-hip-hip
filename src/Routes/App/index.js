@@ -81,9 +81,9 @@ function App(props) {
           transform: "translateX(-50%)"
         }}
       >
-        <button onClick={props.signOut}>sign out</button>
+        {/* <button onClick={props.signOut}>sign out</button>
         <button onClick={setGame.setIsShow}>more info</button>
-        {game.isShow && <GameInstructions onClose={setGame.toggle} />}
+        {game.isShow && <GameInstructions onClose={setGame.toggle} />} */}
       </div>
     </>
   );

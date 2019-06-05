@@ -1,15 +1,12 @@
 import React from "react";
-import EndPage from "../../../Components/EndPage";
+import EndPageTeams from "../../../Components/EndPageTeams";
 
 export default function({ joinedRoom }) {
-	return (
-		<div>
-			<h2>
-				The Kings and Queens of
-				<span>Collaborate</span> are...
-			</h2>
-			<br />
-			<EndPage joinedRoom={joinedRoom} />
-		</div>
-	);
+  return (
+    <div>
+      <h2>And the winners are...</h2>
+      <br />
+      <EndPageTeams {...joinedRoom} />
+    </div>
+  );
 }
