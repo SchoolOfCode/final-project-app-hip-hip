@@ -10,6 +10,7 @@ import AnswerView from "../../Views/Host/AnswerView";
 import EndPageView from "../../Views/Host/EndPage";
 import ListOfPlayersJoiningRoom from "../../Views/Host/ListOfPlayersJoiningRoom";
 import PictureAnswerView from "../../Views/Host/PictureAnswerView";
+import GoFindTeam from "../../Views/Host/GoFindTeam";
 
 import Login from "../../Components/Login";
 // import RoomNumberBox from "../../Components/RoomNumberBox";
@@ -17,23 +18,29 @@ import Login from "../../Components/Login";
 export default function(props) {
     console.log(props.match);
 
-    return !props.appProps.user ? (
-        <Login appProps={props.appProps} />
-    ) : (
-        <div>
-            <Switch>
-                <Route
-                    path={`${props.match.url}/makeroom`}
-                    render={() => <MakeGameRoom {...props} />}
-                />
-                <Route
-                    path={`${props.match.url}/teams`}
-                    render={() => <ListOfPlayersJoiningRoom {...props} />}
-                />
-                <Route
-                    path={`${props.match.url}/roundcard`}
-                    render={() => <RoundCard {...props} />}
-                />
+
+  return !props.appProps.user ? (
+    <Login appProps={props.appProps} />
+  ) : (
+    <div>
+      <Switch>
+        <Route
+          path={`${props.match.url}/makeroom`}
+          render={() => <MakeGameRoom {...props} />}
+        />
+        <Route
+          path={`${props.match.url}/gofindteam`}
+          render={() => <GoFindTeam {...props} />}
+        />
+        <Route
+          path={`${props.match.url}/teams`}
+          render={() => <ListOfPlayersJoiningRoom {...props} />}
+        />
+        <Route
+          path={`${props.match.url}/roundcard`}
+          render={() => <RoundCard {...props} />}
+        />
+
 
                 <Route
                     path={`${props.match.url}/question`}
