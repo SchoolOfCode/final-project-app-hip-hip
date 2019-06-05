@@ -10,6 +10,7 @@ import AnswerView from "../../Views/Host/AnswerView";
 import EndPageView from "../../Views/Host/EndPage";
 import ListOfPlayersJoiningRoom from "../../Views/Host/ListOfPlayersJoiningRoom";
 import PictureAnswerView from "../../Views/Host/PictureAnswerView";
+import GoFindTeam from "../../Views/Host/GoFindTeam";
 
 import Login from "../../Components/Login";
 import RoomNumberBox from "../../Components/RoomNumberBox";
@@ -25,6 +26,10 @@ export default function(props) {
         <Route
           path={`${props.match.url}/makeroom`}
           render={() => <MakeGameRoom {...props} />}
+        />
+        <Route
+          path={`${props.match.url}/gofindteam`}
+          render={() => <GoFindTeam {...props} />}
         />
         <Route
           path={`${props.match.url}/teams`}
