@@ -1,10 +1,13 @@
 import React from "react";
 import css from "./HostTeamJoiningBoxes.module.css";
 
-export default function({ teamOptions, joinedRoom, deleteTeamMember }) {
+import defaultJoinedRoom from "../../defaultProps";
+import PropTypes from "prop-types";
+
+function TeamBoxes({ teamsArray, teams }) {
   return (
     <div className={css.teamsWrapper}>
-      {teamOptions.map((color, i) => (
+      {teamsArray.map((color, i) => (
         <div
           key={i}
           style={{ backgroundColor: color }}
@@ -12,17 +15,8 @@ export default function({ teamOptions, joinedRoom, deleteTeamMember }) {
         >
           <h3>{color}</h3>
           <ul>
-            {joinedRoom.teams[color].map((player, i) => (
-              <li key={i}>
-                {player.name}{" "}
-                <button
-                  onClick={() => {
-                    deleteTeamMember(i, color);
-                  }}
-                >
-                  X
-                </button>
-              </li>
+            {teams[color].map((player, i) => (
+              <li key={i}>{player.name} </li>
             ))}
           </ul>
         </div>
@@ -30,3 +24,18 @@ export default function({ teamOptions, joinedRoom, deleteTeamMember }) {
     </div>
   );
 }
+
+TeamBoxes.defaultProps = {
+    teamsArray: ["red", "blue", "yellow"],
+    scoresTotal: {
+      red: 0,
+      blue: 50,
+      yellow: 1000
+    },
+    teams: {
+      red: [{ name: "ben" }],
+      blue: [{ name: "ben" }],
+      yellow: [{ name: "ben" }]
+    }
+};
+export default TeamBoxes;

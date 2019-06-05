@@ -2,7 +2,7 @@ import React from "react";
 
 import TeamBoxes from "../../../Components/HostTeamJoiningBoxes";
 import CorrelateLogo from "../../../Components/Branding";
-import css from "./ListOfPlayersJoining.css";
+import css from "./ListOfPlayersJoiningRoom.module.css";
 
 export default function({
   teamOptions,
