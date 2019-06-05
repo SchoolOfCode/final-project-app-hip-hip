@@ -1,13 +1,13 @@
 import React from "react";
 import css from "./branding.module.css";
-import bot from "../images/bot.png";
+import bot2 from "../images/bot2.png";
 
 const Logo = () => {
     return (
         <>
             <img
                 className={(css.bot = " " + css.botAfter)}
-                src={bot}
+                src={bot2}
                 alt="bot"
             />
             <div className={css.container}>

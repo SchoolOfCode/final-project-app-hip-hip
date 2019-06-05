@@ -1,14 +1,16 @@
 import React from "react";
 
 import CorrelateLogo from "../../../Components/Branding";
-import RoomNumberPicker from "../../../Components/RoomNumberPicker";
+import css from "./MakeGameRoom.module.css";
 
 export default function({ makeGameRoom }) {
-  return (
-    <div>
-      <CorrelateLogo />
-      <br />
-      <RoomNumberPicker makeGameRoom={makeGameRoom} />
-    </div>
-  );
+    return (
+        <div>
+            <CorrelateLogo />
+            <br />
+            <button className={css.gameButton} onClick={makeGameRoom}>
+                Create A Game Room
+            </button>
+        </div>
+    );
 }

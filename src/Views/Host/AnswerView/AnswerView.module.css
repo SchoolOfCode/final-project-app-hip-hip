@@ -1,11 +1,19 @@
 .question {
-	background-color: antiquewhite;
-	padding: 50px;
-	font-size: 50px;
-	border: 5px solid pink;
-	border-radius: 5px;
-	width: 80vw;
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
+    background-color: antiquewhite;
+    padding: 50px;
+    font-size: 50px;
+    border: 5px solid pink;
+    border-radius: 5px;
+    width: 80vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.answer {
+    display: inline-block;
+    font-family: "Modak", sans-serif;
+    font-size: 50px;
+    color: orange;
+    -webkit-text-stroke: 1px #282828;
 }
