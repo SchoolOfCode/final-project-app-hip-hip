@@ -36,6 +36,6 @@ export default function ScoreBoard({ teamsArray, scoresTotal }) {
 // };
 
 ScoreBoard.defaultProps = {
-  teamsArray: ["yellow"],
-  scoresTotal: { yellow: 0 }
+  teamsArray: ["yellow", 'blue', 'green'],
+  scoresTotal: { yellow: 0 , blue: 6, green: 10}
 };
