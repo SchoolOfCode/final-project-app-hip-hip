@@ -5,8 +5,21 @@
 }
 
 .gridItem {
-  height: 30vh;
+  height: 40vh;
   width: 20vw;
   border-radius: 20px;
   border: 1px solid pink;
+}
+
+.phoneBox {
+  display: grid;
+  grid-template-columns: 10vw 10vw;
+  grid-template-rows: 13.5vh 13.5vh;
+  grid-row-gap: 1vh;
+}
+.teamName {
+  font-size: 2em;
+  margin: 0;
+  padding: 0;
+  text-decoration-line: underline;
 }

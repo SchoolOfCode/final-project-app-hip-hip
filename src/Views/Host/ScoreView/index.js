@@ -34,7 +34,10 @@ export default function({ joinedRoom }) {
                 <span className={css.E + " " + css.letter}>E</span>
                 <span className={css.S + " " + css.letter}>S</span>
             </div>
+            <div className={css.scoreBoardWrapper}>
             <ScoreBoard {...joinedRoom} />
+            </div>
+
         </div>
     );
 
