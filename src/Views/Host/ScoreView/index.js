@@ -5,12 +5,15 @@ import useAudio from "../../../Hooks/UseAudio";
 import bot2 from "../../../Components/images/bot2.png";
 
 // import HostScoreBoard from "../../../Components/HostScoreBoard";
-export default function({ teamOptions, joinedRoom }) {
-    const [playing, toggle] = useAudio(`${process.env.PUBLIC_URL}/winner.mp3`);
+
+export default function({ joinedRoom }) {
+  const [playing, toggle] = useAudio(`${process.env.PUBLIC_URL}/winner.mp3`);
+
 
     useEffect(() => {
         toggle();
     }, []);
+
 
     return (
         <div>
@@ -31,7 +34,8 @@ export default function({ teamOptions, joinedRoom }) {
                 <span className={css.E + " " + css.letter}>E</span>
                 <span className={css.S + " " + css.letter}>S</span>
             </div>
-            <ScoreBoard teamOptions={teamOptions} joinedRoom={joinedRoom} />
+            <ScoreBoard joinedRoom={joinedRoom} />
         </div>
     );
+
 }

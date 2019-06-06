@@ -58,43 +58,44 @@ function App(props) {
                     )}
                 />
 
-                <Route
-                    path="/host"
-                    render={routerProps => (
-                        <HostRouter
-                            {...routerProps}
-                            appProps={props}
-                            {...game}
-                            {...setGame}
-                        />
-                    )}
-                />
-                <Route
-                    path="/play"
-                    render={routerProps => (
-                        <PlayerRouter
-                            {...routerProps}
-                            appProps={props}
-                            {...game}
-                            {...setGame}
-                        />
-                    )}
-                />
-            </Switch>
-            <div
-            // style={{
-            //     position: "absolute",
-            //     bottom: 50,
-            //     left: "50vw",
-            //     transform: "translateX(-50%)"
-            // }}
-            >
-                <button onClick={props.signOut}>sign out</button>
-                <button onClick={setGame.setIsShow}>more info</button>
-                {game.isShow && <GameInstructions onClose={setGame.toggle} />}
-            </div>
-        </>
-    );
+        <Route
+          path="/host"
+          render={routerProps => (
+            <HostRouter
+              {...routerProps}
+              appProps={props}
+              {...game}
+              {...setGame}
+            />
+          )}
+        />
+        <Route
+          path="/play"
+          render={routerProps => (
+            <PlayerRouter
+              {...routerProps}
+              appProps={props}
+              {...game}
+              {...setGame}
+            />
+          )}
+        />
+      </Switch>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 20,
+          left: "50vw",
+          transform: "translateX(-50%)"
+        }}
+      >
+        {/* <button onClick={props.signOut}>sign out</button>
+        <button onClick={setGame.setIsShow}>more info</button>
+        {game.isShow && <GameInstructions onClose={setGame.toggle} />} */}
+      </div>
+    </>
+  );
+
 }
 
 export default withFirebaseAuth({
