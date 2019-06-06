@@ -297,6 +297,7 @@ export default function useGame(props) {
         },
         {
             setRoomInput,
+            setIsShow,
             getCurrentScore,
             makeGameRoom,
             enterGameRoom,
