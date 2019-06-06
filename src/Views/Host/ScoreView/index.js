@@ -34,7 +34,7 @@ export default function({ joinedRoom }) {
                 <span className={css.E + " " + css.letter}>E</span>
                 <span className={css.S + " " + css.letter}>S</span>
             </div>
-            <ScoreBoard joinedRoom={joinedRoom} />
+            <ScoreBoard {...joinedRoom} />
         </div>
     );
 

@@ -8,10 +8,11 @@ import trophy from "./trophy.png";
 const cssOrder = ["teamOne", "teamTwo", "teamThree", "teamFour"].reverse();
 
 function EndPageTeams({ teamsArray, scoresTotal }) {
-  let orderedTeams = teamsArray
-    .sort((team, team2) => scoresTotal[team2] - scoresTotal[team])
-    .slice(0, -1);
 
+  console.log('teams and total', teamsArray, scoresTotal)
+  let orderedTeams = teamsArray.sort((team, team2) => scoresTotal[team2] - scoresTotal[team])
+    .slice(0, 3)
+  
   return (
     <>
       {orderedTeams.map((team, i) => {
