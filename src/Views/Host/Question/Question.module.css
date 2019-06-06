@@ -1,0 +1,73 @@
+.letsCollaborate {
+    display: inline-block;
+    font-family: "Modak", sans-serif;
+    font-size: 50px;
+    color: orange;
+    -webkit-text-stroke: 1px #282828;
+}
+.question {
+    background-color: antiquewhite;
+    padding: 50px;
+    border: 5px solid orange;
+    border-radius: 5px;
+    width: 80vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bot2 {
+    width: 25%;
+    height: auto;
+    position: relative;
+    margin-left: 80%;
+    animation: cssAnimation 2s 6.5s;
+    visibility: hidden;
+    z-index: -1;
+}
+
+.bot2After {
+    animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 2) both;
+    animation-delay: 3.5s;
+    position: relative;
+    top: -10px;
+    z-index: -1;
+}
+
+@keyframes slide-in-bottom {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes cssAnimation {
+    to {
+        visibility: visible;
+    }
+}
+@keyframes wobble {
+    0%,
+    100% {
+        transform: translateX(0);
+        transform-origin: 50% 50%;
+    }
+    15% {
+        transform: translateX(-30px) rotate(-6deg);
+    }
+    30% {
+        transform: translateX(15px) rotate(6deg);
+    }
+    45% {
+        transform: translateX(-15px) rotate(-3.6deg);
+    }
+    60% {
+        transform: translateX(9px) rotate(2.4deg);
+    }
+    75% {
+        transform: translateX(-6px) rotate(-1.2deg);
+    }
+}

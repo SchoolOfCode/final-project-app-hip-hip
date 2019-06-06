@@ -18,9 +18,9 @@ import useGame from "../../Hooks/UseGame";
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
-  googleProvider: new firebase.auth.GoogleAuthProvider(),
-  facebookProvider: new firebase.auth.FacebookAuthProvider(),
-  twitterProvider: new firebase.auth.TwitterAuthProvider()
+    googleProvider: new firebase.auth.GoogleAuthProvider(),
+    facebookProvider: new firebase.auth.FacebookAuthProvider(),
+    twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
 // const props = { user: { uid: Math.random() } };
@@ -28,27 +28,35 @@ const providers = {
 // change to your ip address
 
 function App(props) {
-  const [game, setGame] = useGame({ ...props, firebaseAppAuth });
+    const [game, setGame] = useGame({ ...props, firebaseAppAuth });
 
-  return (
-    <>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <div>
-              <button
-                onClick={() => setGame.controlRouteFromServer("/host/makeroom")}
-              >
-                make room
-              </button>
-              <button onClick={() => setGame.controlRouteFromServer("/play")}>
-                join room
-              </button>
-            </div>
-          )}
-        />
+    return (
+        <>
+            <Switch>
+                <Route
+                    exact
+                    path="/"
+                    render={() => (
+                        <div>
+                            <button
+                                onClick={() =>
+                                    setGame.controlRouteFromServer(
+                                        "/host/makeroom"
+                                    )
+                                }
+                            >
+                                make room
+                            </button>
+                            <button
+                                onClick={() =>
+                                    setGame.controlRouteFromServer("/play")
+                                }
+                            >
+                                join room
+                            </button>
+                        </div>
+                    )}
+                />
 
         <Route
           path="/host"
@@ -87,9 +95,10 @@ function App(props) {
       </div>
     </>
   );
+
 }
 
 export default withFirebaseAuth({
-  providers,
-  firebaseAppAuth
+    providers,
+    firebaseAppAuth
 })(App);

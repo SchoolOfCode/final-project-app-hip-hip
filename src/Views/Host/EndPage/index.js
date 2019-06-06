@@ -1,4 +1,5 @@
 import React from "react";
+
 import EndPageTeams from "../../../Components/EndPageTeams";
 
 export default function({ joinedRoom }) {
@@ -9,4 +10,5 @@ export default function({ joinedRoom }) {
       <EndPageTeams {...joinedRoom} />
     </div>
   );
+
 }
