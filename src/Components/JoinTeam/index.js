@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import css from "./jointeam.module.css";
+import css from "./Jointeam.module.css";
 
 export default function({ setHasJoinedTeam, joinTeam, teamOptions }) {
   const [name, setName] = useState("");
