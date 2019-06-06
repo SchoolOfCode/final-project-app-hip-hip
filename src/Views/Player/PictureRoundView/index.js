@@ -19,8 +19,10 @@ export default function({
     <div>
       <h3>{gameMessage}</h3>
       <div>
-        <input type="text" value={pictureAnswer} onChange={handleChange} />
+        
         {isTeamCaptain && isSubmitAllowed && (
+          <>
+          <input type="text" value={pictureAnswer} onChange={handleChange} />
           <button
             onClick={() => {
               submitPictureAnswer();
@@ -28,7 +30,7 @@ export default function({
             }}
           >
             submit
-          </button>
+          </button></>
         )}
       </div>
       <PictureCard pictureUrl={pictureUrl} />
