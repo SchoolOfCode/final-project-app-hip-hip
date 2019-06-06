@@ -9,21 +9,24 @@
   transform: scaleY(-1) translate(-50%);
   bottom: 0;
   width: 65vw;
+  
 }
 .podium1 {
   height: 50vh;
   width: 20vw;
-  background-color: gray;
+  background-color: palegoldenrod;
+
 }
 .podium2 {
   height: 30vh;
   width: 20vw;
-  background-color: gray;
+  background-color: palegoldenrod;
 }
 .podium3 {
   height: 10vh;
   width: 20vw;
-  background-color: gray;
+  background-color: palegoldenrod;
+
 }
 
 /* .teamScoreContainer {

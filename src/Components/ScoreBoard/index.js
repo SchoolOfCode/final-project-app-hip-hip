@@ -2,6 +2,7 @@ import React from "react";
 import css from "../ScoreBoard/ScoreBoard.module.css";
 
 import cn from "classnames";
+import TeamNameAndScore from "../TeamNameAndScore";
 
 const cssOrder = ["teamOne", "teamTwo", "teamThree", "teamFour"].reverse();
 
@@ -11,22 +12,15 @@ export default function ScoreBoard({ teamsArray, scoresTotal }) {
   );
 
   return (
-    <ul className={css.teamScoreContainer}>
+    <div className={css.teamScoreContainer}>
       {orderedTeams.map((team, i) => {
         return (
-          <li
-            key={i}
-            style={{
-              border: `solid 10px ${team}`,
-              color: team
-            }}
-            className={cn(css[cssOrder[i]], css.teams)}
-          >
-            {team}: {scoresTotal[team]}
-          </li>
+          <div key={i} className={cn(css[cssOrder[i]], css.teams)}>
+            <TeamNameAndScore teamName={team} score={scoresTotal[team]} />
+          </div>
         );
       })}
-    </ul>
+    </div>
   );
 }
 
@@ -36,6 +30,6 @@ export default function ScoreBoard({ teamsArray, scoresTotal }) {
 // };
 
 ScoreBoard.defaultProps = {
-  teamsArray: ["yellow", 'blue', 'green'],
-  scoresTotal: { yellow: 0 , blue: 6, green: 10}
+  teamsArray: ["yellow", "blue", "green", "pink"],
+  scoresTotal: { yellow: 0, blue: 6, green: 10, pink: 50 }
 };
