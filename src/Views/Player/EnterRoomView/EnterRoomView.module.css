@@ -1,0 +1,40 @@
+.welcomeMessage {
+    margin-top: 2vh;
+    font-family: "Modak", sans-serif;
+    color: orange;
+    -webkit-text-stroke: 1px #282828;
+    font-size: 1em;
+}
+
+.container {
+    width: 100vw;
+    margin-top: 2%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.number {
+    width: 45vw;
+    height: 5vh;
+    font-size: 1.3em;
+    margin: 2%;
+}
+
+.text {
+    width: 45vw;
+    height: 5vh;
+    font-size: 1.3em;
+    margin: 2%;
+}
+
+.enter {
+    height: 50px;
+    width: 40%;
+    background-color: #b5c737;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 5px;
+    margin: 10px;
+}

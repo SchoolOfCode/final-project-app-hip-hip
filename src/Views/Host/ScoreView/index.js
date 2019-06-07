@@ -7,13 +7,11 @@ import bot2 from "../../../Components/images/bot2.png";
 // import HostScoreBoard from "../../../Components/HostScoreBoard";
 
 export default function({ joinedRoom }) {
-  const [playing, toggle] = useAudio(`${process.env.PUBLIC_URL}/winner.mp3`);
-
+    const [playing, toggle] = useAudio(`${process.env.PUBLIC_URL}/winner.mp3`);
 
     useEffect(() => {
         toggle();
     }, []);
-
 
     return (
         <div>
@@ -34,11 +32,11 @@ export default function({ joinedRoom }) {
                 <span className={css.E + " " + css.letter}>E</span>
                 <span className={css.S + " " + css.letter}>S</span>
             </div>
+            <br />
+            <br />
             <div className={css.scoreBoardWrapper}>
-            <ScoreBoard {...joinedRoom} />
+                <ScoreBoard {...joinedRoom} />
             </div>
-
         </div>
     );
-
 }
