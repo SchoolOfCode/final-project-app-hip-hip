@@ -1,6 +1,7 @@
 import React from "react";
 
-import EnterRoom from "../../../Components/EnterRoom";
+import css from "./EnterRoomView.module.css";
+import cn from "classnames";
 
 export default function({
 	enterGameRoom,
@@ -16,14 +17,10 @@ export default function({
 	}
 
 	return (
-		<div>
-			{/* <EnterRoom
-        enterGameRoom={enterGameRoom}
-        roomInput={roomInput}
-        setRoomInput={setRoomInput}
-      /> */}
-
+		<div className={css.container}>
+			<h1>Welcome to Collaborate</h1>
 			<input
+				className={css.inputs}
 				type="number"
 				placeholder="room number"
 				value={roomInput}
@@ -31,12 +28,15 @@ export default function({
 			/>
 
 			<input
+				className={css.inputs}
 				type="text"
 				placeholder="name"
 				value={nameInput}
 				onChange={e => setNameInput(e.target.value)}
 			/>
-			<button onClick={enterGameRoom}>enter room</button>
+			<button className={cn(css.inputs, css.enterRoom)} onClick={enterGameRoom}>
+				join
+			</button>
 		</div>
 	);
 }
