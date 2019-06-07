@@ -24,10 +24,10 @@
 	content: attr(data-text);
 	position: absolute;
 	overflow: hidden;
-	max-width: 80vw;
+	max-width: 100vw;
 	white-space: nowrap;
 	color: orange;
-	animation: loading 15s linear;
+	animation: loading 13s linear;
 }
 @keyframes loading {
 	0% {
