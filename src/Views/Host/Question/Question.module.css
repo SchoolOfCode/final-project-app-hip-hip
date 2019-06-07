@@ -1,74 +1,112 @@
 .letsCollaborate {
-    font-family: "Modak", sans-serif;
-    font-size: 50px;
-    color: orange;
-    margin-top: 15%;
-    -webkit-text-stroke: 1px #282828;
+	font-family: "Modak", sans-serif;
+	font-size: 50px;
+	color: orange;
+	margin-top: 9vh;
+	-webkit-text-stroke: 1px #282828;
 }
 
 .question {
-    background-color: antiquewhite;
-    padding: 50px;
-    border: 5px solid orange;
-    border-radius: 5px;
-    width: 80vw;
-    position: absolute;
-    top: 90px;
-    left: 50%;
-    transform: translateX(-50%);
+	background-color: antiquewhite;
+	padding: 50px;
+	border: 5px solid orange;
+	border-radius: 5px;
+	width: 80vw;
+	position: absolute;
+	top: 90px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .bot2 {
-    position: relative;
-    left: 15%;
-    animation: cssAnimation 7s 4s;
-    visibility: hidden;
-    z-index: -11;
+	position: relative;
+	left: 15%;
+	animation: cssAnimation 7s 4s;
+	visibility: hidden;
+	z-index: -11;
 }
 
 .bot2After {
-    animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 2) both;
-    animation-delay: 4s;
-    position: relative;
-    left: 15%;
-    top: 2px;
-    z-index: -11;
+	animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 2) both;
+	animation-delay: 4s;
+	position: relative;
+	left: 15%;
+	top: 2px;
+	z-index: -11;
+}
+
+.teamBoxContainer {
+	display: flex;
+	justify-content: space-evenly;
+}
+.teamBox {
+	width: 20vh;
+	height: 20vh;
+	border-radius: 3vh;
+}
+.wiggle {
+	animation: vibrate-1 0.3s linear infinite both;
+}
+.padlock {
+	height: 80%;
+	margin-top: 10%;
+}
+
+@keyframes vibrate-1 {
+	0% {
+		transform: translate(0);
+	}
+	20% {
+		transform: translate(-2px, 2px);
+	}
+	40% {
+		transform: translate(-2px, -2px);
+	}
+	60% {
+		transform: translate(2px, 2px);
+	}
+	80% {
+		transform: translate(2px, -2px);
+	}
+	100% {
+		transform: translate(0);
+	}
 }
 
 @keyframes slide-in-bottom {
-    0% {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+	0% {
+		transform: translateY(30px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
 @keyframes cssAnimation {
-    to {
-        visibility: visible;
-    }
+	to {
+		visibility: visible;
+	}
 }
 @keyframes wobble {
-    0%,
-    100% {
-        transform: translateX(0);
-        transform-origin: 50% 50%;
-    }
-    15% {
-        transform: translateX(-30px) rotate(-6deg);
-    }
-    30% {
-        transform: translateX(15px) rotate(6deg);
-    }
-    45% {
-        transform: translateX(-15px) rotate(-3.6deg);
-    }
-    60% {
-        transform: translateX(9px) rotate(2.4deg);
-    }
-    75% {
-        transform: translateX(-6px) rotate(-1.2deg);
-    }
+	0%,
+	100% {
+		transform: translateX(0);
+		transform-origin: 50% 50%;
+	}
+	15% {
+		transform: translateX(-30px) rotate(-6deg);
+	}
+	30% {
+		transform: translateX(15px) rotate(6deg);
+	}
+	45% {
+		transform: translateX(-15px) rotate(-3.6deg);
+	}
+	60% {
+		transform: translateX(9px) rotate(2.4deg);
+	}
+	75% {
+		transform: translateX(-6px) rotate(-1.2deg);
+	}
 }

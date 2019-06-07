@@ -4,6 +4,7 @@ import cn from "classnames";
 import css from "./EndPageTeams.module.css";
 
 import trophy from "./trophy.png";
+import crown from "./crown.png";
 
 const cssOrder = ["teamOne", "teamTwo", "teamThree", "teamFour"].reverse();
 
@@ -18,6 +19,7 @@ function EndPageTeams({ teamsArray, scoresTotal }) {
 			{orderedTeams.map((team, i) => {
 				return (
 					<div key={i} className={cn(css.team, css[cssOrder[i]])}>
+						{i === 0 && <img className={css.crown} src={crown} />}
 						<p className={cn(css.Score, css[`score${i}`])}>
 							{scoresTotal[team]}
 						</p>
