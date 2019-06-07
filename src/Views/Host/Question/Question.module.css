@@ -1,37 +1,38 @@
 .letsCollaborate {
-    display: inline-block;
     font-family: "Modak", sans-serif;
     font-size: 50px;
     color: orange;
+    margin-top: 15%;
     -webkit-text-stroke: 1px #282828;
 }
+
 .question {
     background-color: antiquewhite;
     padding: 50px;
     border: 5px solid orange;
     border-radius: 5px;
     width: 80vw;
-    position: relative;
+    position: absolute;
+    top: 90px;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .bot2 {
-    width: 25%;
-    height: auto;
     position: relative;
-    margin-left: 80%;
-    animation: cssAnimation 2s 6.5s;
+    left: 15%;
+    animation: cssAnimation 7s 4s;
     visibility: hidden;
-    z-index: -1;
+    z-index: -11;
 }
 
 .bot2After {
     animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 2) both;
-    animation-delay: 3.5s;
+    animation-delay: 4s;
     position: relative;
-    top: -10px;
-    z-index: -1;
+    left: 15%;
+    top: 2px;
+    z-index: -11;
 }
 
 @keyframes slide-in-bottom {
