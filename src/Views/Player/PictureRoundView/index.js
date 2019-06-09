@@ -6,10 +6,10 @@ export default function({
 	sendLivePictureAnswer,
 	gameMessage,
 	isSubmitAllowed,
-	submitTeamAnswer,
 	isTeamCaptain,
 	submitPictureAnswer,
-	setIsSubmitAllowed
+	setIsSubmitAllowed,
+	teamColor
 }) {
 	function handleChange(e) {
 		sendLivePictureAnswer(e.target.value);
@@ -19,22 +19,22 @@ export default function({
 		<div>
 			<h3>{gameMessage}</h3>
 			<div>
-				<PictureCard pictureUrl={pictureUrl} />
-
-				{isTeamCaptain && isSubmitAllowed && (
-					<>
-						<input type="text" value={pictureAnswer} onChange={handleChange} />
-						<button
-							onClick={() => {
-								submitPictureAnswer();
-								setIsSubmitAllowed(false);
-							}}
-						>
-							submit
-						</button>
-					</>
-				)}
+				<PictureCard pictureUrl={pictureUrl} teamColor={teamColor} />
 			</div>
+
+			{isTeamCaptain && isSubmitAllowed && (
+				<div>
+					<input type="text" value={pictureAnswer} onChange={handleChange} />
+					<button
+						onClick={() => {
+							submitPictureAnswer();
+							setIsSubmitAllowed(false);
+						}}
+					>
+						submit
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }

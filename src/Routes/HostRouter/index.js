@@ -66,9 +66,6 @@ export default function(props) {
 				<Route render={() => <div>component not found...</div>} />
 			</Switch>
 
-			{/* {props.match.path !== "/host/makeroom" && (
-                <RoomNumberBox {...props} />
-            )} */}
 			{/* <button onClick={props.pauseGame}>pause</button> */}
 		</div>
 	);

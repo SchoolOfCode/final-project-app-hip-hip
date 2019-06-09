@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const useAudio = url => {
-  const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
+	const [audio] = useState(new Audio(url));
+	const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlaying(!playing);
+	const toggle = () => setPlaying(!playing);
 
-  useEffect(() => {
-    if (playing) {
-      audio.play();
-    }
-    return () => {
-      console.log("cleaning up audio");
-      audio.pause();
-    };
-  }, [playing]);
+	useEffect(() => {
+		if (playing) {
+			audio.play();
+		}
+		return () => {
+			console.log("cleaning up audio");
+			audio.pause();
+		};
+	}, [playing]);
 
-  return [playing, toggle];
+	return [playing, toggle];
 };
 
 export default useAudio;

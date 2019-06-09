@@ -7,7 +7,7 @@ export default function({ joinedRoom, gameMessage, pictureUrl }) {
 		<div>
 			<h2 className={css.question}>{gameMessage}</h2>
 
-			<img src={pictureUrl} height="150" alt="not telling..." />
+			<img className={css.picture} src={pictureUrl} alt="not telling..." />
 		</div>
 	);
 }

@@ -19,6 +19,7 @@ export default function({
 			questionType === "order" ? "orderRound.mp3" : "pictureRound.mp3"
 		}`
 	);
+
 	// const teamsArray = ["red", "blue"];
 	useEffect(() => {
 		toggle();

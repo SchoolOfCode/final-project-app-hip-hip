@@ -8,7 +8,7 @@ import useAudio from "../../../Hooks/UseAudio";
 
 function GoFindTeam({ joinedRoom }) {
 	const [playing, toggle] = useAudio(
-		`${process.env.PUBLIC_URL}/music/goFindTeams.mp3`
+		`${process.env.PUBLIC_URL}/music/findteams.mp3`
 	);
 	useEffect(() => {
 		toggle();
