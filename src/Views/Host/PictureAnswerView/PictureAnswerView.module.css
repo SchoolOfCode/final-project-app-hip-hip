@@ -1,11 +1,17 @@
 .question {
-    background-color: antiquewhite;
-    padding: 50px;
-    border: 5px solid orange;
-    border-radius: 5px;
-    width: 80vw;
-    position: absolute;
-    top: 90px;
-    left: 50%;
-    transform: translateX(-50%);
+	background-color: antiquewhite;
+	padding: 50px;
+	border: 5px solid orange;
+	border-radius: 5px;
+	width: 80vw;
+	position: relative;
+	top: 90px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.picture {
+	position: relative;
+	top: 90px;
+	height: 30vh;
 }

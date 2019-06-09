@@ -1,60 +1,59 @@
 @import url(https://fonts.googleapis.com/css?family=Modak);
 
 body {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 .teamScoreContainer {
-    position: relative;
-    width: 100vw;
-    /* height: 60vh; */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    list-style: none;
-    margin: 0;
-    padding-top: 80px;
+	position: relative;
+	width: 100vw;
+	/* height: 60vh; */
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	list-style: none;
+	margin: 0;
+	padding-top: 80px;
 }
 .teams {
-    position: relative;
-    left: 25vw;
-    width: 50vw;
-    margin-top: 5vh;
+	position: relative;
+	left: 25vw;
+	width: 50vw;
+	margin-top: 5vh;
 }
 
-.teamOne {
-    animation: slide-in-elliptic-left-fwd 0.7s
-        cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    animation-delay: 3s;
+.team3 {
+	animation: slide-in-elliptic-left-fwd 0.7s
+		cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.teamTwo {
-    animation: slide-in-elliptic-left-fwd 0.7s
-        cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    animation-delay: 4.5s;
+.team2 {
+	animation: slide-in-elliptic-left-fwd 0.7s
+		cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+	animation-delay: 1s;
 }
 
-.teamThree {
-    animation: slide-in-elliptic-left-fwd 0.7s
-        cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    animation-delay: 5.5;
+.team1 {
+	animation: slide-in-elliptic-left-fwd 0.7s
+		cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+	animation-delay: 2s;
 }
 
-.teamFour {
-    animation: slide-in-elliptic-left-fwd 0.7s
-        cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    animation-delay: 7s;
+.team0 {
+	animation: slide-in-elliptic-left-fwd 0.7s
+		cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+	animation-delay: 3s;
 }
 
 @keyframes slide-in-elliptic-left-fwd {
-    0% {
-        transform: translateX(-800px) rotateY(30deg) scale(0);
-        transform-origin: -100% 50%;
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0) rotateY(0) scale(1);
-        transform-origin: 1800px 50%;
-        opacity: 1;
-    }
+	0% {
+		transform: translateX(-800px) rotateY(30deg) scale(0);
+		transform-origin: -100% 50%;
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0) rotateY(0) scale(1);
+		transform-origin: 1800px 50%;
+		opacity: 1;
+	}
 }

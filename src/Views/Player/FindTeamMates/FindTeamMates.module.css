@@ -1,0 +1,31 @@
+.container {
+	position: absolute;
+	/* height: 100vh;
+	width: 100vw; */
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	animation: drain 13s linear 2s both;
+}
+.phoneWrapper {
+	margin-top: 20vh;
+}
+.phone {
+	height: 10vh;
+}
+.text {
+	color: orange;
+	font-size: 4vh;
+	font-family: "Modak", sans-serif;
+	-webkit-text-stroke: 1px #282828;
+}
+
+@keyframes drain {
+	0% {
+		bottom: 0;
+	}
+	100% {
+		bottom: 100vh;
+	}
+}
