@@ -1,63 +1,64 @@
 .container {
-	font-family: "Modak", sans-serif;
-	color: orange;
-	-webkit-text-stroke: 0.1px #282828;
+    font-family: "Modak", sans-serif;
+    color: orange;
+    -webkit-text-stroke: 0.1px #282828;
 }
 
 .round {
-	font-size: 10vh;
-	margin: 0;
-	padding: 0;
-	animation: tracking-in-expand 1s cubic-bezier(0.215, 0.61, 0.355, 1) both;
-	animation-delay: 0.5s;
+    font-size: 10vh;
+    margin: 0;
+    padding: 0;
+    animation: tracking-in-expand 1s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+    animation-delay: 0.5s;
 }
 .roundNumber {
-	font-size: 20vh;
-	margin: 0;
-	padding: 0;
-	animation: swirl-in-fwd 1s ease-out 1s both;
+    font-size: 20vh;
+    margin: 0;
+    padding: 0;
+    animation: swirl-in-fwd 1s ease-out 1s both;
 }
 .roundMessage {
-	font-size: 5vh;
-	animation: text-focus-in 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) 2s both;
+    font-size: 5vh;
+    animation: text-focus-in 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) 2s both;
 }
 .pointsInfo {
-	font-family: Arial, Helvetica, sans-serif;
-	color: black;
-	animation: text-focus-in 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) 2s both;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    font-weight: bold;
+    animation: text-focus-in 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) 2s both;
 }
 
 @keyframes tracking-in-expand {
-	0% {
-		letter-spacing: -0.5em;
-		opacity: 0;
-	}
-	40% {
-		opacity: 0.6;
-	}
-	100% {
-		opacity: 1;
-	}
+    0% {
+        letter-spacing: -0.5em;
+        opacity: 0;
+    }
+    40% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes swirl-in-fwd {
-	0% {
-		transform: rotate(-1540deg) scale(0);
-		opacity: 0;
-	}
-	100% {
-		transform: rotate(0) scale(1);
-		opacity: 1;
-	}
+    0% {
+        transform: rotate(-1540deg) scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(0) scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes text-focus-in {
-	0% {
-		filter: blur(12px);
-		opacity: 0;
-	}
-	100% {
-		filter: blur(0px);
-		opacity: 1;
-	}
+    0% {
+        filter: blur(12px);
+        opacity: 0;
+    }
+    100% {
+        filter: blur(0px);
+        opacity: 1;
+    }
 }
