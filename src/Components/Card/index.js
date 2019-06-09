@@ -1,5 +1,5 @@
 import React from "react";
-import css from "./card.module.css";
+import css from "./Card.module.css";
 
 const selectionOptions = [1, 2, 3, 4];
 

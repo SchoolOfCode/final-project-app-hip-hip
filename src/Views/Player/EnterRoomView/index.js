@@ -1,5 +1,8 @@
 import React from "react";
+
 import css from "./EnterRoomView.module.css";
+
+
 
 export default function({
     enterGameRoom,
@@ -8,6 +11,7 @@ export default function({
     nameInput,
     setNameInput
 }) {
+
     function handleNumberChange(e) {
         if (e.target.value.length <= 4) {
             setRoomInput(e.target.value);
@@ -43,4 +47,5 @@ export default function({
             </div>
         </>
     );
+
 }

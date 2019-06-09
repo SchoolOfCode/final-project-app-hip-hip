@@ -11,9 +11,14 @@ export default function({
 	gameMessage,
 	serverCounter,
 	teamsThatHaveSubmitted,
-	joinedRoom
+	joinedRoom,
+	questionType
 }) {
-	const [playing, toggle] = useAudio(`${process.env.PUBLIC_URL}/question.mp3`);
+	const [playing, toggle] = useAudio(
+		`${process.env.PUBLIC_URL}/music/${
+			questionType === "order" ? "orderRound.mp3" : "pictureRound.mp3"
+		}`
+	);
 	// const teamsArray = ["red", "blue"];
 	useEffect(() => {
 		toggle();
