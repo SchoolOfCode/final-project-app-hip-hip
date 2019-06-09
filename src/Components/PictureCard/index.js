@@ -7,7 +7,7 @@ function PuzzlePiece({ pictureUrl, teamColor }) {
 	return (
 		<div className={css.container}>
 			{/* <div className={css.bottom} /> */}
-			<img src={pic} className={css.picture} alt="not telling..." />
+			<img src={pictureUrl} className={css.picture} alt="not telling..." />
 		</div>
 	);
 }
