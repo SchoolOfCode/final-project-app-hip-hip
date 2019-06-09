@@ -16,62 +16,60 @@ import Login from "../../Components/Login";
 // import RoomNumberBox from "../../Components/RoomNumberBox";
 
 export default function(props) {
-    console.log(props.match);
+	console.log(props.match);
 
+	return !props.appProps.user ? (
+		<Login appProps={props.appProps} />
+	) : (
+		<div>
+			<Switch>
+				<Route
+					path={`${props.match.url}/makeroom`}
+					render={() => <MakeGameRoom {...props} />}
+				/>
+				<Route
+					path={`${props.match.url}/gofindteam`}
+					render={() => <GoFindTeam {...props} />}
+				/>
+				<Route
+					path={`${props.match.url}/teams`}
+					render={() => <ListOfPlayersJoiningRoom {...props} />}
+				/>
+				<Route
+					path={`${props.match.url}/roundcard`}
+					render={() => <RoundCard {...props} />}
+				/>
 
-  return !props.appProps.user ? (
-    <Login appProps={props.appProps} />
-  ) : (
-    <div>
-      <Switch>
-        <Route
-          path={`${props.match.url}/makeroom`}
-          render={() => <MakeGameRoom {...props} />}
-        />
-        <Route
-          path={`${props.match.url}/gofindteam`}
-          render={() => <GoFindTeam {...props} />}
-        />
-        <Route
-          path={`${props.match.url}/teams`}
-          render={() => <ListOfPlayersJoiningRoom {...props} />}
-        />
-        <Route
-          path={`${props.match.url}/roundcard`}
-          render={() => <RoundCard {...props} />}
-        />
+				<Route
+					path={`${props.match.url}/question`}
+					render={() => <Question {...props} />}
+				/>
 
+				<Route
+					path={`${props.match.url}/answer`}
+					render={() => <AnswerView {...props} />}
+				/>
+				<Route
+					path={`${props.match.url}/pictureanswer`}
+					render={() => <PictureAnswerView {...props} />}
+				/>
 
-                <Route
-                    path={`${props.match.url}/question`}
-                    render={() => <Question {...props} />}
-                />
+				<Route
+					path={`${props.match.url}/score`}
+					render={() => <ScoreView {...props} />}
+				/>
+				<Route
+					path={`${props.match.url}/endpage`}
+					render={() => <EndPageView {...props} />}
+				/>
 
-                <Route
-                    path={`${props.match.url}/answer`}
-                    render={() => <AnswerView {...props} />}
-                />
-                <Route
-                    path={`${props.match.url}/pictureanswer`}
-                    render={() => <PictureAnswerView {...props} />}
-                />
+				<Route render={() => <div>component not found...</div>} />
+			</Switch>
 
-                <Route
-                    path={`${props.match.url}/score`}
-                    render={() => <ScoreView {...props} />}
-                />
-                <Route
-                    path={`${props.match.url}/endpage`}
-                    render={() => <EndPageView {...props} />}
-                />
-
-                <Route render={() => <div>component not found...</div>} />
-            </Switch>
-
-            {/* {props.match.path !== "/host/makeroom" && (
+			{/* {props.match.path !== "/host/makeroom" && (
                 <RoomNumberBox {...props} />
             )} */}
-            {/* <button onClick={props.pauseGame}>pause</button> */}
-        </div>
-    );
+			{/* <button onClick={props.pauseGame}>pause</button> */}
+		</div>
+	);
 }

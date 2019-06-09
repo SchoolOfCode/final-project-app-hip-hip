@@ -1,23 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import CorrelateLogo from "../../../Components/Branding";
 import HostTeamJoiningBoxes from "../../../Components/HostTeamJoiningBoxes";
-
-import PropTypes from "prop-types";
-import defaultJoinedRoom from "../../../defaultProps";
 
 import css from "./GoFindTeam.module.css";
 
+import useAudio from "../../../Hooks/UseAudio";
+
 function GoFindTeam({ joinedRoom }) {
-  return (
-    <div>
-      <CorrelateLogo />
-      <br />
-      <div className={css.boxes}>
-        <HostTeamJoiningBoxes {...joinedRoom} />
-      </div>
-    </div>
-  );
+	const [playing, toggle] = useAudio(
+		`${process.env.PUBLIC_URL}/music/goFindTeams.mp3`
+	);
+	useEffect(() => {
+		toggle();
+	}, []);
+
+	return (
+		<div className={css.wrapper}>
+			<h1 className={css.title} data-text="Find Your Team Mates!">
+				Find Your Team Mates!
+			</h1>
+			<div className={css.boxes}>
+				<HostTeamJoiningBoxes {...joinedRoom} />
+			</div>
+		</div>
+	);
 }
 
 export default GoFindTeam;

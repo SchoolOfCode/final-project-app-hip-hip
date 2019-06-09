@@ -1,49 +1,50 @@
 .textContainer {
-  border: solid 10px #da6608;
-  height: 75vh;
-  margin-top: 10vh;
-  justify-content: center;
-  margin-left: 5vw;
-  margin-right: 5vw;
+    border: solid 10px orange;
+    height: 75vh;
+    width: 75vw;
+    margin-top: 10vh;
+    justify-content: center;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 .text {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  font-family: "Baloo Bhai", cursive;
-  font-size: 4vh;
-  z-index: 0;
-  line-height: 130%;
-  color: black;
-  font-weight: bold;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-family: "Modak", sans-serif;
+    font-size: 4vh;
+    z-index: 0;
+    line-height: 130%;
+    color: black;
+    font-weight: bold;
+    justify-content: center;
 }
 
 .yay {
-  margin-top: 5vh;
-  font-family: "Modak", sans-serif;
-  font-size: 15vh;
-  color: #da6608;
-  -webkit-text-stroke: 1.5px #282828;
-  z-index: 0;
-  line-height: 130%;
+    margin-top: 5vh;
+    font-family: "Modak", sans-serif;
+    font-size: 15vh;
+    color: #da6608;
+    -webkit-text-stroke: 1.5px #282828;
+    z-index: 0;
+    line-height: 130%;
 }
 
 .teamColor {
-  font-family: "Modak", sans-serif;
-  font-size: 30vh, 80vw;
-  color: #da6608;
-  -webkit-text-stroke: 1.5px #282828;
-  z-index: 0;
-  line-height: 130%;
+    font-family: "Modak", sans-serif;
+    font-size: 30vh, 80vw;
+    color: #da6608;
+    -webkit-text-stroke: 1.5px #282828;
+    z-index: 0;
+    line-height: 130%;
 }
 
 .joinedRoom {
-  font-family: "Modak", sans-serif;
-  font-size: 30vh, 80vw;
-  color: #da6608;
-  -webkit-text-stroke: 1.5px #282828;
-  z-index: 0;
-  line-height: 130%;
+    font-family: "Modak", sans-serif;
+    font-size: 30vh, 80vw;
+    color: #da6608;
+    -webkit-text-stroke: 1.5px #282828;
+    z-index: 0;
+    line-height: 130%;
 }

@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HostAnswer from "../../../Components/HostAnswer";
 import css from "./AnswerView.module.css";
+import useAudio from "../../../Hooks/UseAudio";
 
 export default function({ joinedRoom, gameMessage }) {
-    return (
-        <div>
-            <h2 className={css.question}>{gameMessage}</h2>
-            <h1 classname={css.answer}>The correct answer is...</h1>
-            <HostAnswer joinedRoom={joinedRoom} />
-        </div>
-    );
+	const [playing, toggle] = useAudio(
+		`${process.env.PUBLIC_URL}/music/goFindTeams.mp3`
+	);
+	useEffect(() => {
+		toggle();
+	}, []);
+	return (
+		<div>
+			<h2 className={css.question}>{gameMessage}</h2>
+			<h1 classname={css.answer}>The correct answer is...</h1>
+			<HostAnswer joinedRoom={joinedRoom} />
+		</div>
+	);
 }

@@ -1,8 +1,7 @@
 import React from "react";
 import css from "./HostTeamJoiningBoxes.module.css";
 
-import defaultJoinedRoom from "../../defaultProps";
-import PropTypes from "prop-types";
+import PhoneIcon from "../PhoneIcon";
 
 function TeamBoxes({ teamsArray, teams }) {
   return (
@@ -13,12 +12,12 @@ function TeamBoxes({ teamsArray, teams }) {
           style={{ backgroundColor: color }}
           className={css.gridItem}
         >
-          <h3>{color}</h3>
-          <ul>
+          <h3 className={css.teamName}>{color}</h3>
+          <div className={css.phoneBox}>
             {teams[color].map((player, i) => (
-              <li key={i}>{player.name} </li>
+              <PhoneIcon name={player.name}> </PhoneIcon>
             ))}
-          </ul>
+          </div>
         </div>
       ))}
     </div>
@@ -26,16 +25,21 @@ function TeamBoxes({ teamsArray, teams }) {
 }
 
 TeamBoxes.defaultProps = {
-    teamsArray: ["red", "blue", "yellow"],
-    scoresTotal: {
-      red: 0,
-      blue: 50,
-      yellow: 1000
-    },
-    teams: {
-      red: [{ name: "ben" }],
-      blue: [{ name: "ben" }],
-      yellow: [{ name: "ben" }]
-    }
+  teamsArray: ["red", "blue", "yellow"],
+  scoresTotal: {
+    red: 0,
+    blue: 50,
+    yellow: 1000
+  },
+  teams: {
+    red: [
+      { name: "poopy poopy" },
+      { name: "benlee" },
+      { name: "ben" },
+      { name: "ben" }
+    ],
+    blue: [{ name: "ben" }],
+    yellow: [{ name: "ben" }]
+  }
 };
 export default TeamBoxes;
