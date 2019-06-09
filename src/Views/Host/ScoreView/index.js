@@ -7,6 +7,7 @@ import bot2 from "../../../Components/images/bot2.png";
 // import HostScoreBoard from "../../../Components/HostScoreBoard";
 
 export default function({ joinedRoom }) {
+
 	const [playing, toggle] = useAudio(
 		`${process.env.PUBLIC_URL}/music/scores.mp3`
 	);
@@ -35,4 +36,5 @@ export default function({ joinedRoom }) {
 			</div>
 		</div>
 	);
+
 }

@@ -1,5 +1,6 @@
 .gameButton {
 
+
   margin-top: 30vh;
   border-radius: 10px;
   height: 10vh;
@@ -10,6 +11,7 @@
   background: darkblue;
   color: antiquewhite;
   border: 3px darkblue;
+
 
 }
 

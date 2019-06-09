@@ -1,4 +1,4 @@
-.phoneMessage {
+.message {
     color: orange;
     font-size: 4vh;
     font-family: "Modak", sans-serif;
@@ -8,5 +8,5 @@
 }
 
 .botImageSmall {
-    padding: 30%;
+    padding: 20%;
 }
