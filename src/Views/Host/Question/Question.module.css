@@ -39,7 +39,6 @@
 
 .teamBoxContainer {
   position: relative;
-  top: 30vh;
   display: flex;
   justify-content: space-evenly;
 }

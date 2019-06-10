@@ -8,7 +8,7 @@ import padlock from "./padlock.svg";
 import cn from "classnames";
 
 // const joinedRoom = {
-//   teamsArray: ["blue"]
+//   teamsArray: ["blue", "blue", "blue", "blue"]
 // };
 // const teamsThatHaveSubmitted = [];
 
@@ -25,7 +25,6 @@ export default function({
     }`
   );
 
-  // const teamsArray = ["red", "blue"];
   useEffect(() => {
     toggle();
   }, []);
