@@ -7,10 +7,10 @@ import bot2 from "../../../Components/images/bot2.png";
 import padlock from "./padlock.svg";
 import cn from "classnames";
 
-const joinedRoom = {
-  teamsArray: ["blue"]
-};
-const teamsThatHaveSubmitted = [];
+// const joinedRoom = {
+//   teamsArray: ["blue"]
+// };
+// const teamsThatHaveSubmitted = [];
 
 export default function({
   gameMessage,
