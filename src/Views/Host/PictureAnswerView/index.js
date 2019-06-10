@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import useAudio from "../../../Hooks/UseAudio";
 
 import css from "./PictureAnswerView.module.css";
