@@ -1,21 +1,16 @@
-.phone {
-  height: 15vh;
+.wrapper {
+  position: relative;
 }
 .phoneSideSmall {
-  height: 15vh;
-  transform: rotate(90deg);
+  position: absolute;
+  height: 10vw;
+  transform: rotate(90deg) translateY(50%);
 }
-.phoneSideBig {
-  height: 20vh;
-  transform: rotate(90deg);
-}
+
 .name {
-  position: relative;
-  top: -11.5vh;
-  font-size: 1em;
-}
-.nameBig {
-  position: relative;
-  top: -14vh;
-  font-size: 1em;
+  position: absolute;
+  top: 2.5vw;
+  left: 50%;
+  font-size: 1vw;
+  transform: translateX(-50%);
 }
