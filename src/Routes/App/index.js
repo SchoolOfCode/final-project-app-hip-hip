@@ -18,9 +18,9 @@ import useGame from "../../Hooks/UseGame";
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
-	googleProvider: new firebase.auth.GoogleAuthProvider(),
-	facebookProvider: new firebase.auth.FacebookAuthProvider(),
-	twitterProvider: new firebase.auth.TwitterAuthProvider()
+  googleProvider: new firebase.auth.GoogleAuthProvider(),
+  facebookProvider: new firebase.auth.FacebookAuthProvider(),
+  twitterProvider: new firebase.auth.TwitterAuthProvider()
 };
 
 // const props = { user: { uid: Math.random() } };
@@ -28,56 +28,57 @@ const providers = {
 // change to your ip address
 
 function App(props) {
-	const [game, setGame] = useGame({ ...props, firebaseAppAuth });
+  const [game, setGame] = useGame({ ...props, firebaseAppAuth });
 
-	return (
-		<>
-			<Switch>
-				<Route
-					exact
-					path="/"
-					render={() => (
-						<div>
-							<button
+  return (
+    <>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div>
+              {/* <button
 								onClick={() => setGame.controlRouteFromServer("/host/makeroom")}
 							>
 								make room
-							</button>
-							<button onClick={() => setGame.controlRouteFromServer("/play")}>
-								join room
-							</button>
-						</div>
-					)}
-				/>
+							</button> */}
 
-				<Route
-					path="/host"
-					render={routerProps => (
-						<HostRouter
-							{...routerProps}
-							appProps={props}
-							{...game}
-							{...setGame}
-						/>
-					)}
-				/>
-				<Route
-					path="/play"
-					render={routerProps => (
-						<PlayerRouter
-							{...routerProps}
-							appProps={props}
-							{...game}
-							{...setGame}
-						/>
-					)}
-				/>
-			</Switch>
-		</>
-	);
+              <button onClick={() => setGame.controlRouteFromServer("/play")}>
+                play collaborate
+              </button>
+            </div>
+          )}
+        />
+
+        <Route
+          path="/host"
+          render={routerProps => (
+            <HostRouter
+              {...routerProps}
+              appProps={props}
+              {...game}
+              {...setGame}
+            />
+          )}
+        />
+        <Route
+          path="/play"
+          render={routerProps => (
+            <PlayerRouter
+              {...routerProps}
+              appProps={props}
+              {...game}
+              {...setGame}
+            />
+          )}
+        />
+      </Switch>
+    </>
+  );
 }
 
 export default withFirebaseAuth({
-	providers,
-	firebaseAppAuth
+  providers,
+  firebaseAppAuth
 })(App);
